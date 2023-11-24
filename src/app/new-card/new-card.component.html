@@ -1,0 +1,17 @@
+<form (ngSubmit)="addCard()">
+<h1 mat-dialog-title> Add new Card</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Card Name</mat-label>
+        <input formControlName="name" matInput>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <input formControlName="riority" matInput>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button (click)="closeWindow()" mat-raised-button color="primary">Add Card</button>
+    <button (click)="closeWindow()" mat-raised-button color="warn">Close</button>
+</div>
+</form>

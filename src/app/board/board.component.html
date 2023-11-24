@@ -1,0 +1,8 @@
+<p>board works!</p>
+
+<mat-dialog-actions>
+    <button mat-raised-button color="primary" (click)="addCard()">Add New Card</button>
+</mat-dialog-actions>
+<div class="card-container" cdkDropListGroup>
+    <app-card *ngFor="let c of cards" [card]="c"></app-card>
+</div>
