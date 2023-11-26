@@ -3,12 +3,13 @@ import { Card, CardComponent } from '../card/card.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
 
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent {
   cards: Card[] = [];
 
   constructor(private dialog: MatDialog) {}
@@ -27,7 +28,7 @@ export class BoardComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width='50%';
-    dialogConfig.height='350px';
+    dialogConfig.height='420px';
 
     this.dialog.open(NewCardComponent, dialogConfig)
   }

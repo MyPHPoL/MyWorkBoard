@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, NgForm } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-new-card',

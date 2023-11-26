@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatChipsModule} from '@angular/material/chips';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CardComponent } from './card/card.component';
@@ -44,7 +45,9 @@ const routes: Routes = [
     MatButtonModule,
     MatCardModule,
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    ReactiveFormsModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
