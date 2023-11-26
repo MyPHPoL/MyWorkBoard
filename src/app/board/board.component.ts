@@ -18,7 +18,7 @@ export class BoardComponent {
   }
 
   addCard() {
-    var newCard = new Card('moja karta', 0, 'yellow');
+    var newCard = new Card('My Card', 0, '#e5e7e9');
     this.cards.push(newCard);
   }
 
@@ -27,8 +27,8 @@ export class BoardComponent {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width='50%';
-    dialogConfig.height='420px';
+    dialogConfig.width='370px';
+    dialogConfig.height='400px';
 
     this.dialog.open(NewCardComponent, dialogConfig)
   }

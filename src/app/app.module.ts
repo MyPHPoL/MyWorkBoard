@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CardComponent } from './card/card.component';
@@ -17,6 +17,7 @@ import { HeaderComponent } from './header/header.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
+import {MatSliderModule} from '@angular/material/slider'; 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -47,7 +48,8 @@ const routes: Routes = [
     MatInputModule,
     MatDialogModule,
     ReactiveFormsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
