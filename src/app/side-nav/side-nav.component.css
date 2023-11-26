@@ -1,0 +1,47 @@
+.side-nav-content{
+    color: whitesmoke;
+    width: 230px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.border-white{
+    border: 1px solid white;
+}
+
+.nav-list{
+    list-style: none;
+    height: 100%;
+    padding: 0%;
+    margin-bottom: 0%;
+}
+.nav-list-item{
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.nav-list-item i {
+    font-size: 20px;
+    height: 25px;
+    width: 25px;
+    margin-right: 15px;
+    margin-left: 10px;
+    text-align: center;
+    line-height: 25px;
+}
+
+.nav-list-item span{
+    width: 120px;
+    text-transform: capitalize;
+}
+
+.nav-list-open .nav-list-item:hover{
+    background-color: rgba(255,255,255, 0.3);
+    border-radius: 10px;
+}
+
+a{
+    text-decoration: none;
+    color:whitesmoke;
+}

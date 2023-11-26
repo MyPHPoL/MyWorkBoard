@@ -7,21 +7,37 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatChipsModule} from '@angular/material/chips';
-
+import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CardComponent } from './card/card.component';
 import { BoardComponent } from './board/board.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NewCardComponent } from './new-card/new-card.component';
+import { HeaderComponent } from './header/header.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import { ProfileComponent } from './profile/profile.component';
+import { HomeComponent } from './home/home.component';
+
+const routes: Routes = [
+  {path: 'home', component: HomeComponent},
+  {path: 'profile', component: ProfileComponent},
+  {path: 'board', component: BoardComponent}
+];
+
 
 @NgModule({
   declarations: [
     AppComponent,
     CardComponent,
     BoardComponent,
-    NewCardComponent
+    NewCardComponent,
+    HeaderComponent,
+    SideNavComponent,
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     DragDropModule,
     FormsModule,
