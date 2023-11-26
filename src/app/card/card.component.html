@@ -1,9 +1,11 @@
 <div class="container">
         <div cdkDropList class="card" [cdkDropListData]="card.taskList" (cdkDropListDropped)="drop($event)" style="background-color: {{card.color}}">
-            <p style="background-color: {{card.color}}">CARD ID: {{card.id}}, CARD NAME: {{card.name}}</p>
-            <mat-card class="card-item" *ngFor="let task of card.taskList" cdkDrag>
+            <h3 mat-dialog-title style="font-weight: bold;">{{card.name}}</h3>
+            <mat-card class="card-item" *ngFor="let task of card.taskList, index as i" cdkDrag>
                     <mat-card-content>
-                        <p>{{task}}</p>
+                            <div  class="task"> 
+                                <div class="task-text">{{task}}</div> <div class="delete-button"><button mat-icon-button class="material-icons" (click)="deleteTask(i)">delete_outline</button></div>
+                            </div>
                     </mat-card-content>
             </mat-card>
         <form #newTaskForm="ngForm" (ngSubmit)="onSubmit(newTaskForm)">

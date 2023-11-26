@@ -48,4 +48,8 @@ export class CardComponent {
     this.card.taskList.push(newTaskForm.value.newTask);
     newTaskForm.reset();
   }
+
+  deleteTask(i: number){
+    this.card.taskList.splice(i, 1);
+  }
 }

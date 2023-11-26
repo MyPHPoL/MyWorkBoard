@@ -7,6 +7,7 @@
 }
  
 .card {
+    font-size: 14px;
     padding: 10px;
     max-width: 100%;
     border: solid 1px #ccc;
@@ -15,6 +16,20 @@
     background: #fafafa;
     border-radius: 4px;
     overflow: hidden;
+}
+
+.delete-button {
+    margin-left: auto;
+    order: 2;
+}
+
+.task {
+    display: flex;
+    align-items: center;   
+}
+
+.task-text {
+    float:left;
 }
  
 .cdk-drag-preview {
