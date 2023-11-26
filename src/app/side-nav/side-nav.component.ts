@@ -30,12 +30,6 @@ export class SideNavComponent implements OnInit{
       name: 'private',
       icon: 'fa-solid fa-user-secret',
       route: '/home',
-    },
-    {
-      number: '4',
-      name: 'forkbomb',
-      icon: 'fa-solid fa-code-fork',
-      route: '/home',
     }
   ]
   ngOnInit(): void {
