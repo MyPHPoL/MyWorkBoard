@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand navbar-dark bg-dark px-2">
+    <div class="side-nav-button p-2 me-3 text-light" (click)="SideNavToggle()">
+        <i class="fa-solid  fa-bars"></i>
+    </div>
+
+    <a class="navbar-brand px4" href="#" routerLink="/home" routerLinkActive="active"><img src="assets/images/logo3.png" width="80" height="80" style="float:center; padding:6px"></a>
+
+    <div class="navbar-collapse">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    Zwijane menu tutaj
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" href="#" routerLink="/home" routerLinkActive="active">uno</a></li>
+                    <li><a class="dropdown-item" href="#" routerLink="/board" routerLinkActive="active">Boardzik</a></li>
+                    <li><a class="dropdown-item" href="#">tres</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <form class="d-flex me-5">
+        <input class="form-control me-2" type="search" placeholder="Search">
+        <button class="btn btn-outline-light" type="submit">Find</button>
+    </form>
+
+    <div class="profile-logo dropstart">
+        <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+            Profile
+        </button>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a href="#" class="dropdown-item" routerLink="/profile" routerLinkActive="active">Profile</a></li>
+            <li><a href="#" class="dropdown-item">Settings</a></li>
+            <li><a href="#" class="dropdown-item">Log out</a></li>
+        </ul>
+    </div>
+</nav> 
