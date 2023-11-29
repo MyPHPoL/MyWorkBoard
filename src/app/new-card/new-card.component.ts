@@ -1,7 +1,6 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
-import { FormBuilder, NgForm } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { BoardComponent } from '../board/board.component';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Card } from '../card';
 
 @Component({
   selector: 'app-new-card',
@@ -10,16 +9,7 @@ import { BoardComponent } from '../board/board.component';
 })
 export class NewCardComponent {
 
-  name!: string;
-  priority!: number;
-  color!: string;
-
-  constructor(private ref:MatDialogRef<NewCardComponent>, private builder:FormBuilder){}
-
-  addCard(formValues: object){
-    console.log(formValues);
-    this.closeWindow();
-  }
+  constructor(private ref:MatDialogRef<NewCardComponent>, @Inject(MAT_DIALOG_DATA) public data: Card){}
 
   closeWindow(){
     this.ref.close();

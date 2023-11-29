@@ -1,11 +1,11 @@
 <div class="container">
-        <div cdkDropList class="card" [cdkDropListData]="card.taskList" (cdkDropListDropped)="drop($event)" style="background-color: {{card.color}}">
-            <h3 mat-dialog-title style="font-weight: bold;">{{card.name}}</h3>
-            <h5 mat-dialog-title >All Tasks have priority {{card.priority}} in this card by default</h5>
-            <mat-card class="card-item" *ngFor="let task of card.taskList, index as i" cdkDrag>
+        <div cdkDropList class="card" [cdkDropListData]="card.getTaskList" (cdkDropListDropped)="drop($event)" style="background-color: {{card.getColor}}">
+            <h2 mat-dialog-title style="font-weight: bold;">{{card.getName | uppercase}}</h2>
+            <h5 mat-dialog-title >All Tasks have priority {{card.getPriority}} in this card by default</h5>
+            <mat-card class="card-item" *ngFor="let task of card.getTaskList, index as i" cdkDrag>
                     <mat-card-content>
                             <div  class="task"> 
-                                <div class="task-text">{{task}}</div> <div class="delete-button"><button mat-icon-button class="material-icons" (click)="deleteTask(i)">delete_outline</button></div>
+                                <div class="task-text">{{task}}</div> <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete_outline</button></div>
                             </div>
                     </mat-card-content>
             </mat-card>
