@@ -1,11 +1,11 @@
 <form #f="ngForm" class="formik">
 <h1 mat-dialog-title> Add new Card</h1>
 <div mat-dialog-content>
-    <mat-label>Card Name</mat-label><br>
+    <mat-label>Card Name*</mat-label><br>
     <mat-form-field>
         <input name="name" matInput placeholder="New Card" [(ngModel)]="data.setName" required maxlength="10">
     </mat-form-field>
-    <br><mat-label>Priority</mat-label><br>
+    <br><mat-label>Priority*</mat-label><br>
     <mat-slider
         [max]=5
         [min]=0
@@ -14,7 +14,7 @@
         [showTickMarks]=true>
     <input matSliderThumb name="priority" [(ngModel)]="data.setPriority">
     </mat-slider><br>
-    <mat-label>Card Color</mat-label><br>
+    <mat-label>Card Color*</mat-label><br>
     <mat-chip-listbox aria-label="Card Color" name="color" [(ngModel)]="data.setColor" required>
         <mat-chip-option value="#e5e7e9" selected>White</mat-chip-option>
         <mat-chip-option value="#fcf3cf">Yellow</mat-chip-option>

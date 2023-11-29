@@ -1,7 +1,7 @@
 <div class="container">
         <div cdkDropList class="card" [cdkDropListData]="card.getTaskList" (cdkDropListDropped)="drop($event)" style="background-color: {{card.getColor}}">
-            <h2 mat-dialog-title style="font-weight: bold;">{{card.getName | uppercase}}</h2>
-            <h5 mat-dialog-title >All Tasks have priority {{card.getPriority}} in this card by default</h5>
+            <h2 mat-dialog-title style="margin-bottom: 0;line-height: 10px; font-weight: bold;">{{card.getName | uppercase}}</h2>
+            <h5 mat-dialog-title style="margin-top:0;line-height: 10px;">All Tasks have priority {{card.getPriority}} in this card by default</h5>
             <mat-card class="card-item" *ngFor="let task of card.getTaskList, index as i" cdkDrag>
                     <mat-card-content>
                             <div  class="task"> 
