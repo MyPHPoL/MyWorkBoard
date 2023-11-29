@@ -1,9 +1,9 @@
-<form #f="ngForm">
+<form #f="ngForm" class="formik">
 <h1 mat-dialog-title> Add new Card</h1>
 <div mat-dialog-content>
     <mat-label>Card Name</mat-label><br>
     <mat-form-field>
-        <input name="name" matInput placeholder="New Card" ngModel>
+        <input name="name" matInput placeholder="New Card" [(ngModel)]="data.setName" required maxlength="10">
     </mat-form-field>
     <br><mat-label>Priority</mat-label><br>
     <mat-slider
@@ -12,18 +12,20 @@
         [step]=1
         [discrete]=true
         [showTickMarks]=true>
-    <input matSliderThumb name="priority" ngModel>
+    <input matSliderThumb name="priority" [(ngModel)]="data.setPriority">
     </mat-slider><br>
     <mat-label>Card Color</mat-label><br>
-    <mat-chip-listbox aria-label="Card Color" name="color" ngModel>
+    <mat-chip-listbox aria-label="Card Color" name="color" [(ngModel)]="data.setColor" required>
         <mat-chip-option value="#e5e7e9" selected>White</mat-chip-option>
         <mat-chip-option value="#fcf3cf">Yellow</mat-chip-option>
         <mat-chip-option value="#85c1e9">Blue</mat-chip-option>
         <mat-chip-option value="#82e0aa">Green</mat-chip-option>
+        <mat-chip-option value="#cb4335">Red</mat-chip-option>
     </mat-chip-listbox>
 </div>
 <div mat-dialog-actions>
-    <button (click)="addCard(f.value)" mat-raised-button color="primary">Add Card</button>
+    <button mat-raised-button color="primary" *ngIf="!f.valid" disabled >Add Card</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" *ngIf="f.valid" >Add Card</button>
     <button (click)="closeWindow()" mat-raised-button color="warn">Close</button>
 </div>
 </form>

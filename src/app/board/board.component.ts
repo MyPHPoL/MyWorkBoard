@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Card, CardComponent } from '../card/card.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { Card } from '../card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
+import { Board } from '../board';
 
 
 @Component({
@@ -10,26 +11,34 @@ import { NewCardComponent } from '../new-card/new-card.component';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent {
-  cards: Card[] = [];
+  @Input()
+  board: Board = new Board;
 
-  constructor(private dialog: MatDialog) {}
-
-  ngOnInit(): void {
-  }
+  constructor(public dialog: MatDialog) {}
 
   addCard() {
     var newCard = new Card('My Card', 0, '#e5e7e9');
-    this.cards.push(newCard);
+    this.board.addCard(newCard);
+    console.log('Card added:', newCard);
   }
 
-  openDialog(){
+  openDialog() : void {
+    let dialogRef = null;
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width='370px';
-    dialogConfig.height='400px';
+    dialogConfig.width='405px';
+    dialogConfig.height='415px';
+    dialogConfig.data= {name: '', priority: '', color: ''};
 
-    this.dialog.open(NewCardComponent, dialogConfig)
+    dialogRef = this.dialog.open(NewCardComponent,dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        var newCard = new Card(result.setName, result.setPriority, result.setColor);
+        this.board.addCard(newCard);
+      }
+    });
   }
 }
