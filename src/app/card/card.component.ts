@@ -12,6 +12,7 @@ import { Card } from '../card';
 
 export class CardComponent {
   @Input() card!: Card;
+  @Input() item!: number;
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
