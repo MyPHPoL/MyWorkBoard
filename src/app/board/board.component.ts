@@ -16,12 +16,14 @@ export class BoardComponent {
 
   constructor(public dialog: MatDialog) {}
 
+  // not in use anymore
   addCard() {
-    var newCard = new Card('My Card', 0, '#e5e7e9');
+    var newCard = new Card(undefined, 'My Card', 0, '#e5e7e9');
     this.board.addCard(newCard);
     console.log('Card added:', newCard);
   }
 
+  // popup modal dialog
   openDialog() : void {
     let dialogRef = null;
     const dialogConfig = new MatDialogConfig();
@@ -30,15 +32,20 @@ export class BoardComponent {
     dialogConfig.autoFocus = true;
     dialogConfig.width='405px';
     dialogConfig.height='415px';
-    dialogConfig.data= {name: '', priority: '', color: ''};
+    dialogConfig.data= {name: '', priority: '', color: ''}; // data we want to get from popup
 
-    dialogRef = this.dialog.open(NewCardComponent,dialogConfig);
+    dialogRef = this.dialog.open(NewCardComponent,dialogConfig); // opens dialog window
 
+    // happens after user clicks 'Add Card'
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        var newCard = new Card(result.setName, result.setPriority, result.setColor);
+        var newCard = new Card(undefined, result.setName, result.setPriority, result.setColor);
         this.board.addCard(newCard);
       }
     });
+  }
+
+  deleteCard(index: number){
+    this.deleteCard(index);
   }
 }

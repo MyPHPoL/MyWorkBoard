@@ -7,22 +7,23 @@ export class Card{
     private priority: number;
     private color: string;
   
-    constructor(_name: string, _priority: number, _color: string){
-      this.id = Guid.create();
+    constructor(_id: Guid = Guid.create(), _name: string = 'New Card', _priority: number  = 0 , _color: string = ''){
+      this.id = _id;
       this.name = _name;
       this.priority = _priority;
       this.color = _color;
       this.taskList = [];
     }
 
-    addTask(value: any){
+    addTask(value: any): void{
         this.taskList.push(value);
     }
 
-    deleteTask(index: number){
+    deleteTask(index: number): void{
         this.taskList.splice(index, 1);
     }
 
+    // getters
     get getName(): string{
         return this.name;
     }
@@ -43,8 +44,9 @@ export class Card{
         return this.id;
     }
 
-    set setPriority(_priority: number){
-        this.priority = _priority;
+    // setters
+    set setPriority(priority: number){
+        this.priority = priority;
     }
     
     set setName(name: string){
