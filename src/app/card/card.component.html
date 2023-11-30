@@ -8,15 +8,16 @@
             <mat-card class="card-item" *ngFor="let task of card.taskList, index as i" cdkDrag>
                     <mat-card-content>
                             <div  class="task"> 
-                                <div class="task-text">{{task}}</div> <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete_outline</button></div>
+                                <div class="task-text">{{task.content}} {{task.creationDate}}</div><div class="edit-button"><button mat-icon-button class="material-icons" >edit</button></div> <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete_outline</button></div>
                             </div>
                     </mat-card-content>
             </mat-card>
         <form #newTaskForm="ngForm" (ngSubmit)="onSubmit(newTaskForm)">
             <mat-form-field>
-                <input matInput name="newTask" ngModel type="text" placeholder="Add new task">
+                <input matInput name="newTask" ngModel type="text" placeholder="Add new task" required>
             </mat-form-field>
-            <button mat-raised-button type="submit" color="accent">Add Task</button>
+            <button mat-raised-button type="submit" color="accent" *ngIf="!newTaskForm.valid" disabled>Add Task</button>
+            <button mat-raised-button type="submit" color="accent" *ngIf="newTaskForm.valid">Add Task</button>
         </form>
     </div>
 </div>

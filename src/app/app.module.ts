@@ -18,7 +18,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { MatSliderModule } from '@angular/material/slider';
-import { TaskComponent } from './task/task.component'; 
+import { TaskComponent } from './task/task.component';
+import { EditTaskComponent } from './edit-task/edit-task.component'; 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -37,7 +38,8 @@ const routes: Routes = [
     SideNavComponent,
     HomeComponent,
     ProfileComponent,
-    TaskComponent
+    TaskComponent,
+    EditTaskComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

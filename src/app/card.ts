@@ -1,9 +1,9 @@
 import { Guid } from "guid-typescript";
-
+import { Task } from './task';
 export class Card{
     private _id: Guid;
     private _name: string;
-    private _taskList: string[] = [];
+    private _taskList: Task[] = [];
     private _priority: number;
     private _color: string;
   
@@ -15,12 +15,17 @@ export class Card{
       this._taskList = [];
     }
 
-    addTask(value: any): void{
-        this._taskList.push(value);
+    addTask(value: string): void{
+        var tmp: Task = new Task(Guid.create(), value, new Date(), undefined , 'blue', 0 , false ) 
+        this._taskList.push(tmp);
     }
 
     deleteTask(index: number): void{
         this._taskList.splice(index, 1);
+    }
+
+    editTask(index: number): void{
+        //this._taskList[index]
     }
 
     // getters
@@ -28,7 +33,7 @@ export class Card{
         return this._name;
     }
 
-    get taskList(): string[]{
+    get taskList(): Task[]{
         return this._taskList;
     }
 

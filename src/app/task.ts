@@ -9,7 +9,7 @@ export class Task{
     private _priority: number;
     private _isDone: boolean;
 
-    constructor(id : Guid = Guid.create(), content: string = 'Eo', creationDate: Date = new Date(), dueDate: Date, color: string = 'blue' ,priority: number  = 0, isDone: boolean = false){
+    constructor(id : Guid = Guid.create(), content: string = 'Eo', creationDate: Date, dueDate: Date = new Date(), color: string = 'blue' ,priority: number  = 0, isDone: boolean = false){
         this._id = id;
         this._content = content;
         this._creationDate = creationDate;
