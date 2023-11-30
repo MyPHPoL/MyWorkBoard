@@ -18,10 +18,13 @@
     overflow: hidden;
     margin: 5px;
 }
-
-.delete-button {
+.edit-button {
     margin-left: auto;
     order: 2;
+}
+.delete-button {
+    margin-left: auto;
+    order: 3;
 }
 
 .task {

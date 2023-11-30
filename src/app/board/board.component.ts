@@ -39,13 +39,14 @@ export class BoardComponent {
     // happens after user clicks 'Add Card'
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        var newCard = new Card(undefined, result.setName, result.setPriority, result.setColor);
+        var newCard = new Card(undefined, result.Name, result.Priority, result.Color);
         this.board.addCard(newCard);
       }
     });
   }
 
   deleteCard(index: number){
-    this.deleteCard(index);
+    this.board.deleteCard(index);
   }
+  
 }

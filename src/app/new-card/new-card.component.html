@@ -3,7 +3,7 @@
 <div mat-dialog-content>
     <mat-label>Card Name*</mat-label><br>
     <mat-form-field>
-        <input name="name" matInput placeholder="New Card" [(ngModel)]="data.setName" required maxlength="10">
+        <input name="name" matInput placeholder="New Card" [(ngModel)]="data.name" required maxlength="10">
     </mat-form-field>
     <br><mat-label>Priority*</mat-label><br>
     <mat-slider
@@ -12,10 +12,10 @@
         [step]=1
         [discrete]=true
         [showTickMarks]=true>
-    <input matSliderThumb name="priority" [(ngModel)]="data.setPriority">
+    <input matSliderThumb name="priority" [(ngModel)]="data.priority">
     </mat-slider><br>
     <mat-label>Card Color*</mat-label><br>
-    <mat-chip-listbox aria-label="Card Color" name="color" [(ngModel)]="data.setColor" required>
+    <mat-chip-listbox aria-label="Card Color" name="color" [(ngModel)]="data.color" required>
         <mat-chip-option value="#e5e7e9" selected>White</mat-chip-option>
         <mat-chip-option value="#fcf3cf">Yellow</mat-chip-option>
         <mat-chip-option value="#85c1e9">Blue</mat-chip-option>
