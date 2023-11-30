@@ -12,6 +12,8 @@ import { Card } from '../card';
 
 export class CardComponent {
   @Input() card!: Card;
+  @Input() item!: number;
+  @Output() newItemEvent = new EventEmitter<number>();
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
@@ -31,5 +33,10 @@ export class CardComponent {
   onSubmit(newTaskForm: NgForm) {
     this.card.addTask(newTaskForm.value.newTask);
     newTaskForm.reset();
+  }
+
+  deleteCard(value: number) {
+    console.log(value);
+    this.newItemEvent.emit(value);
   }
 }

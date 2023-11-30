@@ -1,59 +1,59 @@
 import { Guid } from "guid-typescript";
 
 export class Card{
-    private id: Guid;
-    private name: string;
-    private taskList: string[] = [];
-    private priority: number;
-    private color: string;
+    private _id: Guid;
+    private _name: string;
+    private _taskList: string[] = [];
+    private _priority: number;
+    private _color: string;
   
-    constructor(_id: Guid = Guid.create(), _name: string = 'New Card', _priority: number  = 0 , _color: string = ''){
-      this.id = _id;
-      this.name = _name;
-      this.priority = _priority;
-      this.color = _color;
-      this.taskList = [];
+    constructor(id: Guid = Guid.create(), name: string = 'New Card', priority: number  = 0 , color: string = ''){
+      this._id = id;
+      this._name = name;
+      this._priority = priority;
+      this._color = color;
+      this._taskList = [];
     }
 
     addTask(value: any): void{
-        this.taskList.push(value);
+        this._taskList.push(value);
     }
 
     deleteTask(index: number): void{
-        this.taskList.splice(index, 1);
+        this._taskList.splice(index, 1);
     }
 
     // getters
-    get getName(): string{
-        return this.name;
+    get name(): string{
+        return this._name;
     }
 
-    get getTaskList(): string[]{
-        return this.taskList;
+    get taskList(): string[]{
+        return this._taskList;
     }
 
-    get getPriority(): number{
-        return this.priority;
+    get priority(): number{
+        return this._priority;
     }
 
-    get getColor(): string{
-        return this.color;
+    get color(): string{
+        return this._color;
     }
 
-    get getId(): Guid{
-        return this.id;
+    get Id(): Guid{
+        return this._id;
     }
 
     // setters
-    set setPriority(priority: number){
-        this.priority = priority;
+    set priority(priority: number){
+        this._priority = priority;
     }
     
-    set setName(name: string){
-        this.name = name;
+    set name(name: string){
+        this._name = name;
     }
 
-    set setColor(color: string){
-        this.color = color;
+    set color(color: string){
+        this._color = color;
     }
 }

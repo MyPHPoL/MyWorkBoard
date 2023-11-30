@@ -2,47 +2,47 @@ import { Guid } from 'guid-typescript';
 import { Card } from './card';
 
 export class Board{
-    private id: Guid;
-    private cards: Card[];
-    private theme: string = 'blue';
+    private _id: Guid;
+    private _cards: Card[];
+    private _theme: string = 'blue';
 
-    constructor(_id : Guid = Guid.create(), _cards: Card[] = [], _theme: string = 'blue'){
-        this.id = _id;
-        this.cards = _cards;
-        this.theme = _theme;
+    constructor(id : Guid = Guid.create(), cards: Card[] = [], theme: string = 'blue'){
+        this._id = id;
+        this._cards = cards;
+        this._theme = theme;
     }
 
     addCard(card: Card): void{
-        this.cards.push(card);
+        this._cards.push(card);
     }
 
     deleteCard(index: number): void{
-        this.cards.splice(index, 1);
+        this._cards.splice(index, 1);
     }
 
     // getters
     get allCards(): Card[]{
-        return this.cards;
+        return this._cards;
     }
 
-    get getTheme(): string{
-        return this.theme;
+    get theme(): string{
+        return this._theme;
     }
 
-    get getId(): Guid{
-        return this.id;
+    get Id(): Guid{
+        return this._id;
     }
 
     // setters
-    set setTheme(theme: string){
-        this.theme = theme;
+    set theme(theme: string){
+        this._theme = theme;
     }
 
-    set setId(id: Guid){
-        this.id = id;
+    set Id(id: Guid){
+        this._id = id;
     }
 
-    set setCards(cards: Card[]){
-        this.cards = cards;
+    set cards(cards: Card[]){
+        this._cards = cards;
     }
 }
