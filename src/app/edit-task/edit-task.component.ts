@@ -8,8 +8,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./edit-task.component.css']
 })
 export class EditTaskComponent {
-  
-  constructor(private ref:MatDialogRef<EditTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: Task){}
+
+  today: Date = new Date();
+  sol: boolean;
+  constructor(private ref:MatDialogRef<EditTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: Task){
+    this.sol = data.hasNotDue;
+  }
 
   closeWindow(){
     this.ref.close();

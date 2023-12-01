@@ -4,16 +4,18 @@ export class Task{
     private _id: Guid;
     private _content: string;
     private _creationDate: Date;
+    private _hasNotDue: boolean;
     private _dueDate: Date;
     private _color: string;
     private _priority: number;
     private _isDone: boolean;
 
-    constructor(id : Guid = Guid.create(), content: string = 'New Task', creationDate: Date = new Date(), dueDate: Date = new Date(0), color: string = 'blue' ,priority: number  = 0, isDone: boolean = false){
+    constructor(id : Guid = Guid.create(), content: string = 'New Task', creationDate: Date = new Date(), hasNotDue: boolean = true, dueDate: Date = new Date(), color: string = 'blue' ,priority: number  = 0, isDone: boolean = false){
         this._id = id;
         this._content = content;
         this._creationDate = creationDate;
-        this._dueDate = dueDate; // Date(0) is a safe default if user doesn't add any date
+        this._hasNotDue = hasNotDue;
+        this._dueDate = dueDate;
         this._color = color;
         this._priority = priority;
         this._isDone = isDone;
@@ -45,6 +47,10 @@ export class Task{
 
     get Id(): Guid{
         return this._id;
+    }
+
+    get hasNotDue(): boolean{
+        return this._hasNotDue;
     }
 
     get dueDateNoTime(): string{
@@ -81,28 +87,29 @@ export class Task{
         this._color = color;
     }
 
+    set hasNotDue( hasNotDue: boolean ){
+        this._hasNotDue = hasNotDue;
+    }
+
     checkIfDue(): boolean{
-        var controledate: Date = new Date(0);
         if (this.isDone) // task is already done
             return false;
-        if (controledate.getTime() === this.dueDate.getTime()) // there is no due date
+        if (this.hasNotDue) // there is no due date
             return false;
-        if (this.dueDate > new Date()) // due date didn't happen yet
+        if (this.dueDate >= new Date()) // due date didn't happen yet
             return false;
         return true;
     }
 
     // if there are less than 2 days to complete task
     checkIfAlmostDue(): boolean {
-        if (this.checkIfDue()){ // if not due
+        if (!this.checkIfDue()){ // if not due
             var Difference_In_Time = this.dueDate.getTime() - this.creationDate.getTime(); // time difference
             var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); // changed to day difference
             if (Difference_In_Days < 2){
                 return true;
-                
             }
             return false;
-            
         }
         return false;
     }

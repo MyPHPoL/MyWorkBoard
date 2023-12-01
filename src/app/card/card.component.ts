@@ -81,13 +81,13 @@ export class CardComponent {
     dialogConfig.autoFocus = true;
     dialogConfig.width='405px';
     dialogConfig.height='530px'; // below data injection might need improvement
-    dialogConfig.data={content: this.card.taskList[i].content, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone}; 
+    dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone}; 
 
     dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.dueDate, this.card.taskList[i].color , result.priority, result.isDone);
+        this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, this.card.taskList[i].color , result.priority, result.isDone);
       }
     });
   }

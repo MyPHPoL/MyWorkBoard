@@ -14,14 +14,14 @@
                                 <!-- if task is done -->
                                 <div class="task-text" *ngIf="task.isDone" style="color: green">{{task.content}}</div>
                                 <!-- if task is due -->
-                                <div class="task-text" *ngIf="!task.isDone && task.checkIfDue()" style="color: red">{{task.content}}</div>
+                                <div class="task-text" *ngIf="!task.isDone && task.checkIfDue() && !task.hasNotDue" style="color: red">{{task.content}}</div>
                                 <!-- if task is almost due -->
-                                <div class="task-text" *ngIf="!task.isDone && task.checkIfAlmostDue() && !task.checkIfDue()" style="color: goldenrod">{{task.content}}</div>
+                                <div class="task-text" *ngIf="!task.isDone && task.checkIfAlmostDue() && !task.checkIfDue() && !task.hasNotDue" style="color: goldenrod">{{task.content}}</div>
                                 <!-- if task is not done/due nor almost due -->
-                                <div class="task-text" *ngIf="!task.isDone && !task.checkIfDue() && !task.checkIfAlmostDue()">{{task.content}}</div>
-                                <mat-checkbox class="push-right viewThisResult" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
-                                <div class="edit-button viewThisResult"><button mat-icon-button class="material-icons" (click)="openTaskDialog(i)">edit</button></div> 
-                                <div class="delete-button viewThisResult"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete_outline</button></div>
+                                <div class="task-text" *ngIf="!task.isDone && task.hasNotDue">{{task.content}}</div>
+                                <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
+                                <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openTaskDialog(i)">edit</button></div> 
+                                <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete_outline</button></div>
                             </div>
                     </mat-card-content>
             </mat-card>
