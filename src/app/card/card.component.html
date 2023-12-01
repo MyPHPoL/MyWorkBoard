@@ -16,7 +16,7 @@
                                 <!-- if task is due -->
                                 <div class="task-text" *ngIf="!task.isDone && task.checkIfDue()" style="color: red">{{task.content}}</div>
                                 <!-- if task is almost due -->
-                                <div class="task-text" *ngIf="!task.isDone && task.checkIfAlmostDue()" style="color: goldenrod">{{task.content}}</div>
+                                <div class="task-text" *ngIf="!task.isDone && task.checkIfAlmostDue() && !task.checkIfDue()" style="color: goldenrod">{{task.content}}</div>
                                 <!-- if task is not done/due nor almost due -->
                                 <div class="task-text" *ngIf="!task.isDone && !task.checkIfDue() && !task.checkIfAlmostDue()">{{task.content}}</div>
                                 <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
