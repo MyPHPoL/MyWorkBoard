@@ -18,23 +18,33 @@
     overflow: hidden;
     margin: 5px;
 }
-.edit-button {
-    margin-left: auto;
+
+.task-checkbox{
+  
     order: 2;
 }
-.delete-button {
-    margin-left: auto;
+
+.edit-button {
+   
     order: 3;
+}
+.delete-button {
+    
+    order: 4;
 }
 
 .task {
     display: flex;
-    align-items: center;   
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .task-text {
+    margin-right: auto;
     float:left;
+    max-width: 14rem; 
 }
+
  
 .cdk-drag-preview {
     box-sizing: border-box;
@@ -56,4 +66,8 @@
  
 .card-item:last-child {
     border: none;
+}
+
+.new-task{
+    margin:5px;
 }

@@ -5,6 +5,7 @@ import { Card } from '../card';
 import { Task } from '../task';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
+import { EditTaskComponent } from '../edit-task/edit-task.component';
 
 @Component({
   selector: 'app-card',
@@ -67,6 +68,26 @@ export class CardComponent {
       if (result !== undefined) {
         console.log(result.name, result.priority, result.color);
         this.card = new Card(this.card.Id, result.name, result.priority, result.color, this.card.taskList);
+      }
+    });
+  }
+
+  // Almost the same, but used for task edition
+  openTaskDialog(i:number): void{
+    let dialogRef = null;
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width='405px';
+    dialogConfig.height='530px'; // below data injection might need improvement
+    dialogConfig.data={content: this.card.taskList[i].content, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone}; 
+
+    dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.dueDate, this.card.taskList[i].color , result.priority, result.isDone);
       }
     });
   }
