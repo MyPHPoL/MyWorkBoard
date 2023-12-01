@@ -1,13 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { Guid } from 'guid-typescript';
-import { Card } from '../card';
 import { Task } from '../task';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
-import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-edit-task',
@@ -15,8 +8,12 @@ import { MatRadioModule } from '@angular/material/radio';
   styleUrls: ['./edit-task.component.css']
 })
 export class EditTaskComponent {
-  
-  constructor(private ref:MatDialogRef<EditTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: Task){}
+
+  today: Date = new Date();
+  sol: boolean;
+  constructor(private ref:MatDialogRef<EditTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: Task){
+    this.sol = data.hasNotDue;
+  }
 
   closeWindow(){
     this.ref.close();

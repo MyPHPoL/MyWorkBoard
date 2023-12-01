@@ -16,7 +16,7 @@ export class Card{
     }
 
     addTask(value: string, cardPriority: number): void{
-        var tmp: Task = new Task(undefined, value, undefined, undefined , undefined, cardPriority, undefined) // most left undefined since task constructor has default values
+        var tmp: Task = new Task(undefined, value, undefined, undefined , undefined, undefined, cardPriority, undefined) // most left undefined since task constructor has default values
         this._taskList.push(tmp);
     }
 
