@@ -1,7 +1,7 @@
 <div class="container">
         <div cdkDropList class="card" [cdkDropListData]="card.taskList" (cdkDropListDropped)="drop($event)" style="background-color: {{card.color}}">
             <div  class="task">
-                <div  class="task-text"><p style="font-weight: bold; font-size: 20px;" mat-dialog-title>{{card.name | uppercase}}</p></div> 
+                <div  class="task-text"><p style="font-weight: bold; font-size: 20px; margin-right: auto" mat-dialog-title>{{card.name | uppercase}}</p></div> 
                 <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog()">edit</button></div> 
                 <div class="delete-button"><button mat-icon-button class="material-icons" (click)="deleteCard(item)">delete_outline</button></div>
             </div>
@@ -16,16 +16,17 @@
                                 <!-- if task is due -->
                                 <div class="task-text" *ngIf="!task.isDone && task.checkIfDue()" style="color: red">{{task.content}}</div>
                                 <!-- if task is almost due -->
-                                <div class="task-text" *ngIf="!task.isDone && task.checkIfAlmostDue()" style="color: goldenrod">{{task.content}}</div>
+                                <div class="task-text" *ngIf="!task.isDone && task.checkIfAlmostDue() && !task.checkIfDue()" style="color: goldenrod">{{task.content}}</div>
                                 <!-- if task is not done/due nor almost due -->
                                 <div class="task-text" *ngIf="!task.isDone && !task.checkIfDue() && !task.checkIfAlmostDue()">{{task.content}}</div>
-                                <div class="edit-button"><button mat-icon-button class="material-icons">edit</button></div> 
+                                <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
+                                <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openTaskDialog(i)">edit</button></div> 
                                 <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete_outline</button></div>
                             </div>
                     </mat-card-content>
             </mat-card>
         <form #newTaskForm="ngForm" (ngSubmit)="onSubmit(newTaskForm)">
-            <mat-form-field>
+            <mat-form-field class="new-task">
                 <input matInput name="newTask" ngModel type="text" placeholder="Add new task" required>
             </mat-form-field>
             <button mat-raised-button type="submit" color="accent" *ngIf="!newTaskForm.valid" disabled>Add Task</button>

@@ -1,1 +1,35 @@
-<p>edit-task works!</p>
+<form #edit="ngForm" style="margin: 3px"></form>
+<h1 mat-dialog-title>Edit task</h1>
+<div mat-dialog-content>
+    <mat-label>Task content*</mat-label><br>
+    <mat-form-field>
+        <input content="content" matInput placeholder="" [(ngModel)]="data.content" required maxlength="32">
+    </mat-form-field>
+
+    <br><mat-label>Due date</mat-label><br>
+    <mat-form-field>
+        <mat-label>1/1/1970 = no due date</mat-label> <!--temporary solution, either due date will be changed or fancy ngIf will be used-->
+        <input matInput [matDatepicker]="dp3" disabled [(ngModel)]="data.dueDate">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+        <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+      </mat-form-field>
+    
+    <br><mat-label>Priority*</mat-label><br>
+    <mat-slider
+        [max]=5
+        [min]=0
+        [step]=1
+        [discrete]=true
+        [showTickMarks]=true>
+    <input matSliderThumb name="priority" [(ngModel)]="data.priority">
+    </mat-slider><br>
+
+        <mat-checkbox class="item push-right" [(ngModel)]="data.isDone" input [(ngModel)]="data.isDone">Done</mat-checkbox>
+
+      <div mat-dialog-actions>
+        <button mat-raised-button color="primary" *ngIf="!edit.valid" disabled >Accept</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="data" *ngIf="edit.valid" >Accept</button>
+        <button (click)="closeWindow()" mat-raised-button color="warn">Close</button>
+    </div>
+</div>

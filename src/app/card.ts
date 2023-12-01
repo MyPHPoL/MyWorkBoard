@@ -24,8 +24,8 @@ export class Card{
         this._taskList.splice(index, 1);
     }
 
-    editTask(index: number): void{
-        //this._taskList[index]
+    editTask(id: Guid){
+        return this._taskList.find(t => t.Id === id);
     }
 
     // getters
