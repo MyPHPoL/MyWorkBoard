@@ -32,14 +32,15 @@ export class BoardComponent {
     dialogConfig.autoFocus = true;
     dialogConfig.width='405px';
     dialogConfig.height='415px';
-    dialogConfig.data= {name: '', priority: '', color: ''}; // data we want to get from popup
+    dialogConfig.data= {name: '', priority: undefined, color: ''}; // data we give to the dialog window
 
     dialogRef = this.dialog.open(NewCardComponent,dialogConfig); // opens dialog window
 
-    // happens after user clicks 'Add Card'
+    // happens after user clicks 'Accept'
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
-        var newCard = new Card(undefined, result.Name, result.Priority, result.Color);
+        console.log(result.name, result.priority, result.color);
+        var newCard = new Card(undefined, result.name, result.priority, result.color);
         this.board.addCard(newCard);
       }
     });

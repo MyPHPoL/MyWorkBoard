@@ -1,5 +1,5 @@
 <form #f="ngForm" class="formik">
-<h1 mat-dialog-title> Add new Card</h1>
+<h1 mat-dialog-title> Card Creator</h1>
 <div mat-dialog-content>
     <mat-label>Card Name*</mat-label><br>
     <mat-form-field>
@@ -24,8 +24,8 @@
     </mat-chip-listbox>
 </div>
 <div mat-dialog-actions>
-    <button mat-raised-button color="primary" *ngIf="!f.valid" disabled >Add Card</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="data" *ngIf="f.valid" >Add Card</button>
+    <button mat-raised-button color="primary" *ngIf="!f.valid" disabled >Accept</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data" *ngIf="f.valid" >Accept</button>
     <button (click)="closeWindow()" mat-raised-button color="warn">Close</button>
 </div>
 </form>

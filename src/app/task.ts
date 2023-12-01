@@ -9,11 +9,11 @@ export class Task{
     private _priority: number;
     private _isDone: boolean;
 
-    constructor(id : Guid = Guid.create(), content: string = 'Eo', creationDate: Date, dueDate: Date = new Date(), color: string = 'blue' ,priority: number  = 0, isDone: boolean = false){
+    constructor(id : Guid = Guid.create(), content: string = 'New Task', creationDate: Date = new Date(), dueDate: Date = new Date(0), color: string = 'blue' ,priority: number  = 0, isDone: boolean = false){
         this._id = id;
         this._content = content;
         this._creationDate = creationDate;
-        this._dueDate = dueDate;
+        this._dueDate = dueDate; // Date(0) is a safe default if user doesn't add any date
         this._color = color;
         this._priority = priority;
         this._isDone = isDone;
@@ -47,6 +47,14 @@ export class Task{
         return this._id;
     }
 
+    get dueDateNoTime(): string{
+        return this._dueDate.toLocaleDateString();
+    }
+
+    get creationDateNoTime(): string {
+        return this._creationDate.toLocaleDateString();
+    }
+
     // setters
         
     set content( content: string ){
@@ -71,5 +79,31 @@ export class Task{
 
     set color( color: string ){
         this._color = color;
+    }
+
+    checkIfDue(): boolean{
+        var controledate: Date = new Date(0);
+        if (this.isDone) // task is already done
+            return false;
+        if (controledate.getTime() === this.dueDate.getTime()) // there is no due date
+            return false;
+        if (this.dueDate > new Date()) // due date didn't happen yet
+            return false;
+        return true;
+    }
+
+    // if there are less than 2 days to complete task
+    checkIfAlmostDue(): boolean {
+        if (this.checkIfDue()){ // if not due
+            var Difference_In_Time = this.dueDate.getTime() - this.creationDate.getTime(); // time difference
+            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24); // changed to day difference
+            if (Difference_In_Days < 2){
+                return true;
+                
+            }
+            return false;
+            
+        }
+        return false;
     }
 }

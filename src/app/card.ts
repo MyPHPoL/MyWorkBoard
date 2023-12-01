@@ -7,16 +7,16 @@ export class Card{
     private _priority: number;
     private _color: string;
   
-    constructor(id: Guid = Guid.create(), name: string = 'New Card', priority: number  = 0 , color: string = ''){
+    constructor(id: Guid = Guid.create(), name: string = 'New Card', priority: number  = 0 , color: string = '', taskList: Task[] = []){
       this._id = id;
       this._name = name;
       this._priority = priority;
       this._color = color;
-      this._taskList = [];
+      this._taskList = taskList;
     }
 
-    addTask(value: string): void{
-        var tmp: Task = new Task(Guid.create(), value, new Date(), undefined , 'blue', 0 , false ) 
+    addTask(value: string, cardPriority: number): void{
+        var tmp: Task = new Task(undefined, value, undefined, undefined , undefined, cardPriority, undefined) // most left undefined since task constructor has default values
         this._taskList.push(tmp);
     }
 
