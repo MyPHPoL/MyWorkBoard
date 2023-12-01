@@ -23,7 +23,8 @@ export class Card{
     deleteTask(index: number): void{
         this._taskList.splice(index, 1);
     }
-
+    
+    //deprecated
     editTask(id: Guid){
         return this._taskList.find(t => t.Id === id);
     }

@@ -3,11 +3,6 @@ import { Guid } from 'guid-typescript';
 import { Card } from '../card';
 import { Task } from '../task';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
-import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-edit-task',

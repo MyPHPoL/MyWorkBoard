@@ -20,10 +20,10 @@ import { HomeComponent } from './home/home.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { TaskComponent } from './task/task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component'; 
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox'; 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},

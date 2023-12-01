@@ -9,7 +9,7 @@
 .card {
     font-size: 15px;
     padding: 10px;
-    max-width: 100%;
+    width: 420px;
     border: solid 1px #ccc;
     min-height: 50px;
     display: block;
@@ -34,6 +34,7 @@
 }
 
 .task {
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -70,4 +71,11 @@
 
 .new-task{
     margin:5px;
+}
+
+.resultContainer .viewThisResult {
+    display: none;
+}
+.resultContainer:hover .viewThisResult {
+    display: inline;
 }

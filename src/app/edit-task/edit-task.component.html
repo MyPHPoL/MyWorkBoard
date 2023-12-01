@@ -1,9 +1,9 @@
-<form #edit="ngForm" style="margin: 3px"></form>
+<form #edit="ngForm" style="margin: 3px">
 <h1 mat-dialog-title>Edit task</h1>
 <div mat-dialog-content>
     <mat-label>Task content*</mat-label><br>
     <mat-form-field>
-        <input content="content" matInput placeholder="" [(ngModel)]="data.content" required maxlength="32">
+        <input name="content" matInput placeholder="" [(ngModel)]="data.content" required maxlength="32">
     </mat-form-field>
 
     <br><mat-label>Due date</mat-label><br>
@@ -33,3 +33,4 @@
         <button (click)="closeWindow()" mat-raised-button color="warn">Close</button>
     </div>
 </div>
+</form>
