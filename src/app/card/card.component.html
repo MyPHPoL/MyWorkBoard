@@ -1,5 +1,5 @@
 <div class="container">
-        <div cdkDropList class="card" [cdkDropListData]="card.taskList" (cdkDropListDropped)="drop($event)" style="background-color: {{card.color}}">
+        <div cdkDropList class="card" [cdkDropListData]="card.taskList" (cdkDropListDropped)="drop($event)" style="background-color: {{card.color}}" cdkDrag> 
             <div  class="task">
                 <div  class="task-text"><p style="font-weight: bold; font-size: 20px; margin-right: auto" mat-dialog-title>{{card.name | uppercase}}</p></div> 
                 <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog()">edit</button></div> 

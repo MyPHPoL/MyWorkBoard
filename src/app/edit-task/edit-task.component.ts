@@ -1,6 +1,4 @@
 import { Component, Inject } from '@angular/core';
-import { Guid } from 'guid-typescript';
-import { Card } from '../card';
 import { Task } from '../task';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
