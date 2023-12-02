@@ -1,0 +1,10 @@
+.mat-mdc-form-field {
+    width: 98%;
+    margin: 1%;
+    max-width: 300px;
+}
+
+.mat-mdc-slider {
+    max-width: 300px;
+    width: 100%;
+}

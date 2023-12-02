@@ -1,0 +1,20 @@
+<form #filter="ngForm" style="margin: 3px">
+    <h1 mat-dialog-title>Card: {{data.name}}</h1>
+    <div mat-dialog-content>
+        <br>
+        <mat-label>Set a value for the filter</mat-label><br> <!-- temporary labels-->
+        <mat-slider
+            [max]=5
+            [min]=0
+            [step]=1
+            [discrete]=true
+            [showTickMarks]=true>
+        <input matSliderThumb name="filterValue" [(ngModel)]="data.filterValue">
+        </mat-slider>
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="primary" [mat-dialog-close]="data">Accept</button>
+        <button (click)="closeWindow()" mat-raised-button color="warn">Cancel</button>
+    </div>
+</form>

@@ -6,6 +6,7 @@ import { Task } from '../task';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { SetFilterComponent } from '../set-filter/set-filter.component';
 
 @Component({
   selector: 'app-card',
@@ -50,6 +51,13 @@ export class CardComponent {
     console.log(task);
   }
 
+  // filter off button
+  filterOff(){
+    this.card.filter=false;
+  }
+
+
+
   // THE SAME popup modal dialog AS NEW CARD 
   openDialog() : void {
     let dialogRef = null;
@@ -88,6 +96,27 @@ export class CardComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, this.card.taskList[i].color , result.priority, result.isDone);
+      }
+    });
+  }
+
+  // Smaller dialog for setting up the filter 
+  openFilterDialog() : void {
+    let dialogRef = null;
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width='405px';
+    dialogConfig.height='260px';
+    dialogConfig.data={name: this.card.name, filterValue: this.card.filterValue};
+
+    dialogRef = this.dialog.open(SetFilterComponent,dialogConfig); // opens dialog window
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.card.filter = true;
+        this.card.filterValue = result.filterValue;
       }
     });
   }
