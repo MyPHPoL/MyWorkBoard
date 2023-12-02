@@ -6,13 +6,17 @@ export class Card{
     private _taskList: Task[] = [];
     private _priority: number;
     private _color: string;
+    private _filterValue: number; //priority selected to be shown
+    private _filter: boolean; // is filter on
   
-    constructor(id: Guid = Guid.create(), name: string = 'New Card', priority: number  = 0 , color: string = '', taskList: Task[] = []){
+    constructor(id: Guid = Guid.create(), name: string = 'New Card', priority: number  = 0 , color: string = '', taskList: Task[] = [], filterValue: number = 0, filter: boolean = false){
       this._id = id;
       this._name = name;
       this._priority = priority;
       this._color = color;
       this._taskList = taskList;
+      this._filterValue = filterValue;
+      this._filter = filter;
     }
 
     addTask(value: string, cardPriority: number): void{
@@ -50,6 +54,14 @@ export class Card{
         return this._id;
     }
 
+    get filter():boolean{
+        return this._filter;
+    }
+
+    get filterValue(): number{
+        return this._filterValue;
+    }
+
     // setters
     set priority(priority: number){
         this._priority = priority;
@@ -61,5 +73,13 @@ export class Card{
 
     set color(color: string){
         this._color = color;
+    }
+
+    set filter(filter: boolean){
+         this._filter = filter;
+    }
+
+    set filterValue(filterValue: number){
+         this._filterValue = filterValue;
     }
 }
