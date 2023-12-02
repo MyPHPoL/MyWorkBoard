@@ -80,7 +80,7 @@ export class CardComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width='405px';
-    dialogConfig.height='530px'; // below data injection might need improvement
+    dialogConfig.height='550px'; // below data injection might need improvement
     dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone}; 
 
     dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
