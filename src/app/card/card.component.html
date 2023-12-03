@@ -12,7 +12,7 @@
         <mat-card class="card-item" *ngFor="let task of card.taskList, index as i" cdkDrag>
             <mat-card-content *ngIf="!filter">
                     <div  class="task resultContainer" (click)="clickTest(task)">
-                        <div class="task-text" style="color: {{ chooseCorrectColor(task) }}">{{task.content}}</div>
+                        <div class="task-text" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
                         <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
                         <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog(false, true, false, i)">edit</button></div> 
                         <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete_outline</button></div>
@@ -21,7 +21,7 @@
             <!-- temporary solution, if we find a better solution this will be changed-->
             <mat-card-content *ngIf="filter && task.priority === filterValue">
                     <div class="task resultContainer" (click)="clickTest(task)">
-                        <div class="task-text" style="color: {{ chooseCorrectColor(task) }}">{{task.content}}</div>
+                        <div class="task-text" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
                         <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
                         <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog(false, true, false, i)">edit</button></div> 
                         <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete_outline</button></div>
