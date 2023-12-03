@@ -45,7 +45,6 @@
     float:left;
     max-width: 14rem; 
 }
-
  
 .cdk-drag-preview {
     box-sizing: border-box;
@@ -79,3 +78,13 @@
 .resultContainer:hover .viewThisResult {
     display: inline;
 }
+
+.handle {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #000000;
+    cursor: move;
+    width: 24px;
+    height: 24px;
+  }
