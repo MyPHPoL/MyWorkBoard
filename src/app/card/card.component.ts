@@ -18,6 +18,9 @@ export class CardComponent {
   @Input() card!: Card;
   @Input() item!: number;
   @Output() newItemEvent = new EventEmitter<number>();
+  filterValue: number = 0;
+  filter: boolean = false;
+  filterDone: boolean = false;
 
   constructor(public dialog: MatDialog) {}
 
@@ -53,71 +56,79 @@ export class CardComponent {
 
   // filter off button
   filterOff(){
-    this.card.filter=false;
+    this.filter=false;
   }
 
-
-
-  // THE SAME popup modal dialog AS NEW CARD 
-  openDialog() : void {
+  // 1 function handles all dialog windows
+  openDialog(editCard: boolean, editTask: boolean, filterTasks: boolean, i:number) : void {
     let dialogRef = null;
     const dialogConfig = new MatDialogConfig();
-
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width='405px';
-    dialogConfig.height='415px';
-    dialogConfig.data={name: this.card.name, priority: this.card.priority, color: this.card.color}; // data we give to the dialog window
+    if(editCard) // edit card
+    {
+      dialogConfig.width='405px';
+      dialogConfig.height='415px';
+      dialogConfig.data={name: this.card.name, priority: this.card.priority, color: this.card.color}; // data we give to the dialog window
 
-    dialogRef = this.dialog.open(NewCardComponent,dialogConfig); // opens dialog window
+      dialogRef = this.dialog.open(NewCardComponent,dialogConfig); // opens dialog window
 
-    // happens after user clicks 'Accept'
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        console.log(result.name, result.priority, result.color);
-        this.card = new Card(this.card.Id, result.name, result.priority, result.color, this.card.taskList);
-      }
-    });
+      // happens after user clicks 'Accept'
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+          console.log(result.name, result.priority, result.color);
+          this.card = new Card(this.card.Id, result.name, result.priority, result.color, this.card.taskList);
+        }
+      });
+    }
+    if(editTask) //edit task
+    {
+      dialogConfig.width='405px';
+      dialogConfig.height='550px'; // below data injection might need improvement
+      dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone}; 
+  
+      dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+          this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, this.card.taskList[i].color , result.priority, result.isDone);
+        }
+      });
+    }
+    if(filterTasks) //filter tasks
+    {
+      dialogConfig.width='405px';
+      dialogConfig.height='310px';
+      dialogConfig.data={name: this.card.name, filterValue: this.filterValue, filterDone: this.filterDone, filter: this.filter};
+  
+      dialogRef = this.dialog.open(SetFilterComponent,dialogConfig); // opens dialog window
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+          this.filter = result.filter;
+          this.filterValue = result.filterValue;
+          this.filterDone = result.filterDone;
+        }
+      });
+    }
   }
 
-  // Almost the same, but used for task edition
-  openTaskDialog(i:number): void{
-    let dialogRef = null;
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width='405px';
-    dialogConfig.height='550px'; // below data injection might need improvement
-    dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone}; 
-
-    dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, this.card.taskList[i].color , result.priority, result.isDone);
-      }
-    });
-  }
-
-  // Smaller dialog for setting up the filter 
-  openFilterDialog() : void {
-    let dialogRef = null;
-    const dialogConfig = new MatDialogConfig();
-
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width='405px';
-    dialogConfig.height='260px';
-    dialogConfig.data={name: this.card.name, filterValue: this.card.filterValue};
-
-    dialogRef = this.dialog.open(SetFilterComponent,dialogConfig); // opens dialog window
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.card.filter = true;
-        this.card.filterValue = result.filterValue;
-      }
-    });
+  // used when displaying task content on the card
+  chooseCorrectColor(task: Task): string {
+    if(task.isDone){
+      return 'green';
+    }
+    if(!task.isDone && task.checkIfDue() && !task.hasNotDue){
+      return 'red';
+    }
+    if(!task.isDone && task.checkIfAlmostDue() && !task.checkIfDue() && !task.hasNotDue){
+      return 'goldenrod';
+    }
+    if(!task.isDone && task.hasNotDue || !task.hasNotDue && !task.checkIfAlmostDue() && !task.checkIfDue()){
+      return 'black';
+    }
+    else{
+      return 'black';
+    }
   }
 }
