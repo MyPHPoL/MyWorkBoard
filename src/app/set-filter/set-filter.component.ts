@@ -8,7 +8,7 @@ import { Card } from '../card';
   styleUrls: ['./set-filter.component.css']
 })
 export class SetFilterComponent {
-  constructor(private ref:MatDialogRef<SetFilterComponent>, @Inject(MAT_DIALOG_DATA) public data: Card){}
+  constructor(private ref:MatDialogRef<SetFilterComponent>, @Inject(MAT_DIALOG_DATA) public data: any){}
 
   closeWindow(){
     this.ref.close();
