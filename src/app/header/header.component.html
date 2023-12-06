@@ -19,20 +19,18 @@
             </li>
         </ul>
     </div>
-
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            Set Board Theme
-        </a>
-        <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item">Blueberry</a></li>
-            <li><a class="dropdown-item">Pink Candy</a></li>
-            <li><a class="dropdown-item">MyPHPoL Heritage</a></li>
+    <ul class="navbar-nav me-auto" style="padding-right: 6px ;">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                    Set Board Theme
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="ChangeTheme('blue')">Blueberry</a></li>
+                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="ChangeTheme('pink')">Pink Candy</a></li>
+                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="ChangeTheme('myphpol')">MyPHPoL Heritage</a></li>
+                </ul>
+            </li>
         </ul>
-    </li>
-    <button (click)="ChangeTheme('myphpol')">Hello World</button>
-
-
     <div class="profile-logo dropstart">
         <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
             Profile
