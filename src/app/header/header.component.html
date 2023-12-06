@@ -20,10 +20,18 @@
         </ul>
     </div>
 
-    <form class="d-flex me-5">
-        <input class="form-control me-2" type="search" placeholder="Search">
-        <button class="btn btn-outline-light" type="submit">Find</button>
-    </form>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Set Board Theme
+        </a>
+        <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item">Blueberry</a></li>
+            <li><a class="dropdown-item">Pink Candy</a></li>
+            <li><a class="dropdown-item">MyPHPoL Heritage</a></li>
+        </ul>
+    </li>
+    <button (click)="ChangeTheme('myphpol')">Hello World</button>
+
 
     <div class="profile-logo dropstart">
         <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
