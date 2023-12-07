@@ -7,6 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
 import { SetFilterComponent } from '../set-filter/set-filter.component';
+import { TaskDetailsComponent } from '../task-details/task-details.component';
 
 @Component({
   selector: 'app-card',
@@ -49,7 +50,7 @@ export class CardComponent {
     this.newItemEvent.emit(value);
   }
 
-  // for test purposes ()
+  // for test purposes () -- deprecated
   clickTest(task: Task) {
     console.log(task);
   }
@@ -60,12 +61,12 @@ export class CardComponent {
   }
 
   // 1 function handles all dialog windows
-  openDialog(editCard: boolean, editTask: boolean, filterTasks: boolean, i:number) : void {
+  openDialog(opt: string, i:number) : void {
     let dialogRef = null;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    if(editCard) // edit card
+    if(opt === 'editCard') // edit card
     {
       dialogConfig.width='405px';
       dialogConfig.height='415px';
@@ -81,21 +82,21 @@ export class CardComponent {
         }
       });
     }
-    if(editTask) //edit task
+    if(opt === 'editTask') //edit task
     {
       dialogConfig.width='405px';
-      dialogConfig.height='550px'; // below data injection might need improvement
-      dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone}; 
+      dialogConfig.height='720px'; // below data injection might need improvement
+      dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc}; 
   
       dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
   
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
-          this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, this.card.taskList[i].color , result.priority, result.isDone);
+          this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, result.desc , result.priority, result.isDone);
         }
       });
     }
-    if(filterTasks) //filter tasks
+    if(opt === 'filterTasks') //filter tasks
     {
       dialogConfig.width='405px';
       dialogConfig.height='310px';
@@ -110,6 +111,15 @@ export class CardComponent {
           this.filterDone = result.filterDone;
         }
       });
+    }
+    if(opt === 'taskDetails')
+    {
+      dialogConfig.disableClose = false;
+      dialogConfig.width='auto';
+      dialogConfig.height= 'auto';
+      dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc, creationDate: this.card.taskList[i].creationDate}; 
+
+      dialogRef = this.dialog.open(TaskDetailsComponent,dialogConfig); // opens dialog window
     }
   }
 

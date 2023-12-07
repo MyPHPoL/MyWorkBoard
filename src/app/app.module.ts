@@ -26,7 +26,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SetFilterComponent } from './set-filter/set-filter.component';
 import { TaskColorDirective } from './task-color.directive';
+import { TaskDetailsComponent } from './task-details/task-details.component'; 
 import { FilterPriorityPipe } from './filter-priority.pipe'; 
+
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -48,7 +50,8 @@ const routes: Routes = [
     TaskComponent,
     EditTaskComponent,
     SetFilterComponent,
-    FilterPriorityPipe,
+    TaskDetailsComponent,
+    FilterPriorityPipe
   ],
   imports: [
     RouterModule.forRoot(routes),
