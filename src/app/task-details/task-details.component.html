@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Task Details</h1>
+
+<div mat-dialog-content>
+    <p>Task Name: {{data.content}}</p>
+    <p>Task Priority: {{data.priority}}</p>
+    <p *ngIf="data.desc">Task description: {{data.desc}}</p>
+    <p>This Task was created on: {{data.creationDate | date}}</p>
+    <p *ngIf="data.isDone" [appTaskColor]='colorDone'>This Task has been completed!</p>
+    <p *ngIf="!data.hasNotDue && !data.isDone" [appTaskColor]='colorDue'>This Task has due date set on: {{data.dueDate | date}}</p>
+</div>
