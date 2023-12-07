@@ -6,17 +6,17 @@ export class Task{
     private _creationDate: Date;
     private _hasNotDue: boolean;
     private _dueDate: Date;
-    private _color: string;
+    private _desc: string;
     private _priority: number;
     private _isDone: boolean;
 
-    constructor(id : Guid = Guid.create(), content: string = 'New Task', creationDate: Date = new Date(), hasNotDue: boolean = true, dueDate: Date = new Date(), color: string = 'blue' ,priority: number  = 0, isDone: boolean = false){
+    constructor(id : Guid = Guid.create(), content: string = 'New Task', creationDate: Date = new Date(), hasNotDue: boolean = true, dueDate: Date = new Date(), desc: string = '' ,priority: number  = 0, isDone: boolean = false){
         this._id = id;
         this._content = content;
         this._creationDate = creationDate;
         this._hasNotDue = hasNotDue;
         this._dueDate = dueDate;
-        this._color = color;
+        this._desc = desc;
         this._priority = priority;
         this._isDone = isDone;
     }
@@ -41,8 +41,8 @@ export class Task{
         return this._isDone;
     }
 
-    get color(): string{
-        return this._color;
+    get desc(): string{
+        return this._desc;
     }
 
     get Id(): Guid{
@@ -83,8 +83,8 @@ export class Task{
         this._isDone = isDone;
     }
 
-    set color( color: string ){
-        this._color = color;
+    set desc( desc: string ){
+        this._desc = desc;
     }
 
     set hasNotDue( hasNotDue: boolean ){

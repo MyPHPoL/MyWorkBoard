@@ -25,7 +25,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SetFilterComponent } from './set-filter/set-filter.component';
-import { TaskColorDirective } from './task-color.directive'; 
+import { TaskColorDirective } from './task-color.directive';
+import { TaskDetailsComponent } from './task-details/task-details.component'; 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -47,6 +48,7 @@ const routes: Routes = [
     TaskComponent,
     EditTaskComponent,
     SetFilterComponent,
+    TaskDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

@@ -9,27 +9,27 @@
         <div class="task">
             <div class="task-text"><p style="font-weight: bold; font-size: 20px; margin-right: auto" mat-dialog-title>{{card.name | uppercase}}</p></div> 
             <div class="filter-button" *ngIf="filter"><button mat-icon-button class="material-icons" (click)="filterOff()">filter_alt_off</button></div>
-            <div class="filter-button"><button mat-icon-button class="material-icons" (click)="openDialog(false, false, true, 0)">filter_alt</button></div>
-            <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog(true, false, false, 0)">edit</button></div> 
+            <div class="filter-button"><button mat-icon-button class="material-icons" (click)="openDialog('filterTask', 0)">filter_alt</button></div>
+            <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog('editCard', 0)">edit</button></div> 
             <div class="delete-button"><button mat-icon-button class="material-icons" (click)="deleteCard(item)">delete</button></div>
         </div>
         <p mat-dialog-title style="margin-top:0;line-height: 10px;">All Tasks have priority {{card.priority}} in this card by default</p>
         <p mat-dialog-title style="" *ngIf="filter">Current filter: {{filterValue}}</p>
         <mat-card class="card-item" *ngFor="let task of card.taskList, index as i" cdkDrag>
             <mat-card-content *ngIf="!filter">
-                    <div  class="task resultContainer" (click)="clickTest(task)">
-                        <div class="task-text" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
+                    <div  class="task resultContainer">
+                        <div class="task-text" (click)="openDialog('taskDetails', i)" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
                         <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
-                        <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog(false, true, false, i)">edit</button></div> 
+                        <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog('editTask', i)">edit</button></div> 
                         <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete</button></div>
                     </div>
             </mat-card-content>
             <!-- temporary solution, if we find a better solution this will be changed-->
             <mat-card-content *ngIf="filter && task.priority === filterValue">
-                    <div class="task resultContainer" (click)="clickTest(task)">
-                        <div class="task-text" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
+                    <div class="task resultContainer">
+                        <div class="task-text" (click)="openDialog('taskDetails', i)" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
                         <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
-                        <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog(false, true, false, i)">edit</button></div> 
+                        <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog('editTask', i)">edit</button></div> 
                         <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete</button></div>
                     </div>
             </mat-card-content>
