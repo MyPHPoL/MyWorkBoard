@@ -8,7 +8,7 @@ export class FilterPriorityPipe implements PipeTransform {
 
   transform(list: Task[], filterPrio: number, isSet: boolean, filterDone: boolean): Task[] {
 
-    if (isSet && filterDone)
+    if (isSet)
       list = list.filter((elem: Task) => elem.priority == filterPrio);
     if (filterDone)
       list = list.filter((elem: Task) => elem.isDone == false)

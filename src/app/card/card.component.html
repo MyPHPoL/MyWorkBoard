@@ -9,7 +9,7 @@
         <div class="task">
             <div class="task-text"><p style="font-weight: bold; font-size: 20px; margin-right: auto" mat-dialog-title>{{card.name | uppercase}}</p></div> 
             <div class="filter-button" *ngIf="filter"><button mat-icon-button class="material-icons" (click)="filterOff()">filter_alt_off</button></div>
-            <div class="filter-button"><button mat-icon-button class="material-icons" (click)="openDialog('filterTask', 0)">filter_alt</button></div>
+            <div class="filter-button"><button mat-icon-button class="material-icons" (click)="openDialog('filterTasks', 0)">filter_alt</button></div>
             <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog('editCard', 0)">edit</button></div> 
             <div class="delete-button"><button mat-icon-button class="material-icons" (click)="deleteCard(item)">delete</button></div>
         </div>
