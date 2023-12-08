@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Task } from './task';
 
 @Pipe({
-  name: 'filterPriority'
+  name: 'filterPriority',
+  pure: false
 })
 export class FilterPriorityPipe implements PipeTransform {
 
