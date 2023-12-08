@@ -58,6 +58,7 @@ export class CardComponent {
   // filter off button
   filterOff(){
     this.filter=false;
+    this.filterDone=false;
   }
 
   // 1 function handles all dialog windows
