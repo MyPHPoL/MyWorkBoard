@@ -79,7 +79,9 @@ export class CardComponent {
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
           console.log(result.name, result.priority, result.color);
-          this.card = new Card(this.card.Id, result.name, result.priority, result.color, this.card.taskList);
+          this.card.name = result.name;
+          this.card.priority = result.priority;
+          this.card.color = result.color;
         }
       });
     }
