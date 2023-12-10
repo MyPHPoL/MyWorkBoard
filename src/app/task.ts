@@ -1,7 +1,19 @@
 import { Guid } from 'guid-typescript';
 
+// interface used when getting a json file
+export interface ITask{
+    id: string;
+    content: string;
+    creationDate: Date;
+    hasNotDue: boolean;
+    dueDate: Date;
+    desc: string;
+    priority: number;
+    isDone: boolean;
+}
+
 export class Task{
-    private _id: Guid;
+    private _id: string;
     private _content: string;
     private _creationDate: Date;
     private _hasNotDue: boolean;
@@ -10,7 +22,7 @@ export class Task{
     private _priority: number;
     private _isDone: boolean;
 
-    constructor(id : Guid = Guid.create(), content: string = 'New Task', creationDate: Date = new Date(), hasNotDue: boolean = true, dueDate: Date = new Date(), desc: string = '' ,priority: number  = 0, isDone: boolean = false){
+    constructor(id : string = Guid.create().toString(), content: string = 'New Task', creationDate: Date = new Date(), hasNotDue: boolean = true, dueDate: Date = new Date(), desc: string = '' ,priority: number  = 0, isDone: boolean = false){
         this._id = id;
         this._content = content;
         this._creationDate = creationDate;
@@ -45,20 +57,12 @@ export class Task{
         return this._desc;
     }
 
-    get Id(): Guid{
+    get Id(): string{
         return this._id;
     }
 
     get hasNotDue(): boolean{
         return this._hasNotDue;
-    }
-
-    get dueDateNoTime(): string{
-        return this._dueDate.toLocaleDateString();
-    }
-
-    get creationDateNoTime(): string {
-        return this._creationDate.toLocaleDateString();
     }
 
     // setters
@@ -112,5 +116,33 @@ export class Task{
             return false;
         }
         return false;
+    }
+
+    // used when converting to and from json file (hopefully it will work with fake db)
+    toJSON(): ITask {
+        return {
+          id: this._id,
+          content: this._content,
+          creationDate: this._creationDate,
+          hasNotDue: this._hasNotDue,
+          dueDate: this._dueDate,
+          desc: this._desc,
+          priority: this._priority,
+          isDone: this._isDone,
+        };
+    }
+
+    fromJSON(json: ITask): Task {
+        const task = new Task(
+            json.id,
+            json.content,
+            new Date(json.creationDate),
+            json.hasNotDue,
+            new Date(json.dueDate),
+            json.desc,
+            json.priority,
+            json.isDone
+        );
+        return task;
     }
 }

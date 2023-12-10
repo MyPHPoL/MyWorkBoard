@@ -1,5 +1,5 @@
 <button mat-raised-button color="primary" (click)="openDialog()">Add New Card</button>
-<div class="workboard" cdkDropListGroup>
+<div cdkDropListGroup>
 <div class="card-container" cdkDropList cdkDropListOrientation="horizontal" cdkDropListGroup [cdkDropListData]="board.allCards" (cdkDropListDropped)="drop($event)">
     <app-card *ngFor="let c of board.allCards, index as i" [card]="c" [item]="i" (newItemEvent)="deleteCard($event)"></app-card>
 </div>

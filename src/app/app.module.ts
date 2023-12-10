@@ -27,13 +27,15 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { SetFilterComponent } from './set-filter/set-filter.component';
 import { TaskColorDirective } from './task-color.directive';
 import { TaskDetailsComponent } from './task-details/task-details.component'; 
-import { FilterPriorityPipe } from './filter-priority.pipe'; 
+import { FilterPriorityPipe } from './filter-priority.pipe';
+import { BoardListComponent } from './board-list/board-list.component'; 
 
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'profile', component: ProfileComponent},
-  {path: 'board', component: BoardComponent}
+  {path: 'board-list', component: BoardListComponent},
+  {path: 'board/:board.Id', component: BoardComponent}
 ];
 
 
@@ -51,7 +53,8 @@ const routes: Routes = [
     EditTaskComponent,
     SetFilterComponent,
     TaskDetailsComponent,
-    FilterPriorityPipe
+    FilterPriorityPipe,
+    BoardListComponent
   ],
   imports: [
     RouterModule.forRoot(routes),

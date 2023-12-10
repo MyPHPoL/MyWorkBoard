@@ -86,7 +86,7 @@ export class CardComponent {
     if(opt === 'editTask') //edit task
     {
       dialogConfig.width='405px';
-      dialogConfig.height='720px'; // below data injection might need improvement
+      dialogConfig.height='740px'; // below data injection might need improvement
       dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc}; 
   
       dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
