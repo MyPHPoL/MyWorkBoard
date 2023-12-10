@@ -8,7 +8,7 @@ import { Task } from './task';
 })
 export class BoardListService {
 
-  protected boardList: Board[] = [new Board(undefined, [new Card(undefined, 'Card1', 3, 'white', [new Task(undefined, 'Task1', undefined, undefined, undefined, 'Task1desc', 3, false), new Task(undefined, 'Task2', undefined, undefined, undefined, 'Task2desc', 3, false)]), new Card(undefined, 'Card2', 5, 'yellow', [])]), new Board(undefined, [new Card(undefined, 'Card1', 3, 'white', [new Task(undefined, 'Task1', undefined, undefined, undefined, 'Task1desc', 3, false), new Task(undefined, 'Task2', undefined, undefined, undefined, 'Task2desc', 3, false)]), new Card(undefined, 'Card3', 5, 'yellow', [])])];;
+  protected boardList: Board[] = [new Board(undefined, [new Card(undefined, 'Card1', 3, 'pink', [new Task(undefined, 'Task1', undefined, undefined, undefined, 'Task1desc', 3, false), new Task(undefined, 'Task2', undefined, undefined, undefined, 'Task2desc', 3, false)]), new Card(undefined, 'Card2', 5, 'yellow', [])]), new Board(undefined, [new Card(undefined, 'Card1', 3, 'white', [new Task(undefined, 'Task1', undefined, undefined, undefined, 'Task1desc', 3, false), new Task(undefined, 'Task2', undefined, undefined, undefined, 'Task2desc', 3, false)]), new Card(undefined, 'Card3', 5, 'yellow', [])])];;
   
   constructor() {}
 

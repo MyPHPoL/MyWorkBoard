@@ -1,5 +1,6 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
-
+import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+import { BoardListService } from '../board-list.service';
+import { Board } from '../board';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,6 +8,8 @@ import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChi
   encapsulation: ViewEncapsulation.None
 })
 export class HeaderComponent implements OnInit{
+  boards: Board[] = [];
+  boardsService: BoardListService = inject(BoardListService); 
 
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
@@ -14,6 +17,7 @@ export class HeaderComponent implements OnInit{
 
   constructor(private renderer: Renderer2, private elRef: ElementRef){
     this.renderer.addClass(document.body, 'blue');
+    this.boards = this.boardsService.getBoards();
   }
 
   ngOnInit(): void {}

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes,ActivatedRouteSnapshot,DetachedRouteHandle,RouteReuseStrategy } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CardComponent } from './card/card.component';
 import { BoardComponent } from './board/board.component';
@@ -38,6 +38,24 @@ const routes: Routes = [
   {path: 'board/:board.Id', component: BoardComponent}
 ];
 
+//google ways of resolving the problem of the page not reloading on same url navigation with different object id
+//https://github.com/angular/angular/issues/21115#issuecomment-645588886
+@Injectable()
+export class MyStrategy extends RouteReuseStrategy {
+   shouldDetach(route: ActivatedRouteSnapshot): boolean {
+    return false;
+  }
+  store(route: ActivatedRouteSnapshot, detachedTree: DetachedRouteHandle): void {}
+  shouldAttach(route: ActivatedRouteSnapshot): boolean {
+    return false;
+  }
+  retrieve(route: ActivatedRouteSnapshot): DetachedRouteHandle|null {
+    return null;
+  }
+  shouldReuseRoute(future: ActivatedRouteSnapshot, curr: ActivatedRouteSnapshot): boolean {
+    return false;
+  }
+}
 
 @NgModule({
   declarations: [
@@ -57,7 +75,7 @@ const routes: Routes = [
     BoardListComponent
   ],
   imports: [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'}),
     BrowserModule,
     DragDropModule,
     FormsModule,
@@ -75,7 +93,7 @@ const routes: Routes = [
     MatCheckboxModule,
     TaskColorDirective
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [{provide: RouteReuseStrategy, useClass: MyStrategy}]
 })
 export class AppModule { }

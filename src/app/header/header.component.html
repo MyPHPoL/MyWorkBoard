@@ -9,16 +9,17 @@
         <ul class="navbar-nav me-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                    Zwijane menu tutaj
+                    Boards
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="#" routerLink="/home" routerLinkActive="active">uno</a></li>
-                    <li><a class="dropdown-item" href="#" routerLink="/board-list" routerLinkActive="active">Boardzik</a></li>
-                    <li><a class="dropdown-item" href="#">tres</a></li>
+                    <div *ngFor="let board of boards ">
+                    <li><a class="dropdown-item" [routerLink]="['/board', board.Id]">{{ board.Id }}</a></li>
+                </div>
                 </ul>
             </li>
         </ul>
     </div>
+    <a class="nav-link" role="button" (click)="ChangeTheme('blue')">tmp</a> <!-- addBoard(), needs changes to open a form-->
     <ul class="navbar-nav me-auto" style="padding-right: 6px ;">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
