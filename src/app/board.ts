@@ -1,15 +1,19 @@
 import { Guid } from 'guid-typescript';
-import { Card } from './card';
+import { Card, ICard } from './card';
+
+// interface used when getting a json file
+export interface IBoard {
+    id: string;
+    cards: ICard[];
+  }
 
 export class Board{
-    private _id: Guid;
+    private _id: string;
     private _cards: Card[];
-    private _theme: string = 'blue';
 
-    constructor(id : Guid = Guid.create(), cards: Card[] = [], theme: string = 'blue'){
+    constructor(id : string = Guid.create().toString(), cards: Card[] = []){
         this._id = id;
         this._cards = cards;
-        this._theme = theme;
     }
 
     addCard(card: Card): void{
@@ -25,24 +29,31 @@ export class Board{
         return this._cards;
     }
 
-    get theme(): string{
-        return this._theme;
-    }
-
-    get Id(): Guid{
+    get Id(): string{
         return this._id;
     }
 
-    // setters
-    set theme(theme: string){
-        this._theme = theme;
-    }
-
-    set Id(id: Guid){
+    set Id(id: string){
         this._id = id;
     }
 
     set cards(cards: Card[]){
         this._cards = cards;
+    }
+
+    // used when converting to and from json file (hopefully it will work with fake db)
+    toJSON(): IBoard {
+        return {
+            id: this._id,
+            cards: this._cards.map(card => card.toJSON()),
+        };
+    }
+
+    fromJSON(json: IBoard): Board {
+        const board = new Board(
+            json.id,
+            json.cards.map(card => new Card().fromJSON(card))
+        );
+        return board;
     }
 }

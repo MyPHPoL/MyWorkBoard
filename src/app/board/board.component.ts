@@ -1,21 +1,32 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, inject } from '@angular/core';
 import { Card } from '../card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
 import { Board } from '../board';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { BoardListService } from '../board-list.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
+
 export class BoardComponent {
   @Output() newItemEvent = new EventEmitter<number>();
-  @Input()
-  board: Board = new Board;
+  route: ActivatedRoute = inject(ActivatedRoute);
+  boardListService = inject(BoardListService);
+  board!: Board;
+  boardID = 'none';
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) {
+    this.boardID = this.route.snapshot.params['board.Id'];
+    console.log(this.boardID);
+    this.board = this.boardListService.getBoard(this.boardID);
+    //this.board = new Board().fromJSON(JSON.parse(JSON.stringify(data))); // wtf is this spaghetti
+    this.jsontest();
+  }
 
   drop(event: CdkDragDrop<Card[]>) {
     if (event.previousContainer === event.container) {
@@ -31,9 +42,6 @@ export class BoardComponent {
         event.currentIndex);
     }
   }
-
-
-
 
   // not in use anymore
   addCard() {
@@ -67,6 +75,10 @@ export class BoardComponent {
 
   deleteCard(index: number){
     this.board.deleteCard(index);
+  }
+
+  jsontest(){
+    console.log(JSON.stringify(this.board));
   }
   
 }

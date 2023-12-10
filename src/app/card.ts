@@ -1,13 +1,23 @@
 import { Guid } from "guid-typescript";
-import { Task } from './task';
+import { ITask, Task } from './task';
+
+// interface used when getting a json file
+export interface ICard{
+    id: string;
+    name: string;
+    taskList: ITask[];
+    priority: number;
+    color: string;
+}
+
 export class Card{
-    private _id: Guid;
+    private _id: string;
     private _name: string;
     private _taskList: Task[] = [];
     private _priority: number;
     private _color: string;
   
-    constructor(id: Guid = Guid.create(), name: string = 'New Card', priority: number  = 0 , color: string = '', taskList: Task[] = []){
+    constructor(id: string = Guid.create().toString(), name: string = 'New Card', priority: number  = 0 , color: string = '', taskList: Task[] = []){
       this._id = id;
       this._name = name;
       this._priority = priority;
@@ -25,7 +35,7 @@ export class Card{
     }
     
     //deprecated
-    editTask(id: Guid){
+    editTask(id: string){
         return this._taskList.find(t => t.Id === id);
     }
 
@@ -46,7 +56,7 @@ export class Card{
         return this._color;
     }
 
-    get Id(): Guid{
+    get Id(): string{
         return this._id;
     }
 
@@ -63,7 +73,29 @@ export class Card{
         this._color = color;
     }
 
-    set id(id: Guid){
+    set id(id: string){
         this.id = id;
+    }
+
+    // used when converting to and from json file (hopefully it will work with fake db)
+    toJSON(): ICard {
+        return {
+          id: this._id,
+          name: this._name,
+          taskList: this._taskList.map(task => task.toJSON()),
+          priority: this._priority,
+          color: this._color,
+        };
+    }
+    
+    fromJSON(json: ICard): Card {
+        const card = new Card(
+            json.id,
+            json.name,
+            json.priority,
+            json.color,
+            json.taskList.map(task => new Task().fromJSON(task))
+        );
+        return card;
     }
 }
