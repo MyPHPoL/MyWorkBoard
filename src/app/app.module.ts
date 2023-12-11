@@ -28,14 +28,14 @@ import { SetFilterComponent } from './set-filter/set-filter.component';
 import { TaskColorDirective } from './task-color.directive';
 import { TaskDetailsComponent } from './task-details/task-details.component'; 
 import { FilterPriorityPipe } from './filter-priority.pipe';
-import { BoardListComponent } from './board-list/board-list.component'; 
+import { SortTasksPipe } from './sort-tasks.pipe'; 
 
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: 'board-list', component: BoardListComponent},
-  {path: 'board/:board.Id', component: BoardComponent}
+  { path: 'home', component: HomeComponent, title: 'Home' },
+  { path: 'profile', component: ProfileComponent, title: 'Profile' },
+  { path: 'board/:board.Id', component: BoardComponent, title: 'Board' },
+  { path: '**', component: HomeComponent, title:'Home'}
 ];
 
 //google ways of resolving the problem of the page not reloading on same url navigation with different object id
@@ -72,7 +72,7 @@ export class MyStrategy extends RouteReuseStrategy {
     SetFilterComponent,
     TaskDetailsComponent,
     FilterPriorityPipe,
-    BoardListComponent
+    SortTasksPipe
   ],
   imports: [
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'}),
