@@ -4,9 +4,9 @@ import { Guid } from 'guid-typescript';
 export interface ITask{
     id: string;
     content: string;
-    creationDate: Date;
+    creationDate: Date | string;
     hasNotDue: boolean;
-    dueDate: Date;
+    dueDate: Date | string;
     desc: string;
     priority: number;
     isDone: boolean;
