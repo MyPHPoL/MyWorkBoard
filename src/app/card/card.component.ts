@@ -22,7 +22,7 @@ export class CardComponent {
   filterValue: number = 0;
   filter: boolean = false;
   filterDone: boolean = false;
-
+  sortType: number = 0;
   constructor(public dialog: MatDialog) {}
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -143,5 +143,15 @@ export class CardComponent {
     else{
       return 'black';
     }
+  }
+
+  // used to set the sort type
+  setSort(set: number): void {
+    this.sortType = set;
+  }
+
+  // used in order to reset sort after ngFor 
+  getLength(): number {
+    return this.card.taskList.length - 1;
   }
 }

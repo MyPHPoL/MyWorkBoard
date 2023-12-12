@@ -5,13 +5,13 @@
 .container button {
     margin-left: 5px;
 }
- 
+
 .card {
     font-size: 15px;
     padding: 10px;
-    width: 420px;
+    width: 440px;
     border: solid 1px #ccc;
-    min-height: 50px;
+    min-height: 60px;
     display: block;
     background: #fafafa;
     border-radius: 4px;
@@ -21,16 +21,16 @@
 
 .task-checkbox{
   
-    order: 2;
+    order: 3;
 }
 
 .edit-button {
    
-    order: 3;
+    order: 4;
 }
 .delete-button {
     
-    order: 4;
+    order: 5;
 }
 
 .task {
@@ -88,5 +88,3 @@
     width: 24px;
     height: 24px;
   }
-
-  
