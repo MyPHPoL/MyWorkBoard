@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Board, IBoard } from './board';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; // only needed when using db.json
+import { Observable, of } from 'rxjs'; // only needed when using db.json
+import { catchError } from 'rxjs/operators'; // only needed when using db.json
 
 @Injectable({
   providedIn: 'root'
@@ -110,4 +113,36 @@ export class BoardListService {
   addBoard(board: Board) {
     this.boardList.push(board)
   }
+
+  /* THIS \/\/ could be used with working HTTP requests, but since we don't have a working backend this won't be utilized at the moment
+  getBoards(): Observable<Board[]> {
+    return this.http.get<IBoard[]>(this.url) 
+      .pipe(
+          map((boards: IBoard[])=> 
+              boards.map(board=> 
+                  new Board().fromJSON(board))
+      ),  
+      catchError(this.handleError<Board[]>('getBoards', [])) );    
+  }
+
+  getBoard(id: string): Observable<Board> {
+    return this.http.get<IBoard>(`${this.url}/${id}`)
+      .pipe(
+        map((board: IBoard) => new Board().fromJSON(board)),
+        catchError(this.handleError<Board>(`getBoard id=${id}`))
+      );
+  }
+
+  addBoard(board: Board) {
+    this.boardList.push(board)
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(operation + ' failed' + error);
+      return of(result as T);
+    };
+  }
+  it needs to be pointed that this function works, but since we don't have POST nor PATCH boards won't update
+  (which is crucial for the presentation) */
 }

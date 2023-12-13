@@ -40,23 +40,24 @@ export class CardComponent {
     }
   }
  
-  onSubmit(newTaskForm: NgForm) {
+  onSubmit(newTaskForm: NgForm): void {
     this.card.addTask(newTaskForm.value.newTask, this.card.priority);
     newTaskForm.reset();
   }
 
-  deleteCard(value: number) {
-    console.log(value);
-    this.newItemEvent.emit(value);
+  deleteCard(value: number): void {
+    if(confirm("Are you sure you want to delete this card?")) {
+      this.newItemEvent.emit(value);
+    }
   }
 
   // for test purposes () -- deprecated
-  clickTest(task: Task) {
+  clickTest(task: Task): void {
     console.log(task);
   }
 
   // filter off button
-  filterOff(){
+  filterOff(): void{
     this.filter=false;
     this.filterDone=false;
   }
@@ -153,5 +154,11 @@ export class CardComponent {
   // used in order to reset sort after ngFor 
   getLength(): number {
     return this.card.taskList.length - 1;
+  }
+
+  deleteTask(i: number): void {
+    if(confirm("Are you sure you want to delete this task?")) {
+      this.card.deleteTask(i);
+    }
   }
 }
