@@ -9,7 +9,8 @@ import { Board } from '../board';
 })
 export class HeaderComponent implements OnInit{
   boards: Board[] = [];
-  boardsService: BoardListService = inject(BoardListService); 
+  boardsService: BoardListService = inject(BoardListService);
+  test: any; 
 
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
@@ -18,6 +19,13 @@ export class HeaderComponent implements OnInit{
   constructor(private renderer: Renderer2, private elRef: ElementRef){
     this.renderer.addClass(document.body, 'blue');
     this.boards = this.boardsService.getBoards();
+
+    /* THIS \/\/ could be used with working HTTP requests, but since we don't have a working backend this won't be utilized at the moment
+    this.boardsService.getBoards().subscribe(boards => this.boards = boards);
+    it needs to be pointed that this function works, but since we don't have POST nor PATCH boards won't update
+    (which is crucial for the presentation) */
+    
+    this.test =  this.boardsService.getBoards();
   }
 
   ngOnInit(): void {}

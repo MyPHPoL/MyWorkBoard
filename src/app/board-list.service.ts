@@ -110,4 +110,35 @@ export class BoardListService {
   addBoard(board: Board) {
     this.boardList.push(board)
   }
+
+  /*
+  getBoards(): Observable<Board[]> {
+    return this.http.get<IBoard[]>(this.url) 
+      .pipe(
+          map((boards: IBoard[])=> 
+              boards.map(board=> 
+                  new Board().fromJSON(board))
+      ),  
+      catchError(this.handleError<Board[]>('getBoards', [])) );    
+  }
+
+  getBoard(id: string): Observable<Board> {
+    return this.http.get<IBoard>(`${this.url}/${id}`)
+      .pipe(
+        map((board: IBoard) => new Board().fromJSON(board)),
+        catchError(this.handleError<Board>(`getBoard id=${id}`))
+      );
+  }
+
+  addBoard(board: Board) {
+    this.boardList.push(board)
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(operation + ' failed' + error);
+      return of(result as T);
+    };
+  }
+  */
 }

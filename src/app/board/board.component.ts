@@ -22,10 +22,13 @@ export class BoardComponent {
 
   constructor(public dialog: MatDialog) {
     this.boardID = this.route.snapshot.params['board.Id'];
-    console.log(this.boardID);
+
+    /* THIS \/\/ could be used with working HTTP requests, but since we don't have a working backend this won't be utilized at the moment
+    this.boardListService.getBoard(this.boardID).subscribe(board => this.board = board);
+    it needs to be pointed that this function works, but since we don't have POST nor PATCH boards won't update
+    (which is crucial for the presentation) */
+
     this.board = this.boardListService.getBoard(this.boardID);
-    //this.board = new Board().fromJSON(JSON.parse(JSON.stringify(data))); // wtf is this spaghetti
-    this.jsontest();
   }
 
   drop(event: CdkDragDrop<Card[]>) {

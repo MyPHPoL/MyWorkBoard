@@ -1,5 +1,5 @@
 <div class="container">
-    <div cdkDropList class="card" [cdkDropListData]="card.taskList" (cdkDropListDropped)="drop($event)" style="background-color: {{card.color}}" cdkDrag>
+    <div cdkDropList class="card" [cdkDropListData]="card.taskList" (cdkDropListDropped)="drop($event)" bgColor={{card.color}} cdkDrag>
         <div class="handle" cdkDragHandle>
             <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
               <path d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2l-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"></path>
@@ -10,7 +10,7 @@
             <div class="task-text" style="margin: 5px; font-weight: bold; font-size: 20px; margin-right: auto;">{{card.name | uppercase}}</div> 
             <div class="dropstart">
                 <button mat-icon-button class="material-icons" href="#" role="button" data-bs-toggle="dropdown" style="text-decoration: none">sort</button>
-                <ul class="dropdown-menu" style="background-color: {{card.color}}">
+                <ul class="dropdown-menu" bgColor={{card.color}}>
                     <li><a class="dropdown-item" style="cursor: pointer;" (click)="setSort(1)"><div class="material-icons" style="font-size:medium;">arrow_upward</div> Name</a></li>
                     <li><a class="dropdown-item" style="cursor: pointer;" (click)="setSort(2)"><div class="material-icons" style="font-size:medium;">arrow_downward</div> Name</a></li>
                     <li><a class="dropdown-item" style="cursor: pointer;" (click)="setSort(4)"><div class="material-icons" style="font-size:medium;">arrow_upward</div> Priority</a></li>
@@ -31,7 +31,7 @@
                         <div class="task-text" (click)="openDialog('taskDetails', i)" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
                         <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
                         <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog('editTask', i)">edit</button></div> 
-                        <div class="delete-button"><button mat-icon-button class="material-icons" (click)="card.deleteTask(i)">delete</button></div>
+                        <div class="delete-button"><button mat-icon-button class="material-icons" (click)="deleteTask(i)">delete</button></div>
                     </div>
             </mat-card-content>
         </mat-card>

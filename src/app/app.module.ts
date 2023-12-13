@@ -28,7 +28,9 @@ import { SetFilterComponent } from './set-filter/set-filter.component';
 import { TaskColorDirective } from './task-color.directive';
 import { TaskDetailsComponent } from './task-details/task-details.component'; 
 import { FilterPriorityPipe } from './filter-priority.pipe';
-import { SortTasksPipe } from './sort-tasks.pipe'; 
+import { SortTasksPipe } from './sort-tasks.pipe';
+import { BgcolorDirective } from './bgcolor.directive'; 
+import { HttpClientModule } from '@angular/common/http';
 
 
 const routes: Routes = [
@@ -72,7 +74,7 @@ export class MyStrategy extends RouteReuseStrategy {
     SetFilterComponent,
     TaskDetailsComponent,
     FilterPriorityPipe,
-    SortTasksPipe
+    SortTasksPipe,
   ],
   imports: [
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'}),
@@ -91,7 +93,9 @@ export class MyStrategy extends RouteReuseStrategy {
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    TaskColorDirective
+    TaskColorDirective,
+    BgcolorDirective,
+    HttpClientModule
   ],
   bootstrap: [AppComponent],
   providers: [{provide: RouteReuseStrategy, useClass: MyStrategy}]
