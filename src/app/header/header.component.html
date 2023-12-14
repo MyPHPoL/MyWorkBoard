@@ -15,7 +15,7 @@
                     <div *ngFor="let board of boards ">
                     <li>
                     <a class="dropdown-item" [routerLink]="['/board', board.Id]" style=" float:left;">{{ board.name }}</a>
-                        <button mat-icon-button class="material-icons" style="push-right" (click)="openDialog('editBoard', board.Id)">edit</button> 
+                        <button mat-icon-button class="material-icons" style="" (click)="openDialog('editBoard', board.Id)">edit</button> 
                         <button mat-icon-button class="material-icons" style="position:absolute; right:0;" (click)="deleteBoard(board.Id)">delete</button>
                     
                     </li>
