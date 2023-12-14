@@ -1,0 +1,14 @@
+<form #f="ngForm" class="formik">
+    <h1 mat-dialog-title> Board Creator</h1>
+    <div mat-dialog-content>
+        <mat-label>Board Name*</mat-label><br>
+        <mat-form-field>
+            <input name="name" matInput placeholder="New Board" [(ngModel)]="data.name" required maxlength="20">
+        </mat-form-field>
+        </div>
+    <div mat-dialog-actions >
+        <button mat-raised-button color="primary" *ngIf="!f.valid" disabled style="margin-left: 37px;">Accept</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="data" *ngIf="f.valid" style="margin-left: 37px;">Accept</button>
+        <button (click)="closeWindow()" mat-raised-button color="warn">Close</button>
+    </div>
+</form>

@@ -13,13 +13,20 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
                     <div *ngFor="let board of boards ">
-                    <li><a class="dropdown-item" [routerLink]="['/board', board.Id]">{{ board.Id }}</a></li>
+                    <li>
+                    <a class="dropdown-item" [routerLink]="['/board', board.Id]" style=" float:left;">{{ board.name }}</a>
+                        <button mat-icon-button class="material-icons" style="push-right" (click)="openDialog('editBoard', board.Id)">edit</button> 
+                        <button mat-icon-button class="material-icons" style="position:absolute; right:0;" (click)="deleteBoard(board.Id)">delete</button>
+                    
+                    </li>
+                    
                 </div>
+                
                 </ul>
             </li>
         </ul>
     </div>
-    <a class="nav-link" role="button" (click)="ChangeTheme('blue')">tmp</a> <!-- addBoard(), needs changes to open a form-->
+    <a class="nav-link" role="button" (click)="openDialog('addBoard','0')">Add board</a> <!-- needs changes-->
     <ul class="navbar-nav me-auto" style="padding-right: 6px ;">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
