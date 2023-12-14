@@ -5,15 +5,18 @@ import { Card, ICard } from './card';
 export interface IBoard {
     id: string;
     cards: ICard[];
+    name: string;
   }
 
 export class Board{
     private _id: string;
     private _cards: Card[];
+    private _name: string;
 
-    constructor(id : string = Guid.create().toString(), cards: Card[] = []){
+    constructor(id : string = Guid.create().toString(), cards: Card[] = [], name: string = "newBoard"){
         this._id = id;
         this._cards = cards;
+        this._name = name;
     }
 
     addCard(card: Card): void{
@@ -33,6 +36,10 @@ export class Board{
         return this._id;
     }
 
+    get name(): string{
+        return this._name;
+    }
+
     set Id(id: string){
         this._id = id;
     }
@@ -41,18 +48,25 @@ export class Board{
         this._cards = cards;
     }
 
+    set name(name: string){
+        this._name = name;
+    }
+    
+
     // used when converting to and from json file (hopefully it will work with fake db)
     toJSON(): IBoard {
         return {
             id: this._id,
             cards: this._cards.map(card => card.toJSON()),
+            name: this._name
         };
     }
 
     fromJSON(json: IBoard): Board {
         const board = new Board(
             json.id,
-            json.cards.map(card => new Card().fromJSON(card))
+            json.cards.map(card => new Card().fromJSON(card)),
+            json.name
         );
         return board;
     }

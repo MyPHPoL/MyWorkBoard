@@ -31,6 +31,7 @@ import { FilterPriorityPipe } from './filter-priority.pipe';
 import { SortTasksPipe } from './sort-tasks.pipe';
 import { BgcolorDirective } from './bgcolor.directive'; 
 import { HttpClientModule } from '@angular/common/http';
+import { NewBoardComponent } from './new-board/new-board.component';
 
 
 const routes: Routes = [
@@ -75,6 +76,7 @@ export class MyStrategy extends RouteReuseStrategy {
     TaskDetailsComponent,
     FilterPriorityPipe,
     SortTasksPipe,
+    NewBoardComponent,
   ],
   imports: [
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'}),
