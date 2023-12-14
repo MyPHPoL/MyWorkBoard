@@ -1,84 +1,162 @@
 {
-    "boards": [
+  "boards": [
+    {
+      "id": "8cf829a6-d66f-0983-3c06-08c1581b93c8",
+      "cards": [
         {
-            "id": "8001fe3b-8ad2-e459-ba1c-cd43e12cbe43",
-            "cards": [
-              {
-                "id": "505001fe-14b2-5543-ef26-2a81c94bffbb",
-                "name": "Board Card 1",
-                "taskList": [
-                  {
-                    "id": "7b55389a-3544-ee53-af7b-807ecf6ac653",
-                    "content": "Task1",
-                    "creationDate": "2023-12-10T14:24:38.907Z",
-                    "hasNotDue": true,
-                    "dueDate": "2023-12-10T14:24:38.907Z",
-                    "desc": "Task1desc",
-                    "priority": 3,
-                    "isDone": false
-                  },
-                  {
-                    "id": "d36e2138-fb35-7885-2664-ff254e5c0e9b",
-                    "content": "Task2",
-                    "creationDate": "2023-12-10T14:24:38.907Z",
-                    "hasNotDue": true,
-                    "dueDate": "2023-12-10T14:24:38.907Z",
-                    "desc": "Task2desc",
-                    "priority": 3,
-                    "isDone": false
-                  }
-                ],
-                "priority": 3,
-                "color": "#e5e7e9"
-              },
-              {
-                "id": "72656ea9-3bfd-be63-8577-8be54ba2c52b",
-                "name": "Board Card 2",
-                "taskList": [],
-                "priority": 5,
-                "color": "#fcf3cf"
-              }
-            ]
-          },
-          {
-            "id": "c55facc2-b7fd-a3ae-c1cb-b707a913da85",
-            "cards": [
-              {
-                "id": "8b290004-a550-466b-05aa-e33cb21197c5",
-                "name": "Other Board Card 1",
-                "taskList": [
-                  {
-                    "id": "803f3ed5-ef41-384c-3588-1a5a90114532",
-                    "content": "Task1",
-                    "creationDate": "2023-12-10T14:24:38.907Z",
-                    "hasNotDue": true,
-                    "dueDate": "2023-12-10T14:24:38.907Z",
-                    "desc": "Task1desc",
-                    "priority": 3,
-                    "isDone": false
-                  },
-                  {
-                    "id": "821ce5da-67e0-8725-c759-c6389aa1305e",
-                    "content": "Task2",
-                    "creationDate": "2023-12-10T14:24:38.907Z",
-                    "hasNotDue": true,
-                    "dueDate": "2023-12-10T14:24:38.907Z",
-                    "desc": "Task2desc",
-                    "priority": 3,
-                    "isDone": false
-                  }
-                ],
-                "priority": 3,
-                "color": "#c0392b"
-              },
-              {
-                "id": "8fa15957-9100-39b5-86f8-4f8b9176218d",
-                "name": "Other Board Card 2",
-                "taskList": [],
-                "priority": 5,
-                "color": "#85c1e9"
-              }
-            ]
-          }
-    ]
+          "id": "f49f523c-890f-fbbd-bf93-bd9c07c10dbc",
+          "name": "Todo",
+          "taskList": [
+            {
+              "id": "f0f749eb-9e89-2acf-5edb-9b310215135c",
+              "content": "opakowac w foldery",
+              "creationDate": "2023-12-14T19:20:45.077Z",
+              "hasNotDue": false,
+              "dueDate": "2023-12-14T23:00:00.000Z",
+              "desc": "trzeba opakowac pliki w foldery okok?",
+              "priority": 5,
+              "isDone": false
+            }
+          ],
+          "priority": 2,
+          "color": "#fcf3cf"
+        },
+        {
+          "id": "63520fd0-e6a0-ae09-a72d-98bdd12c0d7b",
+          "name": "Jest Robione",
+          "taskList": [
+            {
+              "id": "e14e1a20-0bc6-c69d-efa6-51391efa9166",
+              "content": "bajery estetyczne",
+              "creationDate": "2023-12-14T19:14:05.462Z",
+              "hasNotDue": false,
+              "dueDate": "2023-12-15T23:00:00.000Z",
+              "desc": "",
+              "priority": 3,
+              "isDone": false
+            },
+            {
+              "id": "33178054-86ed-b8e0-88ce-98e4150be4a3",
+              "content": "baza danych",
+              "creationDate": "2023-12-14T19:14:11.343Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:14:11.343Z",
+              "desc": "",
+              "priority": 3,
+              "isDone": true
+            }
+          ],
+          "priority": 3,
+          "color": "#82e0aa"
+        },
+        {
+          "id": "93e3d587-b746-9812-8e54-a2695d05f998",
+          "name": "trzeba poprawić css",
+          "taskList": [
+            {
+              "id": "eb7d50a6-0b7d-b636-07bc-cbf671ece67b",
+              "content": "navbar+side",
+              "creationDate": "2023-12-14T19:14:40.735Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:14:40.735Z",
+              "desc": "",
+              "priority": 1,
+              "isDone": false
+            },
+            {
+              "id": "e78b7af9-5de9-9485-ee5e-46cea3b34052",
+              "content": "buttony",
+              "creationDate": "2023-12-14T19:14:58.394Z",
+              "hasNotDue": false,
+              "dueDate": "2023-12-14T19:14:58.394Z",
+              "desc": "edit + delete",
+              "priority": 1,
+              "isDone": false
+            },
+            {
+              "id": "128148a9-d7ed-c52e-ebe7-524c7117bfef",
+              "content": "conf dialogi",
+              "creationDate": "2023-12-14T19:15:28.331Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:15:28.331Z",
+              "desc": "confirmation dialogi na usuwanie",
+              "priority": 1,
+              "isDone": true
+            }
+          ],
+          "priority": 1,
+          "color": "#e5e7e9"
+        },
+        {
+          "id": "fbd1cbca-758f-64d9-7ebb-6eb1c2a866ac",
+          "name": "Jest już gitek",
+          "taskList": [
+            {
+              "id": "0047aed5-7226-40f7-56f8-9d7eea1b5c12",
+              "content": "przesuwanie kart",
+              "creationDate": "2023-12-14T19:16:21.664Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:16:21.664Z",
+              "desc": "",
+              "priority": 4,
+              "isDone": true
+            },
+            {
+              "id": "312691f3-146b-7350-7eff-19b5f29fefdf",
+              "content": "dodawanie kart",
+              "creationDate": "2023-12-14T19:16:29.156Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:16:29.156Z",
+              "desc": "",
+              "priority": 4,
+              "isDone": true
+            },
+            {
+              "id": "52e41461-880e-af0a-3c6f-2f0d999e8433",
+              "content": "usuwanie taskow",
+              "creationDate": "2023-12-14T19:16:36.802Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:16:36.802Z",
+              "desc": "",
+              "priority": 4,
+              "isDone": true
+            },
+            {
+              "id": "addd1a60-4f13-ad9c-5982-ed75e6f69143",
+              "content": "edytowanie kart",
+              "creationDate": "2023-12-14T19:16:43.732Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:16:43.732Z",
+              "desc": "",
+              "priority": 4,
+              "isDone": true
+            },
+            {
+              "id": "c2a61d6b-4726-e794-e998-d9ca8cee35eb",
+              "content": "sortowanie taskow",
+              "creationDate": "2023-12-14T19:16:54.007Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:16:54.007Z",
+              "desc": "w karcie",
+              "priority": 4,
+              "isDone": true
+            },
+            {
+              "id": "a788ea15-2c56-9741-dfbf-5a7a9e807d12",
+              "content": "filtrowanie kart",
+              "creationDate": "2023-12-14T19:17:15.614Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:17:15.614Z",
+              "desc": "",
+              "priority": 4,
+              "isDone": false
+            }
+          ],
+          "priority": 4,
+          "color": "#85c1e9"
+        }
+      ],
+      "name": "Projekt Angular"
+    }
+  ]
 }

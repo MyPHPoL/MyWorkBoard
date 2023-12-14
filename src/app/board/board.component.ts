@@ -17,18 +17,12 @@ export class BoardComponent {
   @Output() newItemEvent = new EventEmitter<number>();
   route: ActivatedRoute = inject(ActivatedRoute);
   boardListService = inject(BoardListService);
-  board!: Board;
+  board: Board = new Board();
   boardID = 'none';
 
   constructor(public dialog: MatDialog) {
     this.boardID = this.route.snapshot.params['board.Id'];
-
-    /* THIS \/\/ could be used with working HTTP requests, but since we don't have a working backend this won't be utilized at the moment
     this.boardListService.getBoard(this.boardID).subscribe(board => this.board = board);
-    it needs to be pointed that this function works, but since we don't have POST nor PATCH boards won't update
-    (which is crucial for the presentation) */
-
-    this.board = this.boardListService.getBoard(this.boardID);
   }
 
   drop(event: CdkDragDrop<Card[]>) {
@@ -37,12 +31,14 @@ export class BoardComponent {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+        this.updateBoard();
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+        this.updateBoard();
     }
   }
 
@@ -72,6 +68,7 @@ export class BoardComponent {
         console.log(result.name, result.priority, result.color);
         var newCard = new Card(undefined, result.name, result.priority, result.color);
         this.board.addCard(newCard);
+        this.boardListService.updateBoard(this.boardID, this.board).subscribe();
       }
     });
   }
@@ -83,5 +80,8 @@ export class BoardComponent {
   jsontest(){
     console.log(JSON.stringify(this.board));
   }
-  
+
+  updateBoard(){
+    this.boardListService.updateBoard(this.boardID, this.board).subscribe();
+  }
 }

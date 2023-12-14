@@ -18,11 +18,13 @@ import { TaskDetailsComponent } from '../task-details/task-details.component';
 export class CardComponent {
   @Input() card!: Card;
   @Input() item!: number;
-  @Output() newItemEvent = new EventEmitter<number>();
+  @Output() newItemEvent = new EventEmitter<number>(); // for deleting card
+  @Output() newItemEvent2 = new EventEmitter<number>(); // for updating db.json
   filterValue: number = 0;
   filter: boolean = false;
   filterDone: boolean = false;
   sortType: number = 0;
+  boardListService: any;
   constructor(public dialog: MatDialog) {}
 
   drop(event: CdkDragDrop<Task[]>) {
@@ -31,17 +33,20 @@ export class CardComponent {
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+        this.newItemEvent2.emit();
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
+        this.newItemEvent2.emit();
     }
   }
  
   onSubmit(newTaskForm: NgForm): void {
     this.card.addTask(newTaskForm.value.newTask, this.card.priority);
+    this.newItemEvent2.emit();
     newTaskForm.reset();
   }
 
@@ -83,6 +88,7 @@ export class CardComponent {
           this.card.name = result.name;
           this.card.priority = result.priority;
           this.card.color = result.color;
+          this.newItemEvent2.emit();
         }
       });
     }
@@ -97,6 +103,7 @@ export class CardComponent {
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
           this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, result.desc , result.priority, result.isDone);
+          this.newItemEvent2.emit();
         }
       });
     }
@@ -159,6 +166,7 @@ export class CardComponent {
   deleteTask(i: number): void {
     if(confirm("Are you sure you want to delete this task?")) {
       this.card.deleteTask(i);
+      this.newItemEvent2.emit();
     }
   }
 }
