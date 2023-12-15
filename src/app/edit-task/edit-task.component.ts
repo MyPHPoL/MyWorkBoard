@@ -11,11 +11,11 @@ export class EditTaskComponent {
 
   today: Date = new Date();
   sol: boolean;
-  constructor(private ref:MatDialogRef<EditTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: Task){
+  constructor(private ref: MatDialogRef<EditTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: Task) {
     this.sol = data.hasNotDue;
   }
 
-  closeWindow(){
+  closeWindow() {
     this.ref.close();
   }
 

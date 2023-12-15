@@ -7,8 +7,8 @@ import { Directive, ElementRef, Input, OnChanges, SimpleChanges } from '@angular
 export class BgcolorDirective implements OnChanges {
   @Input() bgColor = '';
 
-  constructor(private el: ElementRef) {}
-  
+  constructor(private el: ElementRef) { }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['bgColor']) {
       const newColor = changes['bgColor'].currentValue;

@@ -14,13 +14,13 @@ export class BoardListService {
   constructor(private http: HttpClient) { } // only needed when using db.json
 
   getBoards(): Observable<Board[]> {
-    return this.http.get<IBoard[]>(this.url) 
+    return this.http.get<IBoard[]>(this.url)
       .pipe(
-          map((boards: IBoard[])=> 
-              boards.map(board=> 
-                  new Board().fromJSON(board))
-      ),  
-      catchError(this.handleError<Board[]>('getBoards', [])) );    
+        map((boards: IBoard[]) =>
+          boards.map(board =>
+            new Board().fromJSON(board))
+        ),
+        catchError(this.handleError<Board[]>('getBoards', [])));
   }
 
   getBoard(id: string): Observable<Board> {

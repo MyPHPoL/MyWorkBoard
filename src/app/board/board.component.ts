@@ -42,13 +42,6 @@ export class BoardComponent {
     }
   }
 
-  // not in use anymore
-  addCard() {
-    var newCard = new Card(undefined, 'My Card', 0, '#e5e7e9');
-    this.board.addCard(newCard);
-    console.log('Card added:', newCard);
-  }
-
   // popup modal dialog
   openDialog() : void {
     let dialogRef = null;

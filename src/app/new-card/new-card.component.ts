@@ -9,9 +9,9 @@ import { Card } from '../card';
 })
 export class NewCardComponent {
 
-  constructor(private ref:MatDialogRef<NewCardComponent>, @Inject(MAT_DIALOG_DATA) public data: Card){}
+  constructor(private ref: MatDialogRef<NewCardComponent>, @Inject(MAT_DIALOG_DATA) public data: Card) { }
 
-  closeWindow(){
+  closeWindow() {
     this.ref.close();
   }
 }

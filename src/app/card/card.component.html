@@ -7,14 +7,14 @@
             </svg>
         </div>
         <div class="task">
-            <div class="task-text" style="margin: 5px; font-weight: bold; font-size: 20px; margin-right: auto;">{{card.name | uppercase}}</div> 
+            <div class="task-text card-name">{{card.name | uppercase}}</div> 
             <div class="dropstart">
                 <button mat-icon-button class="material-icons" href="#" role="button" data-bs-toggle="dropdown" style="text-decoration: none">sort</button>
                 <ul class="dropdown-menu" bgColor={{card.color}}>
-                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="setSort(1)"><div class="material-icons" style="font-size:medium;">arrow_upward</div> Name</a></li>
-                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="setSort(2)"><div class="material-icons" style="font-size:medium;">arrow_downward</div> Name</a></li>
-                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="setSort(4)"><div class="material-icons" style="font-size:medium;">arrow_upward</div> Priority</a></li>
-                    <li><a class="dropdown-item" style="cursor: pointer;" (click)="setSort(3)"><div class="material-icons" style="font-size:medium;">arrow_downward</div> Priority</a></li>
+                    <li><a class="dropdown-item" (click)="setSort(1)"><div class="material-icons">arrow_upward</div> Name</a></li>
+                    <li><a class="dropdown-item" (click)="setSort(2)"><div class="material-icons">arrow_downward</div> Name</a></li>
+                    <li><a class="dropdown-item" (click)="setSort(4)"><div class="material-icons">arrow_upward</div> Priority</a></li>
+                    <li><a class="dropdown-item" (click)="setSort(3)"><div class="material-icons">arrow_downward</div> Priority</a></li>
                 </ul>
             </div>
             <div class="filter-button" *ngIf="filter || filterDone"><button mat-icon-button class="material-icons" (click)="filterOff()">filter_alt_off</button></div>
@@ -27,7 +27,7 @@
         <p style="margin: 5px;" *ngIf="filter">Current filter: {{filterValue}}</p>
         <mat-card class="card-item" *ngFor="let task of card.taskList | filterPriority:filterValue:filter:filterDone | sortTasks: sortType, index as i ;" cdkDrag>{{i==getLength() ? setSort(0) : ''}}
             <mat-card-content>
-                    <div  class="task resultContainer" (click)="clickTest(task)">
+                    <div  class="task resultContainer">
                         <div class="task-text" (click)="openDialog('taskDetails', i)" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
                         <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
                         <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog('editTask', i)">edit</button></div> 

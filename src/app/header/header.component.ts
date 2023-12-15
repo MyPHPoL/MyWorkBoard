@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit {
       this.boardsService.getBoard(id).subscribe(board => {
         eBoard = board;
 
-        dialogConfig.data = { name: eBoard.name }; // data we give to the dialog window
+        dialogConfig.data = { name: eBoard.name };
 
         dialogRef = this.dialog.open(NewBoardComponent, dialogConfig); // opens dialog window
 
@@ -61,7 +61,7 @@ export class HeaderComponent implements OnInit {
         });
       });
     } else if (opt === 'addBoard') {
-      dialogRef = this.dialog.open(NewBoardComponent, dialogConfig); // opens dialog window
+      dialogRef = this.dialog.open(NewBoardComponent, dialogConfig);
 
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {

@@ -53,7 +53,7 @@ export class Board{
     }
     
 
-    // used when converting to and from json file (hopefully it will work with fake db)
+    // used when converting to and from json file 
     toJSON(): IBoard {
         return {
             id: this._id,
