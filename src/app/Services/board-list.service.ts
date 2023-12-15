@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Board, IBoard } from './board';
+import { Board, IBoard } from '../board';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; // only needed when using db.json
 import { Observable, of } from 'rxjs'; // only needed when using db.json
 import { catchError, map } from 'rxjs/operators'; // only needed when using db.json

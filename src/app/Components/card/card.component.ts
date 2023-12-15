@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgForm } from '@angular/forms';
-import { Card } from '../card';
-import { Task } from '../task';
+import { Card } from '../../card';
+import { Task } from '../../task';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';

@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild, ViewEncapsulation, inject } from '@angular/core';
-import { BoardListService } from '../board-list.service';
-import { Board } from '../board';
+import { BoardListService } from '../../Services/board-list.service';
+import { Board } from '../../board';
 import { NewBoardComponent } from '../new-board/new-board.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 

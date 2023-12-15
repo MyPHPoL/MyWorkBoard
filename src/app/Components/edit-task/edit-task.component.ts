@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Task } from '../task';
+import { Task } from '../../task';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({

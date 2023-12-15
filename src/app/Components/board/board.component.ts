@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output, OnInit, inject } from '@angular/core';
-import { Card } from '../card';
+import { Card } from '../../card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
-import { Board } from '../board';
+import { Board } from '../../board';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { BoardListService } from '../board-list.service';
+import { BoardListService } from '../../Services/board-list.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

@@ -26,7 +26,7 @@ nav {
 }
 
 .myphpol {
-    background-image: url('../../assets/images/myphpol.png');
+    background-image: url('../../../assets/images/myphpol.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
