@@ -1,0 +1,44 @@
+nav {
+    height: 100%;
+}
+
+.side-nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.side-nav-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 30%;
+}
+
+.pink {
+    background: rgb(238, 174, 202);
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+}
+
+.blue {
+    background: rgb(2, 0, 36);
+    background: radial-gradient(circle, rgba(2, 0, 36, 1) 15%, rgba(3, 1, 47, 1) 21%, rgba(9, 9, 121, 1) 59%, rgba(0, 212, 255, 1) 85%);
+}
+
+.myphpol {
+    background-image: url('../../../assets/images/myphpol.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: contain;
+}
+
+.board-name {
+    border-radius: 8px;
+    padding-left: 15px;
+    padding-top: 15px;
+}
+
+.board-list-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}

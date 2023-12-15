@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { Task } from '../task';
+import { Task } from '../../task';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -11,11 +11,11 @@ export class EditTaskComponent {
 
   today: Date = new Date();
   sol: boolean;
-  constructor(private ref:MatDialogRef<EditTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: Task){
+  constructor(private ref: MatDialogRef<EditTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: Task) {
     this.sol = data.hasNotDue;
   }
 
-  closeWindow(){
+  closeWindow() {
     this.ref.close();
   }
 

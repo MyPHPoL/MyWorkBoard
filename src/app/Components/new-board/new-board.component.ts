@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Board } from '../board';
+import { Board } from '../../board';
 
 @Component({
   selector: 'app-new-board',
@@ -8,9 +8,9 @@ import { Board } from '../board';
   styleUrls: ['./new-board.component.css']
 })
 export class NewBoardComponent {
-  constructor(private ref:MatDialogRef<NewBoardComponent>, @Inject(MAT_DIALOG_DATA) public data: Board){}
+  constructor(private ref: MatDialogRef<NewBoardComponent>, @Inject(MAT_DIALOG_DATA) public data: Board) { }
 
-  closeWindow(){
+  closeWindow() {
     this.ref.close();
   }
 }

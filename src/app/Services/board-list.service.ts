@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Board, IBoard } from './board';
+import { Board, IBoard } from '../board';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; // only needed when using db.json
 import { Observable, of } from 'rxjs'; // only needed when using db.json
 import { catchError, map } from 'rxjs/operators'; // only needed when using db.json
@@ -14,13 +14,13 @@ export class BoardListService {
   constructor(private http: HttpClient) { } // only needed when using db.json
 
   getBoards(): Observable<Board[]> {
-    return this.http.get<IBoard[]>(this.url) 
+    return this.http.get<IBoard[]>(this.url)
       .pipe(
-          map((boards: IBoard[])=> 
-              boards.map(board=> 
-                  new Board().fromJSON(board))
-      ),  
-      catchError(this.handleError<Board[]>('getBoards', [])) );    
+        map((boards: IBoard[]) =>
+          boards.map(board =>
+            new Board().fromJSON(board))
+        ),
+        catchError(this.handleError<Board[]>('getBoards', [])));
   }
 
   getBoard(id: string): Observable<Board> {

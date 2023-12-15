@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgForm } from '@angular/forms';
-import { Card } from '../card';
-import { Task } from '../task';
+import { Card } from '../../card';
+import { Task } from '../../task';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
 import { EditTaskComponent } from '../edit-task/edit-task.component';
@@ -56,11 +56,6 @@ export class CardComponent {
     }
   }
 
-  // for test purposes () -- deprecated
-  clickTest(task: Task): void {
-    console.log(task);
-  }
-
   // filter off button
   filterOff(): void{
     this.filter=false;
@@ -95,7 +90,7 @@ export class CardComponent {
     if(opt === 'editTask') //edit task
     {
       dialogConfig.width='405px';
-      dialogConfig.height='740px'; // below data injection might need improvement
+      dialogConfig.height='740px';
       dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc}; 
   
       dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
@@ -130,7 +125,7 @@ export class CardComponent {
       dialogConfig.height= 'auto';
       dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc, creationDate: this.card.taskList[i].creationDate}; 
 
-      dialogRef = this.dialog.open(TaskDetailsComponent,dialogConfig); // opens dialog window
+      dialogRef = this.dialog.open(TaskDetailsComponent,dialogConfig); 
     }
   }
 

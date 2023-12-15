@@ -157,6 +157,19 @@
         }
       ],
       "name": "Projekt Angular"
+    },
+    {
+      "id": "9a03a089-f2b2-bd62-dae5-2e25ee92e079",
+      "cards": [
+        {
+          "id": "14403463-1370-eaf8-e7c0-f0f1d2e1f316",
+          "name": "dv",
+          "taskList": [],
+          "priority": 0,
+          "color": "#fcf3cf"
+        }
+      ],
+      "name": "test board"
     }
   ]
 }

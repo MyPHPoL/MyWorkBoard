@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output, OnInit, inject } from '@angular/core';
-import { Card } from '../card';
+import { Card } from '../../card';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewCardComponent } from '../new-card/new-card.component';
-import { Board } from '../board';
+import { Board } from '../../board';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { BoardListService } from '../board-list.service';
+import { BoardListService } from '../../Services/board-list.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -40,13 +40,6 @@ export class BoardComponent {
         event.currentIndex);
         this.updateBoard();
     }
-  }
-
-  // not in use anymore
-  addCard() {
-    var newCard = new Card(undefined, 'My Card', 0, '#e5e7e9');
-    this.board.addCard(newCard);
-    console.log('Card added:', newCard);
   }
 
   // popup modal dialog
