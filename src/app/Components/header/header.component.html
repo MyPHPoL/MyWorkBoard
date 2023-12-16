@@ -19,8 +19,10 @@
 
                             <button mat-icon-button class="material-icons board-list-button"
                                 (click)="openDialog('editBoard', board.Id)">edit</button>
-                            <button mat-icon-button class="material-icons board-list-button"
-                                (click)="deleteBoard(board.Id)">delete</button>
+                            <button mat-icon-button class="material-icons board-list-button" *ngIf="boardID == board.Id"
+                            (click)="deleteBoard(board.Id)" routerLink="/home" routerLinkActive="active">delete</button>
+                            <button mat-icon-button class="material-icons board-list-button" *ngIf="boardID != board.Id"
+                            (click)="deleteBoard(board.Id)" >delete</button>
 
                         </li>
                     </div>

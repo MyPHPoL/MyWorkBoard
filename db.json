@@ -153,22 +153,21 @@
           ],
           "priority": 4,
           "color": "#85c1e9"
-        }
-      ],
-      "name": "Projekt Angular"
-    },
-    {
-      "id": "9a03a089-f2b2-bd62-dae5-2e25ee92e079",
-      "cards": [
+        },
         {
-          "id": "14403463-1370-eaf8-e7c0-f0f1d2e1f316",
-          "name": "dv",
+          "id": "f0707967-86f4-60d5-41c6-0edd42d154f6",
+          "name": "wqwe",
           "taskList": [],
           "priority": 0,
           "color": "#fcf3cf"
         }
       ],
-      "name": "test board"
+      "name": "Projekt Angular"
+    },
+    {
+      "id": "ffa1521d-3f4a-3372-3098-863e27e4ffed",
+      "cards": [],
+      "name": "wsadzfgb"
     }
   ]
 }
