@@ -77,13 +77,12 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  test(value: string): boolean{
+  deleteHandler(value: string): void{
     if (this.router.url.slice(7) == value ) {
       this.deleteBoard(value);
-      return true;
+      this.router.navigate(['/home']);
     }else{
       this.deleteBoard(value);
-    return false;
     }
 
   }
@@ -91,15 +90,11 @@ export class HeaderComponent implements OnInit {
     if (confirm("Are you sure you want to delete this board?")) {
       this.boardsService.deleteBoard(value).subscribe(ret => this.boards.splice(this.boards.findIndex(b => b.Id == value), 1));
     }
-    console.log(this.boardID);
-      console.log(value);
   }
 
   ChangeTheme(opt: string): void {
     this.renderer.removeClass(document.body, this.currStyle);
     this.currStyle = opt;
     this.renderer.addClass(document.body, this.currStyle);
-    console.log(this.boardID)
-    console.log(this.router.url.slice(7));
   }
 }
