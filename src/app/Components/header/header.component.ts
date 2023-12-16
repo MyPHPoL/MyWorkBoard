@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  ChangeTheme(opt: string) {
+  ChangeTheme(opt: string): void {
     this.renderer.removeClass(document.body, this.currStyle);
     this.currStyle = opt;
     this.renderer.addClass(document.body, this.currStyle);
