@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
           console.log(result.name,);
-          var newBoard = new Board(undefined, undefined, result.name,);
+          var newBoard: Board = new Board(undefined, undefined, result.name,);
           this.boardsService.addBoard(newBoard).subscribe(ret => this.boards.push(newBoard));
         }
       });
