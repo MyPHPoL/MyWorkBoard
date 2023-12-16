@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Board, IBoard } from '../board';
-import { HttpClient, HttpHeaders } from '@angular/common/http'; // only needed when using db.json
-import { Observable, of } from 'rxjs'; // only needed when using db.json
-import { catchError, map } from 'rxjs/operators'; // only needed when using db.json
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +10,8 @@ import { catchError, map } from 'rxjs/operators'; // only needed when using db.j
 export class BoardListService {
 
   protected boardList: Board[] = [];
-  private url = 'http://localhost:3000/boards'; // only needed when using db.json
-  constructor(private http: HttpClient) { } // only needed when using db.json
+  private url = 'http://localhost:3000/boards';
+  constructor(private http: HttpClient) { }
 
   getBoards(): Observable<Board[]> {
     return this.http.get<IBoard[]>(this.url)

@@ -6,18 +6,7 @@
         {
           "id": "f49f523c-890f-fbbd-bf93-bd9c07c10dbc",
           "name": "Todo",
-          "taskList": [
-            {
-              "id": "f0f749eb-9e89-2acf-5edb-9b310215135c",
-              "content": "opakowac w foldery",
-              "creationDate": "2023-12-14T19:20:45.077Z",
-              "hasNotDue": false,
-              "dueDate": "2023-12-14T23:00:00.000Z",
-              "desc": "trzeba opakowac pliki w foldery okok?",
-              "priority": 5,
-              "isDone": false
-            }
-          ],
+          "taskList": [],
           "priority": 2,
           "color": "#fcf3cf"
         },
@@ -92,6 +81,16 @@
           "name": "Jest już gitek",
           "taskList": [
             {
+              "id": "f0f749eb-9e89-2acf-5edb-9b310215135c",
+              "content": "opakowac w foldery",
+              "creationDate": "2023-12-14T19:20:45.077Z",
+              "hasNotDue": false,
+              "dueDate": "2023-12-14T23:00:00.000Z",
+              "desc": "trzeba opakowac pliki w foldery okok?",
+              "priority": 5,
+              "isDone": false
+            },
+            {
               "id": "0047aed5-7226-40f7-56f8-9d7eea1b5c12",
               "content": "przesuwanie kart",
               "creationDate": "2023-12-14T19:16:21.664Z",
@@ -154,22 +153,21 @@
           ],
           "priority": 4,
           "color": "#85c1e9"
-        }
-      ],
-      "name": "Projekt Angular"
-    },
-    {
-      "id": "9a03a089-f2b2-bd62-dae5-2e25ee92e079",
-      "cards": [
+        },
         {
-          "id": "14403463-1370-eaf8-e7c0-f0f1d2e1f316",
-          "name": "dv",
+          "id": "f0707967-86f4-60d5-41c6-0edd42d154f6",
+          "name": "wqwe",
           "taskList": [],
           "priority": 0,
           "color": "#fcf3cf"
         }
       ],
-      "name": "test board"
+      "name": "Projekt Angular"
+    },
+    {
+      "id": "ffa1521d-3f4a-3372-3098-863e27e4ffed",
+      "cards": [],
+      "name": "wsadzfgb"
     }
   ]
 }

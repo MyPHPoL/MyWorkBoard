@@ -15,7 +15,7 @@ export class EditTaskComponent {
     this.sol = data.hasNotDue;
   }
 
-  closeWindow() {
+  closeWindow(): void {
     this.ref.close();
   }
 

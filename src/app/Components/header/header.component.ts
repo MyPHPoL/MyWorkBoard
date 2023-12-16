@@ -1,8 +1,9 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild, ViewEncapsulation, inject, Input } from '@angular/core';
 import { BoardListService } from '../../Services/board-list.service';
 import { Board } from '../../board';
 import { NewBoardComponent } from '../new-board/new-board.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -17,13 +18,16 @@ export class HeaderComponent implements OnInit {
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
   currStyle: string = 'blue';
+  boardID:string = ''; //used in order to redirect if currently open board is deleted
 
-  constructor(private renderer: Renderer2, private elRef: ElementRef, public dialog: MatDialog) {
+  constructor(private renderer: Renderer2, private elRef: ElementRef, public dialog: MatDialog, private router: Router) {
     this.renderer.addClass(document.body, 'blue');
     this.boardsService.getBoards().subscribe(boards => this.boards = boards);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.boardID = this.router.url.slice(7);
+   }
 
   SideNavToggle() {
     this.menuStatus = !this.menuStatus;
@@ -66,22 +70,36 @@ export class HeaderComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
           console.log(result.name,);
-          var newBoard = new Board(undefined, undefined, result.name,);
+          var newBoard: Board = new Board(undefined, undefined, result.name,);
           this.boardsService.addBoard(newBoard).subscribe(ret => this.boards.push(newBoard));
         }
       });
     }
   }
 
+  test(value: string): boolean{
+    if (this.router.url.slice(7) == value ) {
+      this.deleteBoard(value);
+      return true;
+    }else{
+      this.deleteBoard(value);
+    return false;
+    }
+
+  }
   deleteBoard(value: string): void {
     if (confirm("Are you sure you want to delete this board?")) {
       this.boardsService.deleteBoard(value).subscribe(ret => this.boards.splice(this.boards.findIndex(b => b.Id == value), 1));
     }
+    console.log(this.boardID);
+      console.log(value);
   }
 
-  ChangeTheme(opt: string) {
+  ChangeTheme(opt: string): void {
     this.renderer.removeClass(document.body, this.currStyle);
     this.currStyle = opt;
     this.renderer.addClass(document.body, this.currStyle);
+    console.log(this.boardID)
+    console.log(this.router.url.slice(7));
   }
 }

@@ -10,7 +10,7 @@ import { Board } from '../../board';
 export class NewBoardComponent {
   constructor(private ref: MatDialogRef<NewBoardComponent>, @Inject(MAT_DIALOG_DATA) public data: Board) { }
 
-  closeWindow() {
+  closeWindow(): void {
     this.ref.close();
   }
 }
