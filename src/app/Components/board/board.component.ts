@@ -18,7 +18,7 @@ export class BoardComponent {
   route: ActivatedRoute = inject(ActivatedRoute);
   boardListService = inject(BoardListService);
   board: Board = new Board();
-  boardID = 'none';
+  boardID: string = 'none';
 
   constructor(public dialog: MatDialog) {
     this.boardID = this.route.snapshot.params['board.Id'];
@@ -59,7 +59,7 @@ export class BoardComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         console.log(result.name, result.priority, result.color);
-        var newCard = new Card(undefined, result.name, result.priority, result.color);
+        var newCard: Card = new Card(undefined, result.name, result.priority, result.color);
         this.board.addCard(newCard);
         this.boardListService.updateBoard(this.boardID, this.board).subscribe();
       }
