@@ -25,35 +25,35 @@ export class BoardComponent {
     this.boardListService.getBoard(this.boardID).subscribe(board => this.board = board);
   }
 
-  drop(event: CdkDragDrop<Card[]>) {
+  drop(event: CdkDragDrop<Card[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-        this.updateBoard();
+      this.updateBoard();
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-        this.updateBoard();
+      this.updateBoard();
     }
   }
 
   // popup modal dialog
-  openDialog() : void {
+  openDialog(): void {
     let dialogRef = null;
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width='405px';
-    dialogConfig.height='415px';
-    dialogConfig.data= {name: '', priority: undefined, color: ''}; // data we give to the dialog window
+    dialogConfig.width = '405px';
+    dialogConfig.height = '415px';
+    dialogConfig.data = { name: '', priority: undefined, color: '' }; // data we give to the dialog window
 
-    dialogRef = this.dialog.open(NewCardComponent,dialogConfig); // opens dialog window
+    dialogRef = this.dialog.open(NewCardComponent, dialogConfig); // opens dialog window
 
     // happens after user clicks 'Accept'
     dialogRef.afterClosed().subscribe(result => {
@@ -66,15 +66,15 @@ export class BoardComponent {
     });
   }
 
-  deleteCard(index: number){
+  deleteCard(index: number): void {
     this.board.deleteCard(index);
   }
 
-  jsontest(){
+  jsontest(): void {
     console.log(JSON.stringify(this.board));
   }
 
-  updateBoard(){
+  updateBoard(): void {
     this.boardListService.updateBoard(this.boardID, this.board).subscribe();
   }
 }

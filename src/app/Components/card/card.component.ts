@@ -25,25 +25,25 @@ export class CardComponent {
   filterDone: boolean = false;
   sortType: number = 0;
   boardListService: any;
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog) { }
 
-  drop(event: CdkDragDrop<Task[]>) {
+  drop(event: CdkDragDrop<Task[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-        this.newItemEvent2.emit();
+      this.newItemEvent2.emit();
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex);
-        this.newItemEvent2.emit();
+      this.newItemEvent2.emit();
     }
   }
- 
+
   onSubmit(newTaskForm: NgForm): void {
     this.card.addTask(newTaskForm.value.newTask, this.card.priority);
     this.newItemEvent2.emit();
@@ -51,30 +51,30 @@ export class CardComponent {
   }
 
   deleteCard(value: number): void {
-    if(confirm("Are you sure you want to delete this card?")) {
+    if (confirm("Are you sure you want to delete this card?")) {
       this.newItemEvent.emit(value);
     }
   }
 
   // filter off button
-  filterOff(): void{
-    this.filter=false;
-    this.filterDone=false;
+  filterOff(): void {
+    this.filter = false;
+    this.filterDone = false;
   }
 
   // 1 function handles all dialog windows
-  openDialog(opt: string, i:number) : void {
+  openDialog(opt: string, i: number): void {
     let dialogRef = null;
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    if(opt === 'editCard') // edit card
+    if (opt === 'editCard') // edit card
     {
-      dialogConfig.width='405px';
-      dialogConfig.height='415px';
-      dialogConfig.data={name: this.card.name, priority: this.card.priority, color: this.card.color}; // data we give to the dialog window
+      dialogConfig.width = '405px';
+      dialogConfig.height = '415px';
+      dialogConfig.data = { name: this.card.name, priority: this.card.priority, color: this.card.color }; // data we give to the dialog window
 
-      dialogRef = this.dialog.open(NewCardComponent,dialogConfig); // opens dialog window
+      dialogRef = this.dialog.open(NewCardComponent, dialogConfig); // opens dialog window
 
       // happens after user clicks 'Accept'
       dialogRef.afterClosed().subscribe(result => {
@@ -87,29 +87,29 @@ export class CardComponent {
         }
       });
     }
-    if(opt === 'editTask') //edit task
+    if (opt === 'editTask') //edit task
     {
-      dialogConfig.width='405px';
-      dialogConfig.height='740px';
-      dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc}; 
-  
-      dialogRef = this.dialog.open(EditTaskComponent,dialogConfig);
-  
+      dialogConfig.width = '405px';
+      dialogConfig.height = '740px';
+      dialogConfig.data = { content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority, isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc };
+
+      dialogRef = this.dialog.open(EditTaskComponent, dialogConfig);
+
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
-          this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content ,this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, result.desc , result.priority, result.isDone);
+          this.card.taskList[i] = new Task(this.card.taskList[i].Id, result.content, this.card.taskList[i].creationDate, result.hasNotDue, result.dueDate, result.desc, result.priority, result.isDone);
           this.newItemEvent2.emit();
         }
       });
     }
-    if(opt === 'filterTasks') //filter tasks
+    if (opt === 'filterTasks') //filter tasks
     {
-      dialogConfig.width='405px';
-      dialogConfig.height='310px';
-      dialogConfig.data={name: this.card.name, filterValue: this.filterValue, filterDone: this.filterDone, filter: this.filter};
-  
-      dialogRef = this.dialog.open(SetFilterComponent,dialogConfig); // opens dialog window
-  
+      dialogConfig.width = '405px';
+      dialogConfig.height = '310px';
+      dialogConfig.data = { name: this.card.name, filterValue: this.filterValue, filterDone: this.filterDone, filter: this.filter };
+
+      dialogRef = this.dialog.open(SetFilterComponent, dialogConfig); // opens dialog window
+
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
           this.filter = result.filter;
@@ -118,32 +118,31 @@ export class CardComponent {
         }
       });
     }
-    if(opt === 'taskDetails')
-    {
+    if (opt === 'taskDetails') {
       dialogConfig.disableClose = false;
-      dialogConfig.width='auto';
-      dialogConfig.height= 'auto';
-      dialogConfig.data={content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority,isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc, creationDate: this.card.taskList[i].creationDate}; 
+      dialogConfig.width = 'auto';
+      dialogConfig.height = 'auto';
+      dialogConfig.data = { content: this.card.taskList[i].content, hasNotDue: this.card.taskList[i].hasNotDue, dueDate: this.card.taskList[i].dueDate, priority: this.card.taskList[i].priority, isDone: this.card.taskList[i].isDone, desc: this.card.taskList[i].desc, creationDate: this.card.taskList[i].creationDate };
 
-      dialogRef = this.dialog.open(TaskDetailsComponent,dialogConfig); 
+      dialogRef = this.dialog.open(TaskDetailsComponent, dialogConfig);
     }
   }
 
   // used when displaying task content on the card
   chooseCorrectColor(task: Task): string {
-    if(task.isDone){
+    if (task.isDone) {
       return 'green';
     }
-    if(!task.isDone && task.checkIfDue() && !task.hasNotDue){
+    if (!task.isDone && task.checkIfDue() && !task.hasNotDue) {
       return 'red';
     }
-    if(!task.isDone && task.checkIfAlmostDue() && !task.checkIfDue() && !task.hasNotDue){
+    if (!task.isDone && task.checkIfAlmostDue() && !task.checkIfDue() && !task.hasNotDue) {
       return 'goldenrod';
     }
-    if(!task.isDone && task.hasNotDue || !task.hasNotDue && !task.checkIfAlmostDue() && !task.checkIfDue()){
+    if (!task.isDone && task.hasNotDue || !task.hasNotDue && !task.checkIfAlmostDue() && !task.checkIfDue()) {
       return 'black';
     }
-    else{
+    else {
       return 'black';
     }
   }
@@ -159,7 +158,7 @@ export class CardComponent {
   }
 
   deleteTask(i: number): void {
-    if(confirm("Are you sure you want to delete this task?")) {
+    if (confirm("Are you sure you want to delete this task?")) {
       this.card.deleteTask(i);
       this.newItemEvent2.emit();
     }

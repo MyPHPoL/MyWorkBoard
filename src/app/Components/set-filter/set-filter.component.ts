@@ -10,7 +10,7 @@ import { Card } from '../../card';
 export class SetFilterComponent {
   constructor(private ref: MatDialogRef<SetFilterComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  closeWindow() {
+  closeWindow(): void {
     this.ref.close();
   }
 }
