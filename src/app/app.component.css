@@ -11,8 +11,6 @@ main {
     width: 100%;
     top: 4rem;
     z-index: 2;
-    max-width: 100%;
-    max-height: 100%;
 }
 
 .black-border {
@@ -21,7 +19,6 @@ main {
 
 app-side-nav {
     position: absolute;
-    z-index: 2;
     left: 0rem;
     width: 60px;
     height: calc(100vh - 4rem);
@@ -40,13 +37,13 @@ app-side-nav {
 .display-area {
     position: fixed;
     left: 60px;
-    width: calc(100% - 60px);
+    width: calc( 100% - 60px );
     transition: left 250ms ease-in, width 250ms ease-in;
+    overflow:auto;
     z-index: 1;
     min-height: 100%;
-    max-width: 100%;
-    max-height: 100%;
 }
+
 .display-area-shrink {
     width: calc(100% - 250px);
     left: 250px;
