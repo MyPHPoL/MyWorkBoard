@@ -39,6 +39,7 @@ app-side-nav {
     left: 60px;
     width: calc(100% - 60px);
     transition: left 250ms ease-in, width 250ms ease-in;
+    overflow:auto;
 }
 
 .display-area-shrink {
