@@ -3,14 +3,14 @@ app-header {
     width: 100%;
     top: 0px;
     height: 4rem;
-    z-index: 2;
+    z-index: 3;
 }
 
 main {
     position: absolute;
     width: 100%;
     top: 4rem;
-    z-index: 1;
+    z-index: 2;
 }
 
 .black-border {
@@ -35,11 +35,13 @@ app-side-nav {
 }
 
 .display-area {
-    position: absolute;
+    position: fixed;
     left: 60px;
-    width: calc(100% - 60px);
+    width: calc( 100% - 60px );
     transition: left 250ms ease-in, width 250ms ease-in;
     overflow:auto;
+    z-index: 1;
+    min-height: 100%;
 }
 
 .display-area-shrink {

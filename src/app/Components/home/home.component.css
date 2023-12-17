@@ -1,0 +1,42 @@
+/* First image (Logo. Full height) */
+.bgimg {
+   min-width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    
+  }
+
+  .white-background{
+    background-color: rgba(255, 255, 255);
+    }
+
+.title-text{
+    font-family: 'Lato';
+    color: #fff;
+    font-size: 400%;
+    margin-top: 30px;
+    margin-left: 8px;
+}
+  .center {
+    position:fixed;
+    background-color:black;
+    top: 45%;
+    left: 40%;
+    margin-top: -50px;
+    width: 387px;
+    height: 80px;
+  }
+
+  
+  .home-img {
+    z-index: 2;
+    background-image: url('../../../assets/images/stock-home-background2.jpg');
+    object-fit: fill;
+    opacity:0.85;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    min-height: 194rem;
+    min-width: 100rem;
+    max-width: 100%;
+    max-height: 194rem;
+}
