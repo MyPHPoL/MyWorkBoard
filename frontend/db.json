@@ -11,34 +11,6 @@
           "color": "#fcf3cf"
         },
         {
-          "id": "63520fd0-e6a0-ae09-a72d-98bdd12c0d7b",
-          "name": "Jest Robione",
-          "taskList": [
-            {
-              "id": "e14e1a20-0bc6-c69d-efa6-51391efa9166",
-              "content": "bajery estetyczne",
-              "creationDate": "2023-12-14T19:14:05.462Z",
-              "hasNotDue": false,
-              "dueDate": "2023-12-15T23:00:00.000Z",
-              "desc": "",
-              "priority": 3,
-              "isDone": false
-            },
-            {
-              "id": "33178054-86ed-b8e0-88ce-98e4150be4a3",
-              "content": "baza danych",
-              "creationDate": "2023-12-14T19:14:11.343Z",
-              "hasNotDue": true,
-              "dueDate": "2023-12-14T19:14:11.343Z",
-              "desc": "",
-              "priority": 3,
-              "isDone": true
-            }
-          ],
-          "priority": 3,
-          "color": "#82e0aa"
-        },
-        {
           "id": "93e3d587-b746-9812-8e54-a2695d05f998",
           "name": "trzeba poprawić css",
           "taskList": [
@@ -153,6 +125,34 @@
           ],
           "priority": 4,
           "color": "#85c1e9"
+        },
+        {
+          "id": "63520fd0-e6a0-ae09-a72d-98bdd12c0d7b",
+          "name": "Jest Robione",
+          "taskList": [
+            {
+              "id": "e14e1a20-0bc6-c69d-efa6-51391efa9166",
+              "content": "bajery estetyczne",
+              "creationDate": "2023-12-14T19:14:05.462Z",
+              "hasNotDue": false,
+              "dueDate": "2023-12-15T23:00:00.000Z",
+              "desc": "",
+              "priority": 3,
+              "isDone": false
+            },
+            {
+              "id": "33178054-86ed-b8e0-88ce-98e4150be4a3",
+              "content": "baza danych",
+              "creationDate": "2023-12-14T19:14:11.343Z",
+              "hasNotDue": true,
+              "dueDate": "2023-12-14T19:14:11.343Z",
+              "desc": "",
+              "priority": 3,
+              "isDone": true
+            }
+          ],
+          "priority": 3,
+          "color": "#82e0aa"
         },
         {
           "id": "f0707967-86f4-60d5-41c6-0edd42d154f6",

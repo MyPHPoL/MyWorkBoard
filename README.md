@@ -15,6 +15,8 @@
 
 ## Installation and Usage
 
+Run inside frontend directory.
+
 installing packages:
 ```bash
 npm install
@@ -32,6 +34,13 @@ launching app:
 ng serve --open
 ```
 After that page should open in a new card
+
+## Running backend
+
+You can run backend with
+```bash
+npm run dev --workspace=backend
+```
 
 ## Made by:
 
