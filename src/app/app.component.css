@@ -28,6 +28,7 @@ app-side-nav {
     overflow-x: hidden;
     white-space: nowrap;
     transition: width 250ms ease-in;
+    z-index: 2;
 }
 
 .app-side-nav-open {
@@ -42,6 +43,7 @@ app-side-nav {
     overflow:auto;
     z-index: 1;
     min-height: 100%;
+
 }
 
 .display-area-shrink {

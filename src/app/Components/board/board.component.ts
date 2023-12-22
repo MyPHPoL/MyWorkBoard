@@ -6,7 +6,7 @@ import { Board } from '../../board';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { BoardListService } from '../../Services/board-list.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -20,9 +20,16 @@ export class BoardComponent {
   board: Board = new Board();
   boardID: string = 'none';
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private router: Router) {
     this.boardID = this.route.snapshot.params['board.Id'];
-    this.boardListService.getBoard(this.boardID).subscribe(board => this.board = board);
+    this.boardListService.getBoard(this.boardID).subscribe(board =>{ 
+    if(board==undefined){
+        this.router.navigate(['/home']);
+        throw new Error("Board not found")
+    }else{
+      this.board = board
+      }
+    });
   }
 
   drop(event: CdkDragDrop<Card[]>): void {
