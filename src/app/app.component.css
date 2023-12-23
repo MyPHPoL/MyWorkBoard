@@ -36,13 +36,16 @@ app-side-nav {
 }
 
 .display-area {
-    position: fixed;
-    left: 60px;
+    
+    
     width: calc( 100% - 60px );
     transition: left 250ms ease-in, width 250ms ease-in;
     overflow:auto;
     z-index: 1;
-    min-height: 100%;
+    height: calc(100vh - 4rem);
+    left: 60px;
+    position: fixed;
+    display: flex;
 
 }
 
