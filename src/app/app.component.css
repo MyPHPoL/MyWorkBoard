@@ -45,7 +45,7 @@ app-side-nav {
     height: calc(100vh - 4rem);
     left: 60px;
     position: fixed;
-    display: flex;
+    
 
 }
 
