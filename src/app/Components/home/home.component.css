@@ -15,14 +15,13 @@
     height: 80px;
   }
 
-  .bg-1 {
-    background-color: #fff;
-    
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
+.bg-white {
+  background-color: #fff;  
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .bg {
   background-image: url("../../../assets/images/stock-home-background2.jpg");
   height: 100%;
