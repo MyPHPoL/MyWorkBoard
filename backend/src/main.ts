@@ -6,7 +6,8 @@ import { express as express_lucia } from "lucia/middleware";
 import { betterSqlite3 } from "@lucia-auth/adapter-sqlite";
 import sqlite, { SqliteError } from "better-sqlite3";
 import { z } from "zod";
-import { format } from "path";
+import { formatApiError, formatZodError } from "./util.js";
+
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ if (process.env.SQLITE_FILE === undefined) {
 	throw new Error("SQLITE_FILE not defined");
 }
 
-const db = sqlite(process.env.SQLITE_FILE);
+export const db = sqlite(process.env.SQLITE_FILE);
 
 export const auth = lucia({
 	adapter: betterSqlite3(db, {
@@ -35,12 +36,9 @@ export const auth = lucia({
 	}
 });
 
-console.log(`Running in ${process.env.NODE_ENV}`)
-
 export type Auth = typeof auth;
+export const app: Express = express();
 
-
-const app: Express = express();
 const port = process.env.PORT || 3000;
 
 
@@ -55,12 +53,6 @@ const loginSchema = z.object({
 	email: z.string().email(),
 	password: z.string().min(1).max(255)
 })
-
-function formatApiError(err: string) {
-	return {
-		status: err
-	}
-}
 
 app.post("/register", async (req, res) => {
 	const parsedBody = z.object({
@@ -103,9 +95,6 @@ app.post("/register", async (req, res) => {
 		return res.status(500).send("An unknown error occurred");
 	}
 })
-function formatZodError<T>(error: z.ZodError<T>) {
-	return error.issues.map(x => x.message).join(' ')
-}
 
 app.post("/login", async (req , res ) => {
 	const schemaValidation = loginSchema.safeParse(req.body)
@@ -169,6 +158,11 @@ app.post("/logout", async (req, res) => {
 	// return no content
 	return res.sendStatus(204);
 });
+
+
+import * as boards from "./boards.js";
+boards.attachEndpoints();
+
 
 app.listen(port, () => {
 	console.log(`[server]: Server is running at http://localhost:${port}`);
