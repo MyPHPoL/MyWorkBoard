@@ -172,6 +172,80 @@ router.delete("/", async (req,res,next) => {
     } catch (e) { next(e) }
 })
 
+router.delete("/remove", async (req,res,next) => {
+    try {
+        const parseBody = z.object({
+            userEmail: z.string(),
+        });
+        
+        const parseQuery = z.object({
+            id: z.string().uuid()
+        })
+
+        const body = validateQuery(parseBody,req.body)
+        const param = validateQuery(parseQuery,req.query)
+        
+        const user = await getUser(req,res);
+        const otherUser = findUser(body.userEmail)
+        
+        if (otherUser === null) {
+            return res.status(400).json(apiMessage("User not found"))
+        }
+        
+        const { userEmail } = body
+        const boardId = param.id;
+        {
+            const result = db
+                .prepare(`select 1 from "board" where ownerId=? and id=?`)
+                .get(user.id,boardId)
+            if ((result as any)["1"] !== 1) {
+                return res.status(403).send()
+            }
+        }
+        
+        const query = db.prepare(`delete from "main"."userBoard" where userId=? and boardId=?`)
+
+        const result = query.run(otherUser.id,boardId)
+        
+        if (result.changes != 1) {
+            return res.status(500).json(apiMessage("DB ERROR"))
+        }
+        
+        return res.status(200).send()
+
+    } catch (e) { next(e) }
+})
+
+router.delete("/leave", async (req,res,next) => {
+    try {
+        // leave the server if user is not an owner
+        const parseQuery = z.object({
+            id: z.string().uuid()
+        })
+
+        const param = validateQuery(parseQuery,req.query)
+        const user = await getUser(req,res);
+        if (user === null) {
+            return res.status(400).send()
+        }
+        {
+            const result = db
+                .prepare(`select 1 from "board" where ownerId=? and id=?`)
+                .get(user.id,param.id)
+            if ((result as any)["1"] === 1) {
+                return res.status(403).json(apiMessage("Can't leave server as owner"))
+            }
+        }
+
+        const query = db.prepare(`delete from "main"."userBoard" where userId=? and boardId=?`)
+        const result = query.run(user.id,param.id)
+
+        if (result.changes != 1) {
+            return res.status(500).json(apiMessage("DB ERROR"))
+        }
+        return res.status(200).send()
+    } catch (e) { next(e) }
+})
 
 router.get("/", async (req,res,next) => {
     try {

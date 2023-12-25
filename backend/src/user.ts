@@ -1,7 +1,7 @@
 import { z } from "zod"
 import { auth } from "./main.js"
 import express from "express";
-import { apiMessage, formatZodError } from "./util.js";
+import { apiMessage, formatZodError, getUser } from "./util.js";
 import { SqliteError } from "better-sqlite3";
 import { LuciaError } from "lucia";
 
@@ -88,7 +88,7 @@ router.post("/login", async (req , res ) => {
 	}
 });
 
-router.get("/user", async (req, res) => {
+router.get("/", async (req, res) => {
 	const authRequest = auth.handleRequest(req, res);
 	const session = await authRequest.validate(); // or `authRequest.validateBearerToken()`
 	console.log(session)
@@ -102,6 +102,29 @@ router.get("/user", async (req, res) => {
 	}
 	return res.status(401).json({ status: "Unauthorized" });
 });
+
+router.patch("/",async (req,res,next) => {
+	try {
+		const parseBody = z.object({
+			name: z.string().min(4).max(31),
+			email: z.string().email()
+		})
+		
+		const body = parseBody.safeParse(req.body)
+		if (!body.success) {
+			return res.status(400).json(formatZodError(body.error))
+		}
+		
+		const { name, email } = body.data;
+		const user = await getUser(req,res);
+		const result = await auth.updateUserAttributes(user.id, {
+			email : email,
+			name : name
+		})
+		return res.status(200).json({ status: "User updated" })
+
+	} catch (e) { next(e) }
+})
 
 router.post("/logout", async (req, res) => {
 	const authRequest = auth.handleRequest(req, res);
