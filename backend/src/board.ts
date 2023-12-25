@@ -1,4 +1,3 @@
-import { BoardCreateRequest } from "./types.js"
 import express, { Express } from "express"
 import { z } from "zod"
 import { apiMessage, findUser, formatZodError, getUser, validateQuery, validateUser } from "./util.js"

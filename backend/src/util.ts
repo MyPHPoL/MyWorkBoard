@@ -30,6 +30,18 @@ export async function getUser(req: Request, res: Response) : Promise<User> {
 	}
 }
 
+export function isUserInBoard(boardId: string, userId: string) {
+	const result = db
+		.prepare("select 1 from userBoard where boardId=? and userId=?")
+		.get(boardId,userId)
+	return (result as any)["1"] === 1
+}
+export function isOwningBoard(boardId: string, userId: string) {
+	const result = db
+		.prepare("select 1 from board where id=? and ownerId=?")
+		.get(boardId,userId)
+	return (result as any)["1"] === 1
+}
 
 export function findUser(email: string) {
 	const user = db.prepare(`select * from user where email=?`).get(email)

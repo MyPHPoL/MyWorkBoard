@@ -60,7 +60,6 @@ app.get("/", (_req: Request, res: Response) => {
 	res.send("Test 1234");
 });
 
-
 app.use("/board", board.router);
 app.use("/user", user.router);
 
@@ -77,6 +76,15 @@ app.use(async (e: any,_req: any,res: any,next: any) => {
 		res.status(500);
 		next()
 	}
+})
+
+app.post("/createDb", (req,res) => {
+	try {
+		db.exec("src/myworkboard.db.sql")
+	} catch {
+		return res.status(500).send()
+	}
+	return res.status(200).send()
 })
 
 app.listen(port, () => {
