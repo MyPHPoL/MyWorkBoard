@@ -46,7 +46,14 @@ export const app: Express = express();
 
 const port = process.env.PORT || 3000;
 
-
+app.use(async (req,res,next) => {
+	console.log(JSON.stringify({
+		endpoint: `${req.method.toUpperCase()} ${req.url}`,
+		query: req.query,
+		body: req.body,
+	},null,2))
+	next()
+})
 app.use(express.urlencoded())
 app.use(express.json())
 app.use(async (err: any,_req: any,res: any,next: any) => {
@@ -63,10 +70,10 @@ app.get("/", (_req: Request, res: Response) => {
 	res.send("Test 1234");
 });
 
-app.use("/board", board.router);
+app.use("/boards", board.router);
 app.use("/user", user.router);
-app.use("/card", card.router)
-app.use("/task", task.router)
+app.use("/cards", card.router)
+app.use("/tasks", task.router)
 
 app.use(async (e: any,_req: any,res: any,next: any) => {
 	if (e instanceof AuthError) {

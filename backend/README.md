@@ -1,6 +1,6 @@
 # Api endpoints
 
-## User
+## User /user
 
 ### POST /register
 
@@ -48,7 +48,7 @@ input:
 
 return: 204 no content
 
-## Board
+## Board /boards
 
 ### POST /
 
