@@ -1,4 +1,4 @@
-import { ZodRawShape, z } from "zod"
+import { z } from "zod"
 import { auth } from "./main.js"
 import { Request, Response } from "express"
 import { AuthError, ValidationError, type User } from './types'
@@ -42,6 +42,18 @@ export function isOwningBoard(boardId: string, userId: string) {
 		.get(boardId,userId)
 	return (result as any)["1"] === 1
 }
+export function isUserInCard(cardId: string, userId: string) {
+	const result = db
+		.prepare("select 1 from userBoard join card on card.boardId=userBoard.boardId where card.id=? and userId=?")
+		.get(cardId,userId)
+	return (result as any)["1"] === 1
+}
+export function isOwningCard(cardId: string, userId: string) {
+	const result = db
+		.prepare("select 1 from board join card on card.boardId=board.id where card.id=? and board.ownerId=?")
+		.get(cardId,userId)
+	return (result as any)["1"] === 1
+}
 
 export function findUser(email: string) {
 	const user = db.prepare(`select * from user where email=?`).get(email)
@@ -59,7 +71,7 @@ export async function validateUser(req: Request, res: Response) {
 	}
 }
 
-export function validateQuery<T extends ZodRawShape>(validator: z.ZodObject<T>, query: any) {
+export function validateQuery<T extends z.ZodTypeAny>(validator: T, query: any) {
 	
 	const res = validator.safeParse(query);
 	if (!res.success) {
