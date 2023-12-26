@@ -259,7 +259,7 @@ router.get("/", async (req,res,next) => {
         
         const { id } = validateQuery(parseUrl,req.query)
         
-        validateUser(req,res)
+        await validateUser(req,res)
         
         let query = `select * from "main"."board"`
         if (id !== undefined) {

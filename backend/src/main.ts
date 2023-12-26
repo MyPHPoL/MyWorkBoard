@@ -66,29 +66,10 @@ app.use(async (err: any,_req: any,res: any,next: any) => {
 
 })
 
-app.get("/", (_req: Request, res: Response) => {
-	res.send("Test 1234");
-});
-
 app.use("/boards", board.router);
 app.use("/user", user.router);
 app.use("/cards", card.router)
 app.use("/tasks", task.router)
-
-app.use(async (e: any,_req: any,res: any,next: any) => {
-	if (e instanceof AuthError) {
-		// return unauthorized status
-		res.status(401).json({ status: e.message })
-		next()
-	} else if (e instanceof ValidationError) {
-		res.status(400).json(e.issues)
-	} else {
-		// log and return internal server error
-		console.error(e)
-		res.status(500);
-		next()
-	}
-})
 
 app.get("/createDb", (req,res) => {
 	try {
@@ -100,6 +81,23 @@ app.get("/createDb", (req,res) => {
 	}
 	return res.status(200).send()
 })
+
+app.use(async (e: any,_req: any,res: any,next: any) => {
+	if (e instanceof AuthError) {
+		// return unauthorized status
+		res.status(401).json({ status: e.message })
+		next()
+	} else if (e instanceof ValidationError) {
+		res.status(400).json(e.issues)
+		next()
+	} else {
+		// log and return internal server error
+		console.error(e)
+		res.status(500);
+		next()
+	}
+})
+
 
 app.listen(port, () => {
 	console.log(`[server]: Server is running at http://localhost:${port}`);
