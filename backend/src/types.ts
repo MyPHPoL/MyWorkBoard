@@ -21,3 +21,28 @@ export type User = {
 	name: string,
 	email: string
 }
+
+export type Task = {
+	id: string;
+    content: string;
+    creationDate: Date | string;
+    hasNotDue: boolean;
+    dueDate: Date | string;
+    desc: string;
+    priority: number;
+    isDone: boolean;
+}
+
+export type Card = {
+	id: string;
+    name: string;
+    taskList: Task[];
+    priority: number;
+    color: string
+}
+
+export type Board = {
+    id: string;
+    cards: Card[];
+    name: string;
+}

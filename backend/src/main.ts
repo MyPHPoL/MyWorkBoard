@@ -8,6 +8,7 @@ import * as board from "./board"
 import * as task from "./task"
 import * as user from "./user"
 import * as card from "./card"
+import * as boardBig from "./board-big"
 import fs from 'fs'
 import { AuthError, ValidationError } from "./types.js";
 
@@ -70,6 +71,7 @@ app.use("/boards", board.router);
 app.use("/user", user.router);
 app.use("/cards", card.router)
 app.use("/tasks", task.router)
+app.use("/boardsApi", boardBig.router)
 
 app.get("/createDb", (req,res) => {
 	try {
