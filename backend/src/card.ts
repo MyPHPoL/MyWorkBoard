@@ -20,7 +20,7 @@ const idValidator = z.object({
 router.get("/", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
-        const boardId = validateQuery(idValidator, req.params).id
+        const boardId = validateQuery(idValidator, req.query).id
         if (!isUserInBoard(boardId,user.id)) {
             return res.status(403).send()
         }
@@ -33,7 +33,7 @@ router.get("/", async (req,res,next) => {
 router.post("/", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
-        const boardId = validateQuery(idValidator, req.params).id
+        const boardId = validateQuery(idValidator, req.query).id
         if (!isOwningBoard(boardId,user.id)) {
             return res.status(403).send()
         }
@@ -63,7 +63,7 @@ const cardWithBoardValidator = z.object({
 router.patch("/", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
-        const cardId = validateQuery(idValidator, req.params).id
+        const cardId = validateQuery(idValidator, req.query).id
         const body = validateQuery(cardWithBoardValidator, req.body)
         const { name, priority, color, boardId } = body
         if (!isOwningBoard(boardId,user.id)) {

@@ -1,11 +1,14 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
-import { Auth, lucia } from "lucia";
+import { lucia } from "lucia";
 import { express as express_lucia } from "lucia/middleware";
 import { betterSqlite3 } from "@lucia-auth/adapter-sqlite";
 import sqlite from "better-sqlite3"
-import * as board from "./board.js"
-import * as user from "./user.js"
+import * as board from "./board"
+import * as task from "./task"
+import * as user from "./user"
+import * as card from "./card"
+import fs from 'fs'
 import { AuthError, ValidationError } from "./types.js";
 
 
@@ -62,6 +65,8 @@ app.get("/", (_req: Request, res: Response) => {
 
 app.use("/board", board.router);
 app.use("/user", user.router);
+app.use("/card", card.router)
+app.use("/task", task.router)
 
 app.use(async (e: any,_req: any,res: any,next: any) => {
 	if (e instanceof AuthError) {
@@ -78,10 +83,12 @@ app.use(async (e: any,_req: any,res: any,next: any) => {
 	}
 })
 
-app.post("/createDb", (req,res) => {
+app.get("/createDb", (req,res) => {
 	try {
-		db.exec("src/myworkboard.db.sql")
-	} catch {
+		const script = fs.readFileSync("src/myworkboard.db.sql",'utf8')
+		db.exec(script)
+	} catch (e) {
+		console.error(e)
 		return res.status(500).send()
 	}
 	return res.status(200).send()

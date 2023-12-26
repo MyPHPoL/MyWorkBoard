@@ -1,6 +1,6 @@
 import express, { Express } from "express"
 import { z } from "zod"
-import { apiMessage, findUser, formatZodError, getUser, validateQuery, validateUser } from "./util.js"
+import { apiMessage, findUser, formatZodError, getUser, joinBoard, validateQuery, validateUser } from "./util.js"
 import { db } from "./main.js"
 import { SqliteError } from "better-sqlite3";
 
@@ -21,22 +21,27 @@ router.post("/", async (req,res,next) => {
         const user = await getUser(req,res);
         
         const { name } = parsedBody.data
-
-        const query = db.prepare(`INSERT INTO "main"."board" ("id", "name", "ownerId") VALUES (?, ?, ?)`)
-
         const uid = crypto.randomUUID();
         const ownerId = user.id;
-        const result = query.run(uid, name, ownerId)
+
+        const result = db.transaction(() => {
+            const query = db.prepare(`INSERT INTO "main"."board" ("id", "name", "ownerId") VALUES (?, ?, ?)`)
+            const result = query.run(uid, name, ownerId)
+            return joinBoard(user.id,uid)
+        })()
         
-        if (result.changes != 1) {
+        if (result == "success") {
+            return res.status(200).json({
+                id: uid,
+                name: name,
+                ownerId: ownerId
+            })
+        } else if (result == "conflict") {
+            return res.status(409).json(apiMessage("User already added"))
+        } else if (result == "dberror") {
             return res.status(500).json(apiMessage("DB ERROR"))
         }
         
-        return res.status(200).json({
-            id: uid,
-            name: name,
-            ownerId: ownerId
-        })
     } catch (e) { next(e) }
 });
 

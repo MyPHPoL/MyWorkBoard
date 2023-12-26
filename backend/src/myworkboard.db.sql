@@ -27,21 +27,21 @@ CREATE TABLE IF NOT EXISTS "card" (
 	"color"	TEXT NOT NULL,
 	"boardId"	TEXT NOT NULL,
 	PRIMARY KEY("id"),
-	FOREIGN KEY("boardId") REFERENCES "board"("id")
+	FOREIGN KEY("boardId") REFERENCES "board"("id") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "board" (
 	"id"	TEXT NOT NULL,
 	"name"	TEXT NOT NULL,
 	"ownerId"	TEXT NOT NULL,
 	PRIMARY KEY("id"),
-	FOREIGN KEY("ownerId") REFERENCES "user"("id")
+	FOREIGN KEY("ownerId") REFERENCES "user"("id") ON DELETE CASCADE 
 );
 CREATE TABLE IF NOT EXISTS "userBoard" (
 	"userId"	TEXT NOT NULL,
 	"boardId"	TEXT NOT NULL,
 	PRIMARY KEY("userId","boardId"),
-	FOREIGN KEY("userId") REFERENCES "user"("id"),
-	FOREIGN KEY("boardId") REFERENCES "board"("id")
+	FOREIGN KEY("userId") REFERENCES "user"("id") ON DELETE CASCADE,
+	FOREIGN KEY("boardId") REFERENCES "board"("id") ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS "task" (
 	"id"	TEXT NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS "task" (
 	"cardId"	TEXT NOT NULL,
 	"taskedId"	TEXT,
 	PRIMARY KEY("id"),
-	FOREIGN KEY("taskedId") REFERENCES "user"("id"),
-	FOREIGN KEY("cardId") REFERENCES "card"("id")
+	FOREIGN KEY("taskedId") REFERENCES "user"("id") ON DELETE CASCADE,
+	FOREIGN KEY("cardId") REFERENCES "card"("id") ON DELETE CASCADE
 );
 COMMIT;

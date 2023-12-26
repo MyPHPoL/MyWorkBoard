@@ -16,6 +16,12 @@ const taskValidator = z.object({
     isDone: z.boolean(),
 })
 
+const createTaskValidator = z.object({
+    content: z.string(),
+    desc: z.string(),
+    priority: z.number().min(0).max(5),
+})
+
 const idValidator = z.object({
     id: z.string().uuid()
 })
@@ -27,14 +33,14 @@ const cardIdValidator = z.object({
 const updateTaskValidator = taskValidator
         .and(cardIdValidator)
         .and(z.object({ 
-            taskedId: z.string().uuid() 
+            taskedId: z.optional(z.string().uuid())
         }))
 
 
 router.get("/", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
-        const cardId = validateQuery(idValidator, req.params).id
+        const cardId = validateQuery(idValidator, req.query).id
         if (!isUserInCard(cardId,user.id)) {
             return res.status(403).send()
         }
@@ -47,18 +53,19 @@ router.get("/", async (req,res,next) => {
 router.post("/", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
-        const cardId = validateQuery(idValidator, req.params).id
+        const cardId = validateQuery(idValidator, req.query).id
         if (!isUserInCard(cardId,user.id)) {
             return res.status(403).send()
         }
-        const body = validateQuery(taskValidator, req.body)
+        const body = validateQuery(createTaskValidator, req.body);
         const query = db.prepare(
-            `INSERT INTO task ("id", "content", "creationDate", "hasNotDue", "dueDate", "desc", "priority", "isDone") VALUES (?,?,?,?,?,?,?,?)`)
+            `INSERT INTO task ("id", "content", "creationDate", "hasNotDue", "dueDate", "desc", "priority", "isDone", "cardId") VALUES (?,?,?,?,?,?,?,?,?)`)
         const uid = crypto.randomUUID();
+        const dateNow = new Date().toISOString();
         const result = query.run(
-            uid, body.content, body.creationDate,
-            body.hasNotDue,body.dueDate,body.desc,
-            body.priority, body.isDone
+            uid, body.content, dateNow,
+            1,dateNow,body.desc,
+            body.priority, 0, cardId
         )
         if (result.changes != 1) {
             return res.status(500).json(apiMessage("DB ERROR"))
@@ -66,30 +73,30 @@ router.post("/", async (req,res,next) => {
         return res.status(200).json({
             id: uid,
             content: body.content,
-            creationDate: body.creationDate,
-            hasNotDue: body.hasNotDue,
-            dueDate: body.dueDate,
+            creationDate: dateNow,
+            hasNotDue: true,
+            dueDate: dateNow,
             desc: body.desc,
             priority: body.priority,
-            isDone: body.isDone
+            isDone: false
         })
     } catch (e) { next(e) }
 })
 router.patch("/", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
-        const cardId = validateQuery(idValidator, req.params).id
+        const cardId = validateQuery(idValidator, req.query).id
         const body = validateQuery(updateTaskValidator, req.body)
-        const { name, priority, color, boardId } = body
-        if (!isUserInCard(boardId,user.id)) {
+        //const { name, priority, color, boardId } = body
+        if (!isUserInCard(cardId,user.id)) {
             return res.status(403).send()
         }
         const query = db.prepare(
-            `UPDATE card SET content=?, creationDate=?, hasNotDue=?, dueDate=?, desc=?, priority=?, isDone=?, cardId=?, taskedId=? WHERE id=?`
+            `UPDATE card SET content=?, hasNotDue=?, dueDate=?, desc=?, priority=?, isDone=?, cardId=?, taskedId=? WHERE id=?`
         )
         const result = query.run(
-            body.content, body.creationDate, body.hasNotDue,
-            body.dueDate,body.desc, body.priority,
+            body.content, body.hasNotDue,
+            body.dueDate, body.desc, body.priority,
             body.isDone, body.cardId, body.taskedId
         )
         if (result.changes != 1) {
@@ -102,7 +109,7 @@ router.patch("/", async (req,res,next) => {
 router.delete("/", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
-        const taskId = validateQuery(idValidator, req.params).id
+        const taskId = validateQuery(idValidator, req.query).id
         const cardId = validateQuery(cardIdValidator,req.body).cardId
         if (!isOwningBoard(taskId,user.id)) {
             return res.status(403).send()
