@@ -1,12 +1,18 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import { lucia } from "lucia";
-import { LuciaError } from "lucia";
 import { express as express_lucia } from "lucia/middleware";
 import { betterSqlite3 } from "@lucia-auth/adapter-sqlite";
-import sqlite, { SqliteError } from "better-sqlite3";
-import { z } from "zod";
-import { format } from "path";
+import sqlite from "better-sqlite3"
+import * as board from "./board"
+import * as task from "./task"
+import * as user from "./user"
+import * as card from "./card"
+import * as boardBig from "./board-big"
+import fs from 'fs'
+import { AuthError, ValidationError } from "./types.js";
+import cors from "cors";
+
 
 dotenv.config();
 
@@ -14,7 +20,9 @@ if (process.env.SQLITE_FILE === undefined) {
 	throw new Error("SQLITE_FILE not defined");
 }
 
-const db = sqlite(process.env.SQLITE_FILE);
+export const db = sqlite(process.env.SQLITE_FILE,{
+	verbose: console.log
+});
 
 export const auth = lucia({
 	adapter: betterSqlite3(db, {
@@ -35,140 +43,72 @@ export const auth = lucia({
 	}
 });
 
-console.log(`Running in ${process.env.NODE_ENV}`)
-
 export type Auth = typeof auth;
+export const app: Express = express();
 
-
-const app: Express = express();
 const port = process.env.PORT || 3000;
 
+app.use(async (req,res,next) => {
+	console.log(JSON.stringify({
+		endpoint: `${req.method.toUpperCase()} ${req.url}`,
+		query: req.query,
+		body: req.body,
+	},null,2))
+	next()
+})
 
+const corsopts = {
+	origin: 'http://localhost:4200',
+	credentials: true,
+	optionsSuccessStatus: 200
+}
+
+app.use(cors(corsopts))
 app.use(express.urlencoded())
 app.use(express.json())
+app.use(async (err: any,_req: any,res: any,next: any) => {
+	if (err instanceof SyntaxError) {
+		console.error(err)
+		return res.sendStatus(400)
+	}
+	
+	next()
 
-app.get("/", (req: Request, res: Response) => {
-	res.send("Test 1234");
-});
-
-const loginSchema = z.object({
-	email: z.string().email(),
-	password: z.string().min(1).max(255)
 })
 
-function formatApiError(err: string) {
-	return {
-		status: err
-	}
-}
+app.use("/board", board.router);
+app.use("/user", user.router);
+app.use("/card", card.router)
+app.use("/task", task.router)
+app.use("/boards", boardBig.router)
 
-app.post("/register", async (req, res) => {
-	const parsedBody = z.object({
-		email: z.string().email(),
-		name: z.string().min(4).max(31),
-		password: z.string().min(6).max(255)
-	}).safeParse(req.body);
-
-	if (!parsedBody.success) {
-		return res.json(formatApiError(formatZodError(parsedBody.error)))
-	}
-	const { name, email, password } = parsedBody.data;
-
-	// basic check
+app.get("/createDb", (req,res) => {
 	try {
-		const user = await auth.createUser({
-			key: {
-				providerId: "email", // auth method
-				providerUserId: email.toLowerCase(), // unique id when using "username" auth method
-				password // hashed by Lucia
-			},
-			attributes: {
-				name, email
-			}
-		});
-		const session = await auth.createSession({
-			userId: user.userId,
-			attributes: {}
-		});
-		const authRequest = auth.handleRequest(req, res);
-		authRequest.setSession(session);
-		// redirect to profile page
-		return res.status(200).json({ status: "User created" });
+		const script = fs.readFileSync("src/myworkboard.db.sql",'utf8')
+		db.exec(script)
 	} catch (e) {
-		// handle better-sqlite 3 unique key error
-		if (e instanceof SqliteError && e.code === "SQLITE_CONSTRAINT_UNIQUE") {
-			return res.status(400).json(formatApiError("Email already exists"))
-		}
+		console.error(e)
+		return res.status(500).send()
+	}
+	return res.status(200).send()
+})
 
-		return res.status(500).send("An unknown error occurred");
+app.use(async (e: any,_req: any,res: any,next: any) => {
+	if (e instanceof AuthError) {
+		// return unauthorized status
+		res.status(401).json({ status: e.message })
+		next()
+	} else if (e instanceof ValidationError) {
+		res.status(400).json(e.issues)
+		next()
+	} else {
+		// log and return internal server error
+		console.error(e)
+		res.status(500);
+		next()
 	}
 })
-function formatZodError<T>(error: z.ZodError<T>) {
-	return error.issues.map(x => x.message).join(' ')
-}
 
-app.post("/login", async (req , res ) => {
-	const schemaValidation = loginSchema.safeParse(req.body)
-	if (!schemaValidation.success) {
-		return res.json({ status: formatZodError(schemaValidation.error) })
-	}
-	const { email, password } = schemaValidation.data;
-	try {
-		// find user by key
-		// and validate password
-		const key = await auth.useKey("email", email.toLowerCase(), password);
-		const session = await auth.createSession({
-			userId: key.userId,
-			attributes: {}
-		});
-		const authRequest = auth.handleRequest(req, res);
-		authRequest.setSession(session);
-		return res.status(200).json({ status: "User login successful" });
-		// redirect to profile page
-	} catch (e) {
-		// check for unique constraint error in user table
-		if (
-			e instanceof LuciaError &&
-			(e.message === "AUTH_INVALID_KEY_ID" ||
-				e.message === "AUTH_INVALID_PASSWORD")
-		) {
-			// user does not exist
-			// or invalid password
-			return res.status(400).send("Incorrect username or password");
-		}
-
-		return res.status(500).send("An unknown error occurred");
-	}
-});
-
-app.get("/user", async (req, res) => {
-	const authRequest = auth.handleRequest(req, res);
-	const session = await authRequest.validate(); // or `authRequest.validateBearerToken()`
-	console.log(session)
-	if (session) {
-		const user = session.user;
-		const name = user.name;
-		const email = user.email;
-		return res.status(200).json({
-			user
-		})
-	}
-	return res.status(401).json({ status: "Unauthorized" });
-});
-
-app.post("/logout", async (req, res) => {
-	const authRequest = auth.handleRequest(req, res);
-	const session = await authRequest.validate(); // or `authRequest.validateBearerToken()`
-	if (!session) {
-		return res.sendStatus(401);
-	}
-	await auth.invalidateSession(session.sessionId);
-
-	authRequest.setSession(null); // for session cookie
-
-	// return no content
-	return res.sendStatus(204);
-});
 
 app.listen(port, () => {
 	console.log(`[server]: Server is running at http://localhost:${port}`);

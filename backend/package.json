@@ -20,6 +20,7 @@
   "dependencies": {
     "@lucia-auth/adapter-sqlite": "^2.0.1",
     "better-sqlite3": "^9.2.2",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "lucia": "^2.7.6",
     "zod": "^3.22.4"
