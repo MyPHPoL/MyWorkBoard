@@ -11,6 +11,7 @@ import * as card from "./card"
 import * as boardBig from "./board-big"
 import fs from 'fs'
 import { AuthError, ValidationError } from "./types.js";
+import cors from "cors";
 
 
 dotenv.config();
@@ -55,6 +56,14 @@ app.use(async (req,res,next) => {
 	},null,2))
 	next()
 })
+
+const corsopts = {
+	origin: 'http://localhost:4200',
+	credentials: true,
+	optionsSuccessStatus: 200
+}
+
+app.use(cors(corsopts))
 app.use(express.urlencoded())
 app.use(express.json())
 app.use(async (err: any,_req: any,res: any,next: any) => {
@@ -67,11 +76,11 @@ app.use(async (err: any,_req: any,res: any,next: any) => {
 
 })
 
-app.use("/boards", board.router);
+app.use("/board", board.router);
 app.use("/user", user.router);
-app.use("/cards", card.router)
-app.use("/tasks", task.router)
-app.use("/boardsApi", boardBig.router)
+app.use("/card", card.router)
+app.use("/task", task.router)
+app.use("/boards", boardBig.router)
 
 app.get("/createDb", (req,res) => {
 	try {

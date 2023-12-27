@@ -9,8 +9,7 @@ const boardValidator = z.object({
     name: z.string()
 })
 
-export function createBoard(user: User, body: any) {
-    const { name } = validateQuery(boardValidator,body)
+export function createBoard(user: User, name: string) {
     const uid = crypto.randomUUID();
     const ownerId = user.id;
 
