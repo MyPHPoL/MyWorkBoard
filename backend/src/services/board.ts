@@ -9,23 +9,26 @@ const boardValidator = z.object({
     name: z.string()
 })
 
-export function createBoard(user: User, name: string) {
-    const uid = crypto.randomUUID();
+export function createBoard(user: User, boardId:string, name: string) : Board{
     const ownerId = user.id;
 
     const result = db.transaction(() => {
         const query = db.prepare(`INSERT INTO "main"."board" ("id", "name", "ownerId") VALUES (?, ?, ?)`)
-        const result = query.run(uid, name, ownerId)
-        return joinBoard(user.id,uid)
+        const result = query.run(boardId, name, ownerId)
+        return joinBoard(user.id,boardId)
     })()
     
-    return result;
+    return {
+        cards: [],
+        id: boardId,
+        name: name
+    };
 }
 
 export function getBoard(user: User, boardId: string) : Board {
-    const query = `select id,name,ownerId from "main"."board", userBoard where id=? and userId=?`
+    const query = `select id,name,ownerId from "main"."board" join userBoard on userId=? where id=boardId and id=?`
     const stmt = db.prepare(query)
-    const result = stmt.get(boardId, user.id) as any
+    const result = stmt.get(user.id,boardId) as any
     return {
         cards: [],
         id: result.id,
@@ -33,9 +36,10 @@ export function getBoard(user: User, boardId: string) : Board {
     }
 }
 export function getAllBoards(user: User) : Board[] {
-    const query = `select id,name,ownerId from "main"."board", userBoard where userId=?`
+    const query = `select id,name,ownerId from "main"."board" join userBoard on userId=? where id=boardId`
     const stmt = db.prepare(query)
     const result = stmt.all(user.id) as any[]
+    console.log(result)
     return result.map( val => {
         return {
             cards: [],

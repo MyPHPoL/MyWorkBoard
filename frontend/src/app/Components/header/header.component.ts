@@ -4,15 +4,17 @@ import { Board } from '../../board';
 import { NewBoardComponent } from '../new-board/new-board.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-
+import { UserService } from 'src/app/Services/user.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
   encapsulation: ViewEncapsulation.None
+
 })
 export class HeaderComponent implements OnInit {
   boards: Board[] = [];
+  userService: UserService = inject(UserService);
   boardsService: BoardListService = inject(BoardListService);
   @Output() newItemEvent = new EventEmitter<number>();
   @Output() sideNavToggled = new EventEmitter<boolean>();
@@ -96,5 +98,12 @@ export class HeaderComponent implements OnInit {
     this.renderer.removeClass(document.body, this.currStyle);
     this.currStyle = opt;
     this.renderer.addClass(document.body, this.currStyle);
+  }
+  login(email:string, password:string):void{
+    
+    this.userService.login(email, password).subscribe(ret => {
+      console.log("chuj");
+      this.router.navigate(['/home']);
+    });
   }
 }

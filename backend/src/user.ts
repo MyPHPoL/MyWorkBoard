@@ -42,6 +42,7 @@ router.post("/register", async (req, res) => {
 		return res.status(200).json({ status: "User created" });
 	} catch (e) {
 		// handle better-sqlite 3 unique key error
+		console.log(e)
 		if (e instanceof SqliteError && e.code === "SQLITE_CONSTRAINT_UNIQUE") {
 			return res.status(400).json(apiMessage("Email already exists"))
 		}

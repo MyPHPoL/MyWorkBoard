@@ -12,6 +12,12 @@ import * as boardBig from "./board-big"
 import fs from 'fs'
 import { AuthError, ValidationError } from "./types.js";
 import cors from "cors";
+import { Crypto } from "@peculiar/webcrypto";
+
+
+if (process.versions.node.split('.').map(Number)[0] < 19) {
+	globalThis.crypto = new Crypto();
+}
 
 
 dotenv.config();
@@ -30,7 +36,7 @@ export const auth = lucia({
 		key: "user_key",
 		session: "user_session"
 	}),
-
+	
 	// POST LOGOUT DOESNT WORK WITHOUT IT
 	csrfProtection: false,
 	env: "DEV", // "PROD" if deployed to HTTPS
@@ -51,6 +57,7 @@ const port = process.env.PORT || 3000;
 app.use(async (req,res,next) => {
 	console.log(JSON.stringify({
 		endpoint: `${req.method.toUpperCase()} ${req.url}`,
+		headers: req.headers,
 		query: req.query,
 		body: req.body,
 	},null,2))
@@ -60,7 +67,9 @@ app.use(async (req,res,next) => {
 const corsopts = {
 	origin: 'http://localhost:4200',
 	credentials: true,
-	optionsSuccessStatus: 200
+	optionsSuccessStatus: 200,
+	methods: ['GET','POST','PUT','PATCH','DELETE'],
+	
 }
 
 app.use(cors(corsopts))
@@ -99,6 +108,7 @@ app.use(async (e: any,_req: any,res: any,next: any) => {
 		res.status(401).json({ status: e.message })
 		next()
 	} else if (e instanceof ValidationError) {
+		console.error(`${JSON.stringify(e.message,null,2)}; Issues: ${JSON.stringify(e.issues,null,2)}`)
 		res.status(400).json(e.issues)
 		next()
 	} else {

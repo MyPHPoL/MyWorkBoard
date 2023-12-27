@@ -22,11 +22,11 @@ const taskValidator = z.object({
     id: z.string().uuid(),
     content: z.string(),
     creationDate: z.string().datetime(),
-    hasNotDue: z.boolean(),
+    hasNotDue: z.boolean().or(z.number()),
     dueDate: z.string().datetime(),
     desc: z.string(),
     priority: z.number().min(0).max(5),
-    isDone: z.boolean(),
+    isDone: z.boolean().or(z.number()),
 })
 
 const cardValidator = z.object({
@@ -49,17 +49,18 @@ const boardNameValidator = z.object({
 
 function addBoard(user: User, board: Board) {
     try {
-        const result = boardService.createBoard(user,board.id)
-        joinBoard(user.id,board.id)
+        const result = boardService.createBoard(user,board.id,board.name)
         for (let card of board.cards) {
             cardService.addCard(board.id,card.id,card)
             for (let task of card.taskList) {
                 taskService.addTask(card.id,task.id,task)
             }
         }
-        return true
-    } catch {
-        return false
+        console.log("gitek")
+        return result
+    } catch (e) {
+        console.error(e)
+        return null
     }
 }
 
@@ -73,11 +74,11 @@ router.post("/", async (req,res,next) => {
             return addBoard(user,body)
         })()
         
-        if (result === false) {
+        if (result === null) {
             return res.status(500).json(apiMessage("DB ERROR"))
         }
 
-        return res.status(200).json(body)
+        return res.status(200).json(result)
         
     } catch (e) { next(e) }
 })
@@ -109,14 +110,17 @@ router.put("/:id", async (req,res,next) => {
         if (!isOwningBoard(boardId,user.id)) {
             return res.status(403).send()
         }
+        console.log(`PUT validating ${JSON.stringify(req.body,null,2)}`)
         const body = validateQuery(boardValidator, req.body)
         const { name, cards } = body
+        
         
         const result = db.transaction(() => {
             try {
                 boardService.deleteBoard(user,body.id)
                 return addBoard(user,body)
-            } catch {
+            } catch (e) {
+                console.error(e)
                 return false
             }
         })()
@@ -141,27 +145,32 @@ router.get("/:id?", async (req,res,next) => {
         const user = await getUser(req,res)
         
         
-        let boards;
+        let boards: Board[] | Board;
         if (id !== undefined) {
             if (!isUserInBoard(id,user.id)) {
                 return res.status(403).send()
             }
-            boards = [boardService.getBoard(user,id)]
-        } else {
-            boards = boardService.getAllBoards(user)
-        }
-        
-        for (let board of boards) {
-            board.cards = cardService.getCards(board.id);
-            for (let card of board.cards) {
+            boards = boardService.getBoard(user,id)
+            boards.cards = cardService.getCards(boards.id);
+            for (let card of boards.cards) {
                 card.taskList = taskService.getTasks(card.id)
             }
-            
+        } else {
+            boards = boardService.getAllBoards(user)
+            console.log(boards)
+            for (let board of boards) {
+                board.cards = cardService.getCards(board.id);
+                for (let card of board.cards) {
+                    card.taskList = taskService.getTasks(card.id)
+                }
+            }
         }
         
-        return res.status(200).json({
-            boards: boards
-        })
+        console.log(`returning ${JSON.stringify(boards)}`)
+        
+        return res.status(200).json(
+            boards
+        )
 
     } catch (e) { next(e) }
 })

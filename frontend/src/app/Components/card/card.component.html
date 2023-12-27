@@ -29,7 +29,7 @@
             <mat-card-content>
                     <div  class="task resultContainer">
                         <div class="task-text" (click)="openDialog('taskDetails', i)" [appTaskColor]="chooseCorrectColor(task)">{{task.content}}</div>
-                        <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone">Done</mat-checkbox>
+                        <mat-checkbox class="push-right" [(ngModel)]="task.isDone" input [(ngModel)]="task.isDone" (click)="this.newItemEvent2.emit()">Done</mat-checkbox>
                         <div class="edit-button"><button mat-icon-button class="material-icons" (click)="openDialog('editTask', i)">edit</button></div> 
                         <div class="delete-button"><button mat-icon-button class="material-icons" (click)="deleteTask(i)">delete</button></div>
                     </div>
