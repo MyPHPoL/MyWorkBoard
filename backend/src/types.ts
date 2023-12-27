@@ -26,11 +26,11 @@ export type Task = {
 	id: string;
     content: string;
     creationDate: Date | string;
-    hasNotDue: boolean;
+    hasNotDue: boolean | number;
     dueDate: Date | string;
     desc: string;
     priority: number;
-    isDone: boolean;
+    isDone: boolean | number;
 }
 
 export type Card = {

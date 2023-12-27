@@ -14,7 +14,10 @@ import { AuthError, ValidationError } from "./types.js";
 import cors from "cors";
 import { Crypto } from "@peculiar/webcrypto";
 
-globalThis.crypto = new Crypto();
+
+if (process.versions.node.split('.').map(Number)[0] < 19) {
+	globalThis.crypto = new Crypto();
+}
 
 
 dotenv.config();
@@ -65,7 +68,7 @@ const corsopts = {
 	origin: 'http://localhost:4200',
 	credentials: true,
 	optionsSuccessStatus: 200,
-	methods: ['GET','POST','PATCH','DELETE'],
+	methods: ['GET','POST','PUT','PATCH','DELETE'],
 	
 }
 
@@ -105,6 +108,7 @@ app.use(async (e: any,_req: any,res: any,next: any) => {
 		res.status(401).json({ status: e.message })
 		next()
 	} else if (e instanceof ValidationError) {
+		console.error(`${JSON.stringify(e.message,null,2)}; Issues: ${JSON.stringify(e.issues,null,2)}`)
 		res.status(400).json(e.issues)
 		next()
 	} else {

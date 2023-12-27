@@ -75,6 +75,7 @@ export class BoardComponent {
 
   deleteCard(index: number): void {
     this.board.deleteCard(index);
+    this.boardListService.updateBoard(this.boardID,this.board).subscribe();
   }
 
   jsontest(): void {

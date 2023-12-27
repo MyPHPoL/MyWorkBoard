@@ -27,7 +27,7 @@ export function getTasks(cardId: string) : Task[] {
 
 export function addTask(cardId: string, newTaskId: string, task: Task) {
     const query = db.prepare(`INSERT INTO "main"."task" ("id", "content", "creationDate", "hasNotDue", "dueDate", "desc", "priority", "isDone", "cardId") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`)
-    const result = query.run(newTaskId, task.content, task.creationDate, task.hasNotDue, task.dueDate, task.desc, task.priority, task.isDone, cardId)
+    const result = query.run(newTaskId, task.content, task.creationDate, +task.hasNotDue, task.dueDate, task.desc, task.priority, +task.isDone, cardId)
     if (result.changes != 1) {
         return false;
     }

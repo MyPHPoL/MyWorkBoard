@@ -17,7 +17,9 @@ export class BoardListService {
     withCredentials: true
   };
   getBoards(): Observable<Board[]> {
-    return this.http.get<IBoard[]>(this.url,this.httpOptions)
+    return this.http.get<IBoard[]>(this.url,{
+      withCredentials: true
+    })
       .pipe(
         map((boards: IBoard[]) =>
           {
@@ -32,7 +34,10 @@ export class BoardListService {
   getBoard(id: string): Observable<Board> {
     return this.http.get<IBoard>(`${this.url}/${id}`,this.httpOptions)
       .pipe(
-        map((board: IBoard) => new Board().fromJSON(board)),
+        map((board: IBoard) => {
+          console.log(board)
+          return new Board().fromJSON(board)
+        }),
         catchError(this.handleError<Board>(`getBoard id=${id}`))
       );
   }
@@ -40,6 +45,11 @@ export class BoardListService {
   addBoard(board: Board): Observable<Board> {
     return this.http.post<Board>(this.url, board, this.httpOptions)
       .pipe(
+        map((board: Board) => {
+          console.log('new board')
+          console.log(board)
+          return new Board(board.Id,board.cards,board.name)
+        }),
         catchError(this.handleError<Board>('addBoard'))
       );
   }
