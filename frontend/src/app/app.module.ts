@@ -30,11 +30,15 @@ import { SortTasksPipe } from './Pipes/sort-tasks.pipe';
 import { BgcolorDirective } from './Directives/bgcolor.directive'; 
 import { HttpClientModule } from '@angular/common/http';
 import { NewBoardComponent } from './Components/new-board/new-board.component';
+import { LoginComponent } from './Components/login/login.component';
+import { RegisterComponent } from './Components/register/register.component';
 
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent, title: 'Home' },
+  { path: 'login', component: LoginComponent, title: 'Login' },
   { path: 'board/:board.Id', component: BoardComponent, title: 'Board' },
+  { path: 'register', component: RegisterComponent, title: 'Register' },
   { path: '**', component: HomeComponent, title:'Home'}
 ];
 
@@ -72,6 +76,8 @@ export class MyStrategy extends RouteReuseStrategy {
     FilterPriorityPipe,
     SortTasksPipe,
     NewBoardComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'}),

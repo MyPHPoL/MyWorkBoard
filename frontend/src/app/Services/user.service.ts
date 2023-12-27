@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../user';
 
 type LoginDto = {
+  name: string;
   email: string;
   password: string;
 }
@@ -34,7 +35,19 @@ export class UserService {
         map((user: User | null) => user ? new User(user.Id, user.name, user.email) : null)
       );
   }
-  
+
+  //  email: z.string().email(),
+	// 	name: z.string().min(4).max(31),
+	// 	password: z.string().min(6).max(255)
+  register(value: any): Observable<void> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      withCredentials: true,
+    };
+
+    return this.http.post<void>(`${this.url}/register`, value, httpOptions)
+  }
+
 }
 
 
