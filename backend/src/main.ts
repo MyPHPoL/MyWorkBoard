@@ -12,6 +12,9 @@ import * as boardBig from "./board-big"
 import fs from 'fs'
 import { AuthError, ValidationError } from "./types.js";
 import cors from "cors";
+import { Crypto } from "@peculiar/webcrypto";
+
+globalThis.crypto = new Crypto();
 
 
 dotenv.config();
@@ -30,7 +33,7 @@ export const auth = lucia({
 		key: "user_key",
 		session: "user_session"
 	}),
-
+	
 	// POST LOGOUT DOESNT WORK WITHOUT IT
 	csrfProtection: false,
 	env: "DEV", // "PROD" if deployed to HTTPS
@@ -51,6 +54,7 @@ const port = process.env.PORT || 3000;
 app.use(async (req,res,next) => {
 	console.log(JSON.stringify({
 		endpoint: `${req.method.toUpperCase()} ${req.url}`,
+		headers: req.headers,
 		query: req.query,
 		body: req.body,
 	},null,2))
@@ -60,7 +64,9 @@ app.use(async (req,res,next) => {
 const corsopts = {
 	origin: 'http://localhost:4200',
 	credentials: true,
-	optionsSuccessStatus: 200
+	optionsSuccessStatus: 200,
+	methods: ['GET','POST','PATCH','DELETE'],
+	
 }
 
 app.use(cors(corsopts))

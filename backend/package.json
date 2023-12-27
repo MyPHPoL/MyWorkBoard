@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@lucia-auth/adapter-sqlite": "^2.0.1",
+    "@peculiar/webcrypto": "^1.4.3",
     "better-sqlite3": "^9.2.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
