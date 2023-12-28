@@ -5,8 +5,9 @@
   
       <mat-card-content>
         <form [formGroup]="registerForm" (ngSubmit)="register()">
-  
+          <br>
           <mat-form-field>
+            <mat-label>Email</mat-label>
             <input type="email" matInput placeholder="Email" formControlName="email">
             <!-- Here we can display error messages/hints for the user, if one of the Validators adds an error to the email 
              with the .touched check we only display the hints if the input was touched by the users -->
@@ -17,41 +18,59 @@
               *ngIf="this.registerForm.get('email')?.touched && this.registerForm.get('email')?.hasError('email')">
               Email must be a valid Email</mat-error>
           </mat-form-field>
-  
+          <br><br>
           <mat-form-field>
+            <mat-label>Username</mat-label>
             <input type="text" matInput placeholder="Username" formControlName="name">
             <mat-error
-              *ngIf="this.registerForm.get('username')?.touched && this.registerForm.get('username')?.hasError('required')">
-              Username is required</mat-error>
+              *ngIf="this.registerForm.get('name')?.touched && this.registerForm.get('name')?.hasError('required')">Username is required</mat-error>
+              <mat-error
+              *ngIf="this.registerForm.get('name')?.touched && this.registerForm.get('name')?.hasError('minlength')">Username must be at least 4 characters long</mat-error>
+              <mat-error
+              *ngIf="this.registerForm.get('name')?.touched && this.registerForm.get('name')?.hasError('maxlength')">Username cannot exceed 31 characters</mat-error>
           </mat-form-field>
-  
+          <br>
+          <br>
   
           <mat-form-field>
+            <mat-label>Password</mat-label>
             <input type="password" matInput placeholder="Password" formControlName="password">
             <mat-error
               *ngIf="this.registerForm.get('password')?.touched && this.registerForm.get('password')?.hasError('required')">
               Password is required</mat-error>
-          </mat-form-field>
-  
-          <mat-form-field>
-            <input type="password" matInput placeholder="Password Confirmation" formControlName="passwordConfirm">
             <mat-error
-              *ngIf="this.registerForm.get('passwordConfirm')?.touched && this.registerForm.get('passwordConfirm')?.hasError('required')">
+              *ngIf="this.registerForm.get('password')?.touched && this.registerForm.get('password')?.hasError('minlength')">
+              Password must be at least 6 characters long</mat-error>
+              <mat-error
+              *ngIf="this.registerForm.get('password')?.touched && this.registerForm.get('password')?.hasError('maxlength')">
+              Password cannot exceed 31 characters</mat-error>
+          </mat-form-field>
+          <br><br>
+          <mat-form-field>
+            <mat-label>Repeat password</mat-label>
+            <input type="password" matInput placeholder="Repeat password" formControlName="repeatPassword" >
+            <mat-error
+              *ngIf="this.registerForm.get('repeatPassword')?.touched && this.registerForm.get('repeatPassword')?.hasError('required')">
               Password Confirmation is required</mat-error>
           </mat-form-field>
-  
+          
           <mat-error
-            *ngIf="this.registerForm.get('passwordConfirm')?.dirty && this.registerForm.hasError('passwordsNotMatching')">
+            *ngIf="this.registerForm.get('repeatPassword')?.dirty && this.registerForm.hasError('passwordsNotMatching')">
             Passwords are not matching!</mat-error>
-  
-          <div class="button">
-            <!-- Button is disabled(not clickable), if our RegisterForm contains Validation Errors -->
-            <button type="submit" mat-button [disabled]="!registerForm.valid">Register</button>
+            <br>
+            <div class="button" >
+              <!-- Button is disabled(not clickable), if our RegisterForm contains Validation Errors -->
+              <button type="submit" mat-button [disabled]="!registerForm.valid" style="width: 100%;;">Register</button>
+            
           </div>
-  
+          
+            <br>
+           <div class="login"> 
+          Already a MyPHPoL member?<br><a [routerLink]="['../login']" style="padding-left: 65px;">Go to Login</a></div>
+          
+         
         </form>
       </mat-card-content>
   
     </mat-card>
-    <a [routerLink]="['../login']">Go to Login</a>
   </div>

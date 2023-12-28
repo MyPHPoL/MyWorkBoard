@@ -32,6 +32,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NewBoardComponent } from './Components/new-board/new-board.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
+import { RegisterValidatorComponent } from './Components/register-validator/register-validator.component';
 
 
 const routes: Routes = [
@@ -78,6 +79,7 @@ export class MyStrategy extends RouteReuseStrategy {
     NewBoardComponent,
     LoginComponent,
     RegisterComponent,
+    RegisterValidatorComponent,
   ],
   imports: [
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'}),

@@ -20,14 +20,14 @@ export class UserService {
   protected user: User | null = null;
   private url = 'http://localhost:3000/user';
   constructor(private http: HttpClient) { }
-
+  protected httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    withCredentials: true,
+  };
 
   login(email: string, password: string): Observable<null> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      withCredentials: true,
-    };
-    return this.http.post<null>(`${this.url}/login`, { email, password }, httpOptions)
+   
+    return this.http.post<null>(`${this.url}/login`, { email, password }, this.httpOptions)
   }
   getUser(): Observable<User | null> {
     return this.http.get<User | null>(`${this.url}`)
@@ -40,12 +40,11 @@ export class UserService {
 	// 	name: z.string().min(4).max(31),
 	// 	password: z.string().min(6).max(255)
   register(value: any): Observable<void> {
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-      withCredentials: true,
-    };
+    return this.http.post<void>(`${this.url}/register`, value, this.httpOptions)
+  }
 
-    return this.http.post<void>(`${this.url}/register`, value, httpOptions)
+  logout(): Observable<void> {
+    return this.http.post<void>(`${this.url}/logout`, {}, this.httpOptions)
   }
 
 }

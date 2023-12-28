@@ -6,7 +6,7 @@
     <a class="navbar-brand px4" href="#" routerLink="/home" routerLinkActive="active"><img src="assets/images/logo3.png"
             width="80" height="80" style="float:center; padding:6px"></a>
 
-    <div class="navbar-collapse">
+    <div class="navbar-collapse" *ngIf="isLogged">
         <ul class="navbar-nav me-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -51,7 +51,7 @@
         <ul class="dropdown-menu dropdown-menu-dark">
             <li><a class="dropdown-item">Profile</a></li>
             <li><a class="dropdown-item">Settings</a></li>
-            <li><a class="dropdown-item">Log out</a></li>
+            <li><a class="dropdown-item" (click)="logout()">Log out</a></li>
         </ul>
     </div>
 </nav>

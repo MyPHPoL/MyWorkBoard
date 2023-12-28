@@ -4,20 +4,23 @@ import { tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserService } from '../../Services/user.service';
 import { User } from '../../user';
+import { RegisterValidatorComponent } from '../register-validator/register-validator.component';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  registerForm = new FormGroup({
+    registerForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
-    name: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required]),
-    passwordConfirm: new FormControl(null, [Validators.required])
+    name: new FormControl(null, [Validators.required, Validators.minLength(4), Validators.maxLength(31)]),
+    password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(255)]),
+    repeatPassword: new FormControl(null, [Validators.required])
   },
     // add custom Validators to the form, to make sure that password and passwordConfirm are equal
-   // { validators: CustomValidators.passwordsMatching }
+    { validators: RegisterValidatorComponent.passwordsMatching
+    },
+    
   )
 
   constructor(

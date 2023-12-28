@@ -1,11 +1,14 @@
 :host {
     display: flex;
     justify-content: center;
-    margin: 100px 0px;
+    margin: 50px;
   }
-  
+  .login{
+    float:left; 
+    padding-left: 10px;
+  }
   mat-card {
-    max-width: 600px;
+    width: 300px;
   
     mat-card-title,
     mat-card-content {
@@ -16,6 +19,7 @@
         .mat-form-field {
           width: 100%;
           min-width: 300px;
+          
         }
   
         .error {
@@ -27,7 +31,12 @@
   
         .button {
           display: flex;
-          justify-content: flex-end;
+          width: 212px;
+          height: max-content;
+          object-fit: fill;
+          justify-content: center;
+          border: 1px solid #ccc;
+          border-radius: 1px;
         }
       }
     }
