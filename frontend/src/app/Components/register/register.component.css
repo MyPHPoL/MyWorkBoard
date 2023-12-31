@@ -5,10 +5,10 @@
   }
   .login{
     float:left; 
-    padding-left: 10px;
+    padding-left: 42px;
   }
   mat-card {
-    width: 300px;
+    width: 380px;
   
     mat-card-title,
     mat-card-content {
@@ -16,22 +16,16 @@
       justify-content: center;
   
       form {
-        .mat-form-field {
+        mat-form-field{
           width: 100%;
           min-width: 300px;
-          
         }
   
-        .error {
-          padding: 16px;
-          width: 300px;
-          color: white;
-          background-color: red;
-        }
+        
   
         .button {
           display: flex;
-          width: 212px;
+          width: 320px;
           height: max-content;
           object-fit: fill;
           justify-content: center;

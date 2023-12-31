@@ -5,8 +5,7 @@
 
     <a class="navbar-brand px4" href="#" routerLink="/home" routerLinkActive="active"><img src="assets/images/logo3.png"
             width="80" height="80" style="float:center; padding:6px"></a>
-
-    <div class="navbar-collapse" *ngIf="isLogged">
+    <div class="navbar-collapse" *ngIf="_loginService.loggedStatus">
         <ul class="navbar-nav me-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -42,7 +41,10 @@
         </li>
     </ul>
     <div>
-        <button class="btn btn-outline-light" href="#" routerLink="/login" routerLinkActive="active">lodżin</button>
+        <button class="btn btn-outline-light" href="#" routerLink="/login" routerLinkActive="active" *ngIf="!_loginService.loggedStatus">lodżin</button>
+    </div>
+    <div>
+        <button class="btn btn-outline-light" (click)="test()" >test</button>
     </div>
     <div class="profile-logo dropstart">
         <button class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">

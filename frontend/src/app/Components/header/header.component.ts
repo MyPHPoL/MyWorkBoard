@@ -1,10 +1,11 @@
-import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild, ViewEncapsulation, inject, Input } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild, ViewEncapsulation, inject, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { BoardListService } from '../../Services/board-list.service';
 import { Board } from '../../board';
 import { NewBoardComponent } from '../new-board/new-board.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
+import { LoginService } from 'src/app/Services/login.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -21,22 +22,36 @@ export class HeaderComponent implements OnInit {
   menuStatus: boolean = false;
   currStyle: string = 'blue';
   boardID:string = ''; //used in order to redirect if currently open board is deleted
-  @Input() isLogged: boolean = false;
+  loggedStatus: boolean = false;
 
-  constructor(private renderer: Renderer2, private elRef: ElementRef, public dialog: MatDialog, private router: Router) {
+  constructor(private renderer: Renderer2, private elRef: ElementRef, public dialog: MatDialog, private router: Router, public _loginService: LoginService) {
     this.renderer.addClass(document.body, 'blue');
-    this.boardsService.getBoards().subscribe(boards => this.boards = boards);
+    console.log("header constructor");
+
+    router.events.subscribe((val) => {
+      if(val instanceof NavigationEnd && val.url == "/home"){
+        this.refreshBoards();
+      }
+    });
   }
 
   ngOnInit(): void {
     this.boardID = this.router.url.slice(7);
    }
 
+  refreshBoards(): void {
+    this._loginService.getLoginStatus().subscribe((status: boolean) => {
+      if(status == true){
+        this.boardsService.getBoards().subscribe(boards => this.boards = boards);
+    }else if(status == false){this.boards = []} //do nothing
+    });
+  }
+
   SideNavToggle() {
     this.menuStatus = !this.menuStatus;
     this.sideNavToggled.emit(this.menuStatus);
   }
-
+  
   // popup modal dialog
   openDialog(opt: string, id: string): void {
     let dialogRef = null;
@@ -100,6 +115,7 @@ export class HeaderComponent implements OnInit {
     this.currStyle = opt;
     this.renderer.addClass(document.body, this.currStyle);
   }
+  //not in use  
   login(email:string, password:string):void{
     
     this.userService.login(email, password).subscribe(ret => {
@@ -108,10 +124,14 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  test():void{
+    console.log(this._loginService.loggedStatus);
+  }
   logout():void{
     this.userService.logout().subscribe(ret => {
       console.log("logged out");
-      this.isLogged = false;
+      this._loginService.loggedStatus = false;
+      this.loggedStatus = this._loginService.loggedStatus;
       this.router.navigate(['/home']);
     });
   }
