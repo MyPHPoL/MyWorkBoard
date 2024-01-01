@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
   menuStatus: boolean = false;
   currStyle: string = 'blue';
   boardID:string = ''; //used in order to redirect if currently open board is deleted
-  loggedStatus: boolean = false;
 
   constructor(private renderer: Renderer2, private elRef: ElementRef, public dialog: MatDialog, private router: Router, public _loginService: LoginService) {
     this.renderer.addClass(document.body, 'blue');
@@ -131,7 +130,6 @@ export class HeaderComponent implements OnInit {
     this.userService.logout().subscribe(ret => {
       console.log("logged out");
       this._loginService.loggedStatus = false;
-      this.loggedStatus = this._loginService.loggedStatus;
       this.router.navigate(['/home']);
     });
   }
