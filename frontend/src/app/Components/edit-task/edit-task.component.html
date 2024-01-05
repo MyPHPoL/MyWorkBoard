@@ -18,6 +18,7 @@
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="dp3" [disabled]="data.hasNotDue"></mat-datepicker-toggle>
             <mat-datepicker #dp3></mat-datepicker>
+            <mat-error *ngIf="edit.controls['dueDate'].invalid">Invalid date</mat-error>
         </mat-form-field><br><br>
         
         <mat-label>Priority*</mat-label><br>

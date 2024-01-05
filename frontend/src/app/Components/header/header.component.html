@@ -14,7 +14,10 @@
                 <ul class="dropdown-menu dropdown-menu-dark">
                     <div *ngFor="let board of boards">
                         <li style="display: flex;">
-                            <a class="dropdown-item board-name" [routerLink]="['/board', board.Id]">{{ board.name }}</a>                       
+                            <a class="dropdown-item board-name" [routerLink]="['/board', board.Id]">{{ board.name }}</a> 
+                            <button mat-icon-button class="material-icons board-list-button" (click)="leaveBoard(board.Id)">exit_to_app</button>
+                            <button mat-icon-button class="material-icons board-list-button"
+                                (click)="openDialog('addUser', board.Id)">person_add</button>                     
                             <button mat-icon-button class="material-icons board-list-button"
                                 (click)="openDialog('editBoard', board.Id)">edit</button>
                             <button mat-icon-button class="material-icons board-list-button" (click)="deleteHandler(board.Id)">delete</button>
@@ -25,8 +28,26 @@
             <a class="nav-link" role="button" (click)="openDialog('addBoard','0')">Add board</a>
         </ul>
     </div>
-
-
+            <!-- a copy of board list dropdown that will be used to show users within current board-->
+            <div class="navbar-collapse" *ngIf="inBoardStatus && _loginService.loggedStatus">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Users in this board
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <div *ngFor="let user of users">
+                                <li style="display: flex;">
+                                    <a class="dropdown-item board-name" >{{ user.name }}</a>
+                                    <button mat-icon-button class="material-icons board-list-button"
+                                        (click)="removeUser(user.email)">delete</button>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!---->
     <ul class="navbar-nav me-auto" style="padding-right: 6px;">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">

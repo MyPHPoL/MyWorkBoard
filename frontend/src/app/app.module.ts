@@ -33,6 +33,7 @@ import { NewBoardComponent } from './Components/new-board/new-board.component';
 import { LoginComponent } from './Components/login/login.component';
 import { RegisterComponent } from './Components/register/register.component';
 import { RegisterValidatorComponent } from './Components/register-validator/register-validator.component';
+import { AddUserComponent } from './Components/add-user/add-user.component';
 
 
 const routes: Routes = [
@@ -80,6 +81,7 @@ export class MyStrategy extends RouteReuseStrategy {
     LoginComponent,
     RegisterComponent,
     RegisterValidatorComponent,
+    AddUserComponent,
   ],
   imports: [
     RouterModule.forRoot(routes,{onSameUrlNavigation: 'reload'}),

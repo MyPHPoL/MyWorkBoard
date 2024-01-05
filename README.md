@@ -37,10 +37,18 @@ After that page should open in a new card
 
 ## Running backend
 
+Create the .env file with content from .env.example in /backend/
+Then create the database by accessing site:
+```html
+localhost:3000/createDb
+```
+
 You can run backend with
 ```bash
 npm run dev --workspace=backend
 ```
+
+
 
 ## Made by:
 

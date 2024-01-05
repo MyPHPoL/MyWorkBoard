@@ -45,11 +45,9 @@ export class LoginComponent {
   
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
-      console.error('An error occurred:', error.error);
     } else if (error.status === 400) {
       // 400 - "Incorrect username or password"
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
+
         alert("Incorrect username or password");
     }
     // Return an observable with a user-facing error message.

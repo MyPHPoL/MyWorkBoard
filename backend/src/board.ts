@@ -236,7 +236,7 @@ router.delete("/leave", async (req,res,next) => {
             const result = db
                 .prepare(`select 1 from "board" where ownerId=? and id=?`)
                 .get(user.id,param.id)
-            if ((result as any)["1"] === 1) {
+            if ((result !== undefined)) {
                 return res.status(403).json(apiMessage("Can't leave server as owner"))
             }
         }

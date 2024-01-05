@@ -6,6 +6,12 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
 import { LoginService } from 'src/app/Services/login.service';
+import { BoardUsersService } from 'src/app/Services/board-users.service';
+import { User } from 'src/app/user';
+import { AddUserComponent } from '../add-user/add-user.component';
+import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, tap, throwError } from 'rxjs';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -15,23 +21,40 @@ import { LoginService } from 'src/app/Services/login.service';
 })
 export class HeaderComponent implements OnInit {
   boards: Board[] = [];
+  tmp: Board[] = [];
   userService: UserService = inject(UserService);
   boardsService: BoardListService = inject(BoardListService);
+  boardUsersService: BoardUsersService = inject(BoardUsersService);
   @Output() newItemEvent = new EventEmitter<number>();
   @Output() sideNavToggled = new EventEmitter<boolean>();
   menuStatus: boolean = false;
+  inBoardStatus: boolean = false;
   currStyle: string = 'blue';
   boardID:string = ''; //used in order to redirect if currently open board is deleted
+  users: User[] = [];
+
 
   constructor(private renderer: Renderer2, private elRef: ElementRef, public dialog: MatDialog, private router: Router, public _loginService: LoginService) {
     this.renderer.addClass(document.body, 'blue');
-    console.log("header constructor");
-
     router.events.subscribe((val) => {
       if(val instanceof NavigationEnd && val.url == "/home"){
         this.refreshBoards();
       }
+      if(val instanceof NavigationEnd && val.url.slice(0,7) == "/board/"){
+        this.inBoardStatus = true;
+        this.getUsers();
+      }
+      if(val instanceof NavigationEnd && val.url == "/home" && this.inBoardStatus == true){
+        this.inBoardStatus = false;
+      }
+      
     });
+    try{
+      this.boardsService.getBoards().subscribe(boards => this.tmp = boards);
+    }catch{
+    }
+    
+    
   }
 
   ngOnInit(): void {
@@ -76,8 +99,8 @@ export class HeaderComponent implements OnInit {
         // happens after user clicks 'Accept'
         dialogRef.afterClosed().subscribe(result => {
           if (result !== undefined) {
-            console.log(result.name);
-            this.boardsService.editBoard(id, result.name).subscribe(ret => this.boards[this.boards.findIndex(b => b.Id == id)].name = result.name);
+            this.boardsService.editBoard(id, result.name).pipe(
+              catchError(this.handleError)).subscribe(ret => this.boards[this.boards.findIndex(b => b.Id == id)].name = result.name);
           }
         });
       });
@@ -86,9 +109,16 @@ export class HeaderComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe(result => {
         if (result !== undefined) {
-          console.log(result.name,);
           var newBoard: Board = new Board(undefined, undefined, result.name,);
           this.boardsService.addBoard(newBoard).subscribe(ret => this.boards.push(newBoard));
+        }
+      });
+    } else if (opt === 'addUser') {
+      dialogRef = this.dialog.open(AddUserComponent, dialogConfig);
+
+      dialogRef.afterClosed().subscribe(result => {
+        if (result !== undefined) {
+          this.boardUsersService.addUser(result.email, this.router.url.slice(7)).subscribe(ret => this.getUsers());
         }
       });
     }
@@ -103,9 +133,10 @@ export class HeaderComponent implements OnInit {
     }
 
   }
-  deleteBoard(value: string): void {
+  deleteBoard(value: string) {
     if (confirm("Are you sure you want to delete this board?")) {
-      this.boardsService.deleteBoard(value).subscribe(ret => this.boards.splice(this.boards.findIndex(b => b.Id == value), 1));
+      this.boardsService.deleteBoard(value).pipe(
+        catchError(this.handleError)).subscribe(ret => this.boards.splice(this.boards.findIndex(b => b.Id == value), 1));
     }
   }
 
@@ -114,23 +145,50 @@ export class HeaderComponent implements OnInit {
     this.currStyle = opt;
     this.renderer.addClass(document.body, this.currStyle);
   }
-  //not in use  
-  login(email:string, password:string):void{
-    
-    this.userService.login(email, password).subscribe(ret => {
-      console.log("logged in");
-      this.router.navigate(['/home']);
-    });
-  }
 
-  test():void{
-    console.log(this._loginService.loggedStatus);
+  temporary_login_fix():void{
+    if(this._loginService.loggedStatus == false && (this.tmp.length >0)){
+      this.boards = this.tmp;
+      this._loginService.loggedStatus = true;
+  }
   }
   logout():void{
     this.userService.logout().subscribe(ret => {
-      console.log("logged out");
       this._loginService.loggedStatus = false;
       this.router.navigate(['/home']);
     });
   }
+
+  getUsers():void{
+    this.boardUsersService.getUsers(this.router.url.slice(7)).subscribe(ret => {
+      this.users = ret;
+    });
+  }
+  removeUser(email:string):void{
+    this.boardUsersService.removeUser(email,this.router.url.slice(7))
+      .pipe(catchError(this.handleError))
+    .subscribe(ret => {
+      this.getUsers();
+    })
+  }
+
+  leaveBoard(boardId: string):void{
+    if (confirm("Are You sure You want to leave the board?")) {
+      this.boardUsersService.leaveBoard(boardId).pipe(
+        catchError(this.handleError)).subscribe(ret => this.boards.splice(this.boards.findIndex(b => b.Id == boardId), 1));
+    }
+
+  }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+    } else if (error.status === 403) {
+      // 403 - "access denied"
+        alert("Can't perform action.");
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
+
+ 
 }

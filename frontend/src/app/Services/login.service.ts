@@ -12,7 +12,6 @@ export class LoginService {
   
   getLoginStatus(): Observable<boolean> {
     return new Observable<boolean>((observer) => {
-      console.log(this.loggedStatus);
       observer.next(this.loggedStatus);
     } );
   }
