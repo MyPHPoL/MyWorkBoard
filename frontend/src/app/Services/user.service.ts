@@ -30,7 +30,7 @@ export class UserService {
     return this.http.post<null>(`${this.url}/login`, { email, password }, this.httpOptions)
   }
   getUser(): Observable<User | null> {
-    return this.http.get<User | null>(`${this.url}`)
+    return this.http.get<User | null>(`${this.url}/`, this.httpOptions)
       .pipe(
         map((user: User | null) => user ? new User(user.Id, user.name, user.email) : null)
       );

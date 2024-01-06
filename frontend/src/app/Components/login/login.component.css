@@ -3,10 +3,11 @@
   justify-content: center;
   margin: 100px;
 }
-.register{
-  float:left; 
-  padding-left: 25px;
+
+.register {
+  text-align: center;
 }
+
 mat-card {
   width: 300px;
 
@@ -19,7 +20,7 @@ mat-card {
       .mat-form-field {
         width: 100%;
         min-width: 300px;
-        
+
       }
 
       .error {
@@ -31,7 +32,7 @@ mat-card {
 
       .button {
         display: flex;
-        margin-left:5px;
+        margin-left: 5px;
         width: 212px;
         height: max-content;
         object-fit: fill;

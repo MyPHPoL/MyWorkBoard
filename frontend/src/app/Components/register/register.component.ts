@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { UserService } from '../../Services/user.service';
 import { User } from '../../user';
 import { RegisterValidatorComponent } from '../register-validator/register-validator.component';
+import { LoginService } from 'src/app/Services/login.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,20 +24,30 @@ export class RegisterComponent {
     },
     
   )
+  
 
   constructor(
     private router: Router,
     private userService: UserService,
+    public _loginService: LoginService
   ) { }
 
   register() {
     if (!this.registerForm.valid) {
       return;
     }
-    this.userService.register(this.registerForm.value).pipe(
-      // If registration was successfull, then navigate to login route
-      tap(() => this.router.navigate(['../home']))
-    ).subscribe();
+    const email = this.registerForm.value.email;
+    const password = this.registerForm.value.password;
+    if (email && password) {
+      this.userService.register(this.registerForm.value).pipe(
+        // If registration was successful, then navigate to login route
+        tap(() => {
+          this.router.navigate(['../home']);
+          this.userService.login(email, password);
+          this._loginService.loggedStatus=true;
+        })
+      ).subscribe();
+    }
   }
 
 }

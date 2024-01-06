@@ -1,37 +1,38 @@
 :host {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+
+.login {
+  text-align: center;
+}
+
+mat-card {
+  width: 380px;
+
+  mat-card-title,
+  mat-card-content {
     display: flex;
     justify-content: center;
-    margin: 50px;
-  }
-  .login{
-    float:left; 
-    padding-left: 42px;
-  }
-  mat-card {
-    width: 380px;
-  
-    mat-card-title,
-    mat-card-content {
-      display: flex;
-      justify-content: center;
-  
-      form {
-        mat-form-field{
-          width: 100%;
-          min-width: 300px;
-        }
-  
-        
-  
-        .button {
-          display: flex;
-          width: 320px;
-          height: max-content;
-          object-fit: fill;
-          justify-content: center;
-          border: 1px solid #ccc;
-          border-radius: 1px;
-        }
+
+    form {
+      mat-form-field {
+        width: 100%;
+        min-width: 300px;
+      }
+
+
+
+      .button {
+        display: flex;
+        width: 320px;
+        height: max-content;
+        object-fit: fill;
+        justify-content: center;
+        border: 1px solid #ccc;
+        border-radius: 1px;
       }
     }
   }
+}

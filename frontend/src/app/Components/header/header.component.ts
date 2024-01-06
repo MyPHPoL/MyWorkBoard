@@ -59,6 +59,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.boardID = this.router.url.slice(7);
+    this.userService.getUser().pipe(
+      // route to home, if login was successfull
+      catchError(this.handleError),
+      tap(() => {
+        this._loginService.loggedStatus = true;
+        this.router.navigate(['/home']);
+      })
+    ).subscribe()
    }
 
   refreshBoards(): void {
@@ -185,6 +193,9 @@ export class HeaderComponent implements OnInit {
     } else if (error.status === 403) {
       // 403 - "access denied"
         alert("Can't perform action.");
+    } else if (error.status === 200) {
+      // 200 - "OK"
+      alert("Action performed.");
     }
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
