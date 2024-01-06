@@ -72,3 +72,50 @@ export function deleteBoard(user: User, boardId: string) {
     }
     return true
 }
+
+export function deleteBoardUnsafe(boardId: string) {
+    const result = db
+        .prepare('delete from "main"."board" where id=@id')
+        .run({
+            id: boardId,
+        })
+    
+    if (result.changes == 0) {
+        return false
+    }
+    return true
+}
+
+export function deleteUsersFromBoard(boardId: string) {
+    const result = db
+        .prepare('delete from "main"."userBoard" where boardId=@id')
+        .run({
+            id: boardId,
+        })
+    
+    if (result.changes == 0) {
+        return false
+    }
+    return true
+}
+
+export function getUsersInBoard(boardId: string) {
+    const result: any = db
+        .prepare(`select id,name,email from user join userBoard on boardId = ? where userId=id`)
+        .all(boardId);
+    return result as User[];
+}
+
+export function addUsersToBoard(boardId: string, userIds: User[], currentUser: User) {
+    const result = db.transaction(() => {
+        const query = db.prepare(`INSERT INTO "main"."userBoard" ("userId", "boardId") VALUES (?, ?)`)
+        userIds.forEach(user => {
+            if(user.id === currentUser.id) {
+                return;
+            }
+            query.run(user.id,boardId)
+        });
+    })()
+    
+    return true;
+}

@@ -1,6 +1,6 @@
 import express, { Express } from "express"
 import { z } from "zod"
-import { apiMessage, findUser, formatZodError, getUser, isOwningBoard, isUserInBoard, joinBoard, validateQuery, validateUser } from "./util.js"
+import { apiMessage, findOwner, findUser, formatZodError, getUser, isOwningBoard, isUserInBoard, joinBoard, validateQuery, validateUser } from "./util.js"
 import { db } from "./main.js"
 import { SqliteError } from "better-sqlite3";
 import * as boardService from './services/board'
@@ -87,7 +87,7 @@ router.patch("/:id", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
         const boardId = validateQuery(idValidator, req.params).id
-        if (!isOwningBoard(boardId,user.id)) {
+        if (!isUserInBoard(boardId,user.id)) {
             return res.status(403).send()
         }
         const body = validateQuery(boardNameValidator, req.body)
@@ -107,18 +107,35 @@ router.put("/:id", async (req,res,next) => {
     try {
         const user = await getUser(req,res)
         const boardId = validateQuery(idValidator, req.params).id
-        if (!isOwningBoard(boardId,user.id)) {
+        if (!isUserInBoard(boardId,user.id)) {
             return res.status(403).send()
         }
         console.log(`PUT validating ${JSON.stringify(req.body,null,2)}`)
         const body = validateQuery(boardValidator, req.body)
         const { name, cards } = body
         
-        
+  
         const result = db.transaction(() => {
             try {
-                boardService.deleteBoard(user,body.id)
-                return addBoard(user,body)
+                const owner = findOwner(boardId);
+                if (owner === null) {
+                    return false
+                }
+                const users = boardService.getUsersInBoard(boardId);
+                if (boardService.deleteUsersFromBoard(boardId) === false) {
+                    return false
+                }
+                boardService.deleteBoardUnsafe(body.id);
+                const status = addBoard(owner,body);
+                if (status === null) {
+                    return false
+                }
+                
+                const status2 = boardService.addUsersToBoard(boardId,users,owner);
+                if (status2 === false) {
+                    return false;
+                }
+                return true;
             } catch (e) {
                 console.error(e)
                 return false
@@ -189,6 +206,7 @@ router.delete("/:id", async (req,res,next) => {
             return res.status(500).json(apiMessage("DB ERROR"))
         }
         
+
         return res.status(200).send()
     } catch (e) { next(e) }
 })

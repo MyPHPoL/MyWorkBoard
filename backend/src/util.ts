@@ -81,6 +81,18 @@ export function findUser(email: string) {
 	return user as User;
 }
 
+export function findOwner(boardId: string) {
+	const owner: any = db.prepare(`select ownerId,user.name,email from user join board on board.ownerId=user.id where board.id=?`).get(boardId)
+	if (owner === null) {
+		return null
+	}
+	return {
+		email: owner.email,
+		id: owner.ownerId,
+		name: owner.name
+	};
+}
+
 export async function validateUser(req: Request, res: Response) {
 	const authRequest = auth.handleRequest(req,res)
 	const session = await authRequest.validate()
@@ -98,3 +110,4 @@ export function validateQuery<T>(validator: z.Schema<T>, query: any) {
 	
 	return res.data
 }
+
