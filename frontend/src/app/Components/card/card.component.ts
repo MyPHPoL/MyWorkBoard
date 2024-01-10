@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output, AfterContentChecked } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { NgForm } from '@angular/forms';
 import { Card } from '../../card';
@@ -25,8 +25,10 @@ export class CardComponent {
   filterDone: boolean = false;
   sortType: number = 0;
   boardListService: any;
-  constructor(public dialog: MatDialog) { }
-
+  constructor(public dialog: MatDialog, private changeDetector: ChangeDetectorRef) { }
+  ngAfterContentChecked(): void {
+    this.changeDetector.detectChanges();
+  }
   drop(event: CdkDragDrop<Task[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(

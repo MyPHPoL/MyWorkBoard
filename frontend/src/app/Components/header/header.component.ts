@@ -190,7 +190,7 @@ export class HeaderComponent implements OnInit {
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 0) {
-    } else if (error.status === 403) {
+    } else if (error.status === 403 || error.status === 404) {
       // 403 - "access denied"
         alert("Can't perform action.");
     } else if (error.status === 200) {
