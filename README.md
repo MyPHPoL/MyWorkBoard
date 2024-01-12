@@ -11,7 +11,10 @@
 - filter and sort tasks by name or priority
 - move cards and tasks with a mouse drag
 - multiple webpage themes
-- integration with json-server
+- custom restful api in Express.js, utilizing Lucia auth and SQlite for the database
+- authentication and authorization
+- work with multiple users on your boards
+
 
 ## Installation and Usage
 
@@ -21,14 +24,6 @@ installing packages:
 ```bash
 npm install
 ```
-installing json-server: 
-```bash
-npm install -g json-server
-```  
-launching db.json: 
-```bash
-json-server --watch db.json
-```  
 launching app:
 ```bash 
 ng serve --open
